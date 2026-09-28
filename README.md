@@ -24,7 +24,7 @@ Licenses and the joint public-release decision remain pending; see [RIGHTS.md](R
 ## Reading guide
 
 The main article occupies pages 1–33, including the abstract and contents.
-The complete 67-page manuscript includes all technical appendices and references;
+The complete 68-page manuscript includes all technical appendices and references;
 no separate unpublished proof supplement is needed.
 
 | Question | Where to read |
@@ -63,8 +63,8 @@ The bibliography is embedded in paper.tex.
 ## Dependencies
 
 The group-theoretic companion,
-[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/78b6b327414a08de1c4dae9db80c1b109218064a),
-is pinned to version `78b6b32` in the manuscript. It
+[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/e5f8ccfb226eb3b4c7ff83d7c05665e797059909),
+is pinned to version `e5f8ccf` in the manuscript. It
 contains the group-word certificates and their Lean checker. They are not
 duplicated here. The manuscript separately cites the closed-device preprint's
 achievability theorem and other external results. Companion links require access

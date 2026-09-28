@@ -288,6 +288,10 @@ controlled Pauli twirls, serves the completely depolarizing channel on $M_4$ exa
 two-dimensional bath gives Choi rank at most four and so stays at Choi distance at least $3/4$ from it.
 \end{remark}
 
+A concrete setting is a processor with a fixed-size buffer coupled to a supply of disposable ancillas: an occupied slot is released and refilled at each replacement.
+$J$ counts these replacement events per qubit; charging both directions instead is a change of units, not a different set of admissible devices.
+$P$ and $C$ distinguish the preparation of nonflat ancillas from the use of fresh maximally mixed ones.
+
 %======================================================================
 
 
@@ -1435,7 +1439,7 @@ $A\le tI$. With $P_E$ the projection onto the first $r$ basis vectors, $\mathrm{
 \end{proof}
 
 \begin{lemma}[Pinching]\label{lem:pinching}
-For every state $\rho$ and $0<a<1$, $\mathrm{Tr}[\Psi^c(\rho)]^{1-a}\le r^a+(d^2)^at^{1-a}$.
+For every state $\rho$ and $0<a<1$, $\mathrm{Tr}[(\Psi^c(\rho))^{1-a}]\le r^a+(d^2)^at^{1-a}$.
 \end{lemma}
 
 \begin{proof}
@@ -1455,7 +1459,7 @@ notation of~\eqref{eq:hoeffding} for the ideal experiment with $\Psi$,
 
 \begin{proof}
 Follow the proof of Lemma~\ref{lem:basis} for $\Psi$, with $R$ Kraus operators, up to the optimality inequality
-$\sum_iq_i^{-a}\mathrm{Tr}(\sigma K_i^*K_i)\le\sum_iq_i^{1-a}=\mathrm{Tr}[\Psi^c(\rho_a)]^{1-a}$ for every state $\sigma$. Bound the right side by Lemma~\ref{lem:pinching}
+$\sum_iq_i^{-a}\mathrm{Tr}(\sigma K_i^*K_i)\le\sum_iq_i^{1-a}=\mathrm{Tr}[(\Psi^c(\rho_a))^{1-a}]$ for every state $\sigma$. Bound the right side by Lemma~\ref{lem:pinching}
 instead of by $2^{aH+2Ra^2}$.
 \end{proof}
 
@@ -1704,7 +1708,7 @@ the rank rate; Propositions~\ref{prop:dephasing} and~\ref{prop:weyl} show that b
 \begin{proof}[Proof of Theorem~\ref{thm:rank-exact}]
 Run the construction for $\Psi=\Phi$ at tolerance $\epsilon$. Now $t=0$, so Lemma~\ref{lem:rank-basis} with $a=\frac12$ gives $\zeta=0$, and $b=2+6x$ gives
 $p_{\rm exit}\le n^22^{-3x}\le\epsilon^2/(128^2n)$; the register count gives $b/2+\log(2+b)=O(x)$. If $H(\Phi)=\log r$, an input $\rho_*$ with $\Phi^c(\rho_*)=I_r/r$
-maximizes $\mathrm{Tr}[\Phi^c(\rho)]^{1-a}$ for every $a$, so the basis may be taken with $q_i=1/r$. Then every $\ell_i=\log r$, the cost is deterministic, and
+maximizes $\mathrm{Tr}[(\Phi^c(\rho))^{1-a}]$ for every $a$, so the basis may be taken with $q_i=1/r$. Then every $\ell_i=\log r$, the cost is deterministic, and
 $\sum_{u<k\le t}(\log r-2j_k)\le2$ for every interval, so $z_t\le2$ always: with $b=2$ no history exits.
 \end{proof}
 
@@ -1812,7 +1816,7 @@ sources: the two square roots on the channel side in Theorem~\ref{thm:correspond
 its approximant. Closing the gap needs a lower bound that reads the profile at defect of order $n^{-1/2}$, or a service that reads it at a coarser
 defect, or both.
 
-The correspondence turns any group with a steep profile into a channel that needs polynomial memory. Slofstra's
+The correspondence turns quantitative unitary-profile lower bounds into memory lower bounds under the stated resource constraints.
 
 
 Appendix~\ref{sec:group-channels} proves the correspondence and
@@ -1877,6 +1881,19 @@ arguments proved in the text. They do not claim a formal verification of the ful
 
 \section{The rolling-reservoir proof}\label{app:reservoir}
 
+The proof has three tasks. First, a reflected-cost tail bound selects analytical histories uniformly over observers.
+Second, each collision mixer controls the Gram matrix of \emph{all} children, including first exits, while each export mixer controls the weighted spectator marginal.
+Third, a first-exit comparison converts these two invariants to complete adaptive error. The histories, weights and deletions below are proof objects, not registers or operations of the device.
+
+\begin{center}
+\begin{tabular}{ll}
+$D,S,M$ & active-bath, spectator and frame-column dimensions\\
+$F_t,F_t^w$ & surviving-history frame and its weighted version\\
+$g(F),\alpha(F)$ & Gram norm and spectator-marginal norm\\
+$z_t,b$ & reflected cost and its exit threshold\\
+$\delta=\epsilon/8$ & total allowed Gram deviation
+\end{tabular}
+\end{center}
 
 \subsection{A concentration inequality for rectangular frames}
 
@@ -2078,6 +2095,27 @@ untouched $m$-dimensional baths, one per round, encoded in $\lceil n\log m\rceil
 $m^n$-dimensional subspace; this is exact with $J=C=0$, $Q=O_\Phi(n)$ and an extra initial deficit below one.
 \end{proof}
 
+For the rolling branch, the complete error ledger is
+\[
+\begin{array}{l|l}
+\text{contribution}&\text{bound}\\\hline
+\text{ideal first-exit probability}&p_{\rm exit}\le\epsilon^2/(128^2n)\\
+\text{real and ideal deleted vectors}&\sqrt{(1+\delta)np_{\rm exit}}+\sqrt{p_{\rm exit}}\le3\epsilon/128\\
+\text{surviving-frame replacement}&\delta=16\epsilon/128\\
+\text{initial padding sector}&\epsilon/4=32\epsilon/128\\\hline
+\text{complete half trace distance}&51\epsilon/128<\epsilon
+\end{array}
+\]
+The first two vector comparisons precede partial trace; padding is a convex-mixture comparison and is charged only once.
+
+The dimension choice can be implemented without floating-point acceptance tests. Given integers $B\ge b$ and $h$ as above, start with the stated lower bound on $q$ and form $D=m2^h\lfloor2^{q-h}/m\rfloor$.
+In~\eqref{eq:Dcondition}, replace $2^b$ by $2^B$, $L_D$ by
+$3+\operatorname{bits}(D)+2(n+1)h$ and $L_c$ by $3+(n+2)\operatorname{bits}(r)$,
+where $\operatorname{bits}(k)=1+\lfloor\log k\rfloor$ for $k\ge1$.
+These are upper bounds since $\ln2<1$. Increase $q$ until the resulting rational inequality holds, clearing the denominator of $\delta^2$.
+This terminates because its left side grows exponentially in $q$ and its right side only linearly.
+The accompanying \texttt{reservoir\_dimension.py} implements this sufficient test for rational $\epsilon$; it selects a dimension, not the existence-certified mixers.
+
 
 \section{A one-round bound for memory states that are not flat}\label{sec:weighted}
 %======================================================================
@@ -2194,7 +2232,9 @@ for all $j$, $\chi_\rho(\phi(s))\le e$ for $s\in\{a,b,\alpha\}$, and $E_\rho(\ph
 Let $d=104$.
 
 \emph{Entropy production controls centrality.} Choose bath eigenbases with $\rho=\diag(\lambda_i)$ and $T(\rho)=\diag(\mu_j)$, both decreasing;
-changing the output bath basis does not change $\Psi$. With $t_{ji}=\frac1d\mathrm{Tr}(U_{ji}^*U_{ji})$ for the $d\times d$ blocks of $U$, the
+changing the output bath basis does not change $\Psi$. Identify the ordered output eigenvectors with the ordered input eigenvectors by a bath-only unitary, and let $U$ denote the unitary in these identified coordinates.
+Thus $\xi=\diag(\sqrt{\lambda_i})$ acts on either bath space; this does not assert $T(\rho)=\rho$, and the output eigenvalues remain $\mu_j$.
+With $t_{ji}=\frac1d\mathrm{Tr}(U_{ji}^*U_{ji})$ for the $d\times d$ blocks of $U$, the
 matrix $t$ is doubly stochastic and $D(p\|q)=a$ for $p_{ji}=t_{ji}\lambda_i$ and $q_{ji}=t_{ji}\mu_j$, as in Lemma~\ref{lem:tracialization}. The
 bound $D_{\rm nat}(p\|q)\ge2(1-\sum_{ji}\sqrt{p_{ji}q_{ji}})$ gives $\sum_{ji}t_{ji}(\sqrt{\lambda_i}-\sqrt{\mu_j})^2\le a\ln2$, and the rearrangement
 inequality gives $\sum_i(\sqrt{\lambda_i}-\sqrt{\mu_i})^2$ at most the same quantity. Hence
@@ -3251,7 +3291,7 @@ Theorem~\ref{thm:rank-purity} gives $P+C\le14Q+2\log\frac{16}7<14Q+3$, and (a) a
 \section{The Slofstra application}\label{sec:slofstra}
 
 
-group~\cite[Theorem~1.2]{Slofstra2018} is finitely presented and has a word $w$ with $\mathrm{hlp}(w;\delta,\epsilon)\ge C'\exp[C(\delta/\epsilon)^\alpha]$ for every
+Slofstra's group~\cite[Theorem~1.2]{Slofstra2018} is finitely presented and has a word $w$ with $\mathrm{hlp}(w;\delta,\epsilon)\ge C'\exp[C(\delta/\epsilon)^\alpha]$ for every
 $\alpha<\frac12$, where $\mathrm{hlp}(w;\delta,\epsilon)$ is the least dimension of an $\epsilon$-representation that moves $w$ by at least $\delta$ in normalized
 Hilbert--Schmidt norm. It is not known whether this group is hyperlinear. Let $\mathcal P$ be its presentation, let
 $\mathcal P_S=\langle S\cup\{j\}\mid R\cup\{j^{-1}w\}\rangle$, a Tietze transformation that makes $w$ a symbol of the gadget, and let $\Phi_S$ on $M_{d_S}$ be its
@@ -3666,7 +3706,7 @@ leakage may be quadratic in $\dJ$. For $\Phi_H$, no finite tracial mixture of ze
 \bibitem{RybarZiman2008} T.~Rybár and M.~Ziman, Repeatable quantum memory channels, Phys. Rev. A \textbf{78}, 052114 (2008); arXiv:0808.3851.
 \bibitem{Douglas2026closed} S.~Douglas, Bath dimension and initial entropy for closed repeated use of a quantum channel, arXiv:2609.18267 (2026).
 \bibitem{Cornulier2013} Y.~Cornulier, Sofic profile and computability of Cremona groups, Michigan Math. J. \textbf{62}(4) (2013), 823--841; \href{https://doi.org/10.1307/mmj/1387226167}{doi:10.1307/mmj/1387226167}.
-\bibitem{Slofstra2018} W.~Slofstra, A group with at least subexponential hyperlinear profile, arXiv:1806.05267 (2018).
+\bibitem{Slofstra2018} W.~Slofstra, A group with at least subexponential hyperlinear profile, \href{https://arxiv.org/abs/1806.05267v1}{arXiv:1806.05267v1} (2018). Numbered references use this version.
 \bibitem{SlofstraVidick2018} W.~Slofstra and T.~Vidick, Entanglement in non-local games and the hyperlinear profile of groups, Ann. Henri Poincaré \textbf{19} (2018), 2979--3005; arXiv:1711.10676.
 \bibitem{ArzhantsevaCherix2020} G.~Arzhantseva and P.-A.~Cherix, Quantifying metric approximations of discrete groups, Ann. Fac. Sci. Toulouse Math. \textbf{33} (2024), 831--877; arXiv:2008.12954.
 \bibitem{Lee2012} S.~R.~Lee, Geometry of Houghton's groups, PhD thesis, University of Oklahoma (2012); \href{https://arxiv.org/abs/1212.0257v1}{arXiv:1212.0257v1}. Numbered references use this arXiv version.
@@ -3688,7 +3728,7 @@ leakage may be quadratic in $\dJ$. For $\Phi_H$, no finite tracial mixture of ze
 \bibitem{Kesten1959} H.~Kesten, Symmetric random walks on groups, Trans. Amer. Math. Soc. \textbf{92} (1959), 336--354.
 \bibitem{BoesWilming2018} P.~Boes, H.~Wilming, R.~Gallego and J.~Eisert, Catalytic quantum randomness, Phys. Rev. X \textbf{8} (2018), 041016; arXiv:1804.03027.
 \bibitem{Tropp2012} J.~A.~Tropp, User-friendly tail bounds for sums of random matrices, Found. Comput. Math. \textbf{12} (2012), 389--434; arXiv:1004.4389.
-\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/78b6b327414a08de1c4dae9db80c1b109218064a}{version 78b6b32}.
+\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/e5f8ccfb226eb3b4c7ff83d7c05665e797059909}{version e5f8ccf}.
 \bibitem{HaagerupMusat2015} U.~Haagerup and M.~Musat, An asymptotic property of factorizable completely positive maps and the Connes embedding problem, Comm. Math. Phys. \textbf{338} (2015), 721--752; arXiv:1408.6476.
 \bibitem{JNVWY2020} Z.~Ji, A.~Natarajan, T.~Vidick, J.~Wright and H.~Yuen, MIP$^*$ = RE, \href{https://arxiv.org/abs/2001.04383v3}{arXiv:2001.04383v3} (2022; first posted 2020). Numbered references use this full version.
 \bibitem{Fritz2012} T.~Fritz, Tsirelson's problem and Kirchberg's conjecture, Rev. Math. Phys. \textbf{24} (2012), 1250012; arXiv:1008.1168.
