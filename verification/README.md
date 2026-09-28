@@ -62,7 +62,7 @@ when run.
 
 ## External and unformalized dependencies
 
-The companion [group paper, version 7c12e13](https://github.com/Apsiape/houghton-sofic-profile/tree/7c12e13cd3ff86c9b6a1401744d06f540f7f3414)
+The companion [group paper, version 78b6b32](https://github.com/Apsiape/houghton-sofic-profile/tree/78b6b327414a08de1c4dae9db80c1b109218064a)
 supplies the Houghton far-commutator certificates, reweighting and group-profile
 arguments. Its verification notes state the exact formalization boundary.
 
