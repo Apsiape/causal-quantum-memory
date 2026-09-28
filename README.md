@@ -60,8 +60,8 @@ The bibliography is embedded in paper.tex.
 ## Dependencies
 
 The group-theoretic companion,
-[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/40936052560b89bf5cc1f79017501be161895421),
-is pinned to version `4093605` in the manuscript. It
+[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/1eca2f6700f8459c243a22c71fd295801024aeec),
+is pinned to version `1eca2f6` in the manuscript. It
 contains the group-word certificates and their Lean checker. They are not
 duplicated here. The manuscript separately cites the closed-device preprint's
 achievability theorem and other external results. Companion links require access

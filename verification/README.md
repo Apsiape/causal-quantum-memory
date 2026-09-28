@@ -45,11 +45,11 @@ bounded finite checks, with per-command timeouts in the runner.
 - **scalarcheck.py:** exact rational upper bounds for the smoothed Choi example
   at k=16, M=2120 and error 10^-9, and the exact integer bracket that forces the
   bath-qubit ceiling 135767. The analytic Choi inequalities and pi < 22/7 are inputs.
-  Integer comparisons certify the updated 107-exponent margins c_H > .0016 and
+  Integer comparisons certify the 107-exponent margins c_H > .0016 and
   c_a > .00017; floating-point tests check only the illustrative rounded displays.
 - **Lean Resources.lean:** exact dimension arithmetic, telescoping integer
   replacement schedules, a conditional integer budget inequality, and the cleared-
-  denominator scalar margins in the expanded weighted-extraction ledger. The integer
+  denominator scalar margins in the weighted-extraction ledger. The integer
   schedule applies to dyadic rank; the real-logarithmic general schedule and
   entropy budgets are not formalized. It also checks the integer-scaled budget
   rearrangement for the fixed-error extension, conditional on its analytic
@@ -62,7 +62,7 @@ when run.
 
 ## External and unformalized dependencies
 
-The companion [group paper, version 4093605](https://github.com/Apsiape/houghton-sofic-profile/tree/40936052560b89bf5cc1f79017501be161895421)
+The companion [group paper, version 1eca2f6](https://github.com/Apsiape/houghton-sofic-profile/tree/1eca2f6700f8459c243a22c71fd295801024aeec)
 supplies the Houghton far-commutator certificates, reweighting and group-profile
 arguments. Its verification notes state the exact formalization boundary.
 

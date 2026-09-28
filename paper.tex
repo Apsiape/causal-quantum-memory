@@ -180,13 +180,20 @@ Corollary~\ref{cor:purity}(d) with $Q+4$ in place of $Q$; so the separation surv
 \end{mainthm}
 
 The proof is in Section~\ref{sec:flat-choi-proof}. The lower and upper memory exponents do not match: the theorem separates memory costs,
-not their exact asymptotic laws. Its four ingredients are the Houghton memory obstruction (Theorem~\ref{thm:constant-lower}),
-the flat-probe purity bound (Theorem~\ref{thm:rank-purity}), spectrum completion with a recyclable corner tag, and the rank-rate compiler
-(Theorem~\ref{thm:rank-rate}) applied to full-Choi approximants. A smaller pair on $M_{208}$ matches Choi rank, maximal complementary entropy, its optimal spectrum, and purity
+not their exact asymptotic laws. A smaller pair on $M_{208}$ matches Choi rank, maximal complementary entropy, its optimal spectrum, and purity
 cost, but not the full Choi spectrum (Corollary~\ref{cor:208}).
 More generally, Proposition~\ref{prop:spectrum-completion} completes any group gadget to a flat-Choi-spectrum channel while retaining it
 as an invariant corner. This preserves its memory obstruction up to a fixed tag cost, and preserves finite-factor-closure membership in
 both directions; the construction above reduces the system dimension to $1664$, without a minimality claim.
+
+\paragraph{Dependencies of Theorem~\ref{thm:flat-choi-separation}.}
+The lower bound starts with the weighted group obstruction supplied by the companion paper~\cite{DouglasMghirbiA}
+(Section~\ref{sec:imported}), then uses the sequential extraction proved here to obtain the Houghton memory bound
+(Theorem~\ref{thm:constant-lower}). The flat-probe purity estimate (Theorem~\ref{thm:rank-purity}) makes that obstruction independent of a
+separate purity budget at the stated exchange. Spectrum completion and a recyclable corner tag transfer it to $\Omega$
+(Section~\ref{sec:flat-choi-proof}). For the upper bound, the companion's smoothed group models give full-Choi approximants here,
+to which the rank-rate compiler (Theorem~\ref{thm:rank-rate}) applies. The closed-device achievability theorem
+of~\cite{Douglas2026closed}, used for the general rate region, is not an input to these two explicit service constructions or their memory separation.
 
 \paragraph{Why the spectra can agree.}
 The original gadget has $26$ mutually orthogonal system coefficient matrices $K_g$, but unequal squared Frobenius norms $\mu_g$.
@@ -1651,7 +1658,7 @@ $A_c\tau A_c^{-1}=(2\ 3)$, $A_c(2\ 3)A_c^{-1}=(3\ 4)$ and $B_c\tau B_c^{-1}=(2\ 
 Suppose $W_q$ is the identity except at finitely many sources, where it is the
 product of the transpositions given by the base labels of the regions with that source. Let finitely many regions satisfy:
 \begin{enumerate}[label=(R\arabic*),itemsep=0pt]
-\item every edge of a non-source plaquette, from $v$ to $w$, carries $\mathrm{lab}(v)$ onto $\mathrm{lab}(w)$ under its link permutation;
+\item for each region $R$, every edge of a plaquette $q\in R$ other than its own source $q_0(R)$, from $v$ to $w$, carries $\mathrm{lab}_R(v)$ onto $\mathrm{lab}_R(w)$ under its link permutation, even if $q$ is another region's source;
 \item every base label avoids $\{1,2\}$, and the label at the initial vertex of every interior edge avoids $\{2,3,4\}$;
 \item each region is connected through its interior edges, and the only interior edge of its source is the bottom edge;
 \item labels of different regions are disjoint wherever both are defined; on an interior link carrying a region's rotation, its label is disjoint from any additional modification of that link.
@@ -1678,9 +1685,9 @@ Consequently, for every $v>0$, with $M=\max\{48,\lceil(0.3/v)^{1/3}\rceil\}$,
 
 \begin{proof}
 \emph{The unitary model.} We recall the construction of~\cite[Section~6.2]{DouglasMghirbiA}. Let $c^*=(M-1,M-1)$, where the $r_4$ holonomy is $R_M$
-(Proposition~\ref{prop:corner}). Replace $A_{c^*}$ by $\sigma_1A_{c^*}$ and $B_{(0,M-2)}$ by $\sigma_2B_{(0,M-2)}$, with $\sigma_1=(1\ \,M{+}4)$ and
-$\sigma_2=(5\ \,M{+}5)$. Then $r_1,r_2,r_3,r_5$ stay exact, the $r_4$ holonomy at $c^*$ becomes $\prod_{t=5}^{M+3}(t\ \,t{+}M)$, at $(0,M-2)$ it becomes
-$\sigma_2$, and elsewhere it is the identity.
+(Proposition~\ref{prop:corner}). Replace $A_{c^*}$ by $\eta_1A_{c^*}$ and $B_{(0,M-2)}$ by $\eta_2B_{(0,M-2)}$, with $\eta_1=(1\ \,M{+}4)$ and
+$\eta_2=(5\ \,M{+}5)$. Then $r_1,r_2,r_3,r_5$ stay exact, the $r_4$ holonomy at $c^*$ becomes $\prod_{t=5}^{M+3}(t\ \,t{+}M)$, at $(0,M-2)$ it becomes
+$\eta_2$, and elsewhere it is the identity.
 
 \emph{The regions.} For $5\le t\le M+3$ let $R_t$ have source $c^*$ and sign $(-1)^{t-5}$, and consist of $c^*$, the plaquettes $(M-1,j)$
 with $1\le j\le M-2$, and the plaquettes $(i,j)$ with $0\le i\le M-3$, $0\le j\le M-2$ and $i+j\le t+M-8$; label the vertex $(i,j)$ by
@@ -3718,7 +3725,7 @@ arguments proved in the text. They do not claim a formal verification of the ful
 \bibitem{Kesten1959} H.~Kesten, Symmetric random walks on groups, Trans. Amer. Math. Soc. \textbf{92} (1959), 336--354.
 \bibitem{BoesWilming2018} P.~Boes, H.~Wilming, R.~Gallego and J.~Eisert, Catalytic quantum randomness, Phys. Rev. X \textbf{8} (2018), 041016; arXiv:1804.03027.
 \bibitem{Tropp2012} J.~A.~Tropp, User-friendly tail bounds for sums of random matrices, Found. Comput. Math. \textbf{12} (2012), 389--434; arXiv:1004.4389.
-\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/40936052560b89bf5cc1f79017501be161895421}{version 4093605}.
+\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/1eca2f6700f8459c243a22c71fd295801024aeec}{version 1eca2f6}.
 \bibitem{HaagerupMusat2015} U.~Haagerup and M.~Musat, An asymptotic property of factorizable completely positive maps and the Connes embedding problem, Comm. Math. Phys. \textbf{338} (2015), 721--752; arXiv:1408.6476.
 \bibitem{JNVWY2020} Z.~Ji, A.~Natarajan, T.~Vidick, J.~Wright and H.~Yuen, MIP$^*$ = RE, arXiv:2001.04383 (2020).
 \bibitem{Fritz2012} T.~Fritz, Tsirelson's problem and Kirchberg's conjecture, Rev. Math. Phys. \textbf{24} (2012), 1250012; arXiv:1008.1168.
