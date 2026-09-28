@@ -215,6 +215,8 @@ logarithmic; when it is not, memory of order $\sqrt n$ is necessary at small fix
 (Corollary~\ref{cor:flat-split}).
 
 For limits of exact factors the memory is bracketed by how large a finite realization must be to approximate one use to accuracy about $1/n$.
+For full-Choi-rank targets and fixed positive exchange slack, the upper bound improves this scale to $1/\sqrt n$
+(Corollary~\ref{cor:fullrank-service}).
 
 \begin{mainthm}[The bracket; Theorems~\ref{thm:sequential}, \ref{thm:closure-upper} and~\ref{thm:rank-rate}]\label{thm:intro-law}
 Let $\Phi$ be a channel on $M_d$ and $0<\epsilon<1/2$.
@@ -618,6 +620,7 @@ $x=\log_2(128n/\epsilon)$ and $x/0=\infty$,
 Q\le\log m+\log(2+\log m)+C_d\big(\min\{\sqrt{nx},x/s\}+\log(n+1)\big)\quad\text{if }x<n,
 \]
 and $Q\le\lceil n\log m\rceil+\lceil\log(n+1)\rceil$ otherwise. The constant $C_d$ depends only on $d$.
+In the branch $x<n$ one may take $P=0$, using the prescribed round-dependent controls of Definition~\ref{def:service}.
 \end{theorem}
 
 Exact factors are thus cheap at any fixed exchange rate above the optimum. At the optimum itself, and below half the
@@ -829,12 +832,15 @@ e(\phi)=\max_{r\in R}\|\phi(r)-I\|_2,\qquad z(\phi)=\max_{a,b\in\mathcal T}\big|
 \]
 The \emph{approximation profile} $\mathsf h_{\mathcal P}(e,z)$ is the least $M$ for which some $\phi$ has $e(\phi)\le e$ and $z(\phi)\le z$, or $\infty$; $\mathsf h^\oplus_{\mathcal P}$ is the
 same with $M_M$ replaced by finite direct sums of matrix algebras of size at most $M$ with any faithful tracial state. The moments read by $z$
-are those of the finitely many gadget words, a finite piece of $G$ in the sense of Cornulier's chunks. Let $A_{\mathcal P}\ge1$ be the largest area of a
-word $w_aw_b^{-1}$ with $w_a=w_b$ in $G$, and $L=\max\{2,\ell_1,\dots,\ell_k\}$. Put
+are those of the finitely many gadget words, a finite piece of $G$ in the sense of Cornulier's chunks. Let
+$A_{\mathcal P}=\max\{1,\max_{w_a=w_b\text{ in }G}\mathrm{Area}_{\mathcal P}(w_aw_b^{-1})\}$,
+and $L=\max\{2,\ell_1,\dots,\ell_k\}$. The floor at one includes presentations for which all these comparisons are freely trivial. Put
 \[
 h_d=1+2\sqrt d,\qquad b_d=2\sqrt d(1+\sqrt2)h_d,\qquad c_{\mathcal P}=h_d+2Lb_d,
 \]
 and $C_{\mathcal P}=4d\sqrt{2\ln2}+4dc_{\mathcal P}(1+\sqrt{2\ln2})^{1/2}$.
+These profiles concern the fixed finite list of gadget words, not uniform approximation of every finite subset of $G$.
+Hyperlinearity of $G$ implies the closure conclusion in part~(f) below; no converse from this one gadget is asserted.
 
 \begin{theorem}[Channel profiles are group profiles]\label{thm:correspondence}
 Let $\Phi_G$ on $M_d$ be the gadget channel of $\mathcal P$.
@@ -1811,7 +1817,7 @@ condition of Proposition~\ref{prop:dimension} reads $T_HN^{1/(2\beta_H)}\sqrt v\
 $\log m\ge N/16\ge c_Hv^{-\beta_H}-1/16$. For $v>T_H^{-2}$ the right side is negative. With $v=0$ every $N$ is allowed, so no mixture
 with zero leakage lies within diamond distance $1/8$. If $\dJ(\Psi,\Phi_H)\le\delta\le1/(8d)$, the leakage is at most $\delta$ and
 $\ddia(\Psi,\Phi_H)\le d\delta\le1/8$ by~\eqref{eq:dJ-ddia}, and for larger $\delta$ the bound is negative; this gives the bound for
-$\Dmix$. The upper bound in Theorem~\ref{thm:support-profile} is Proposition~\ref{prop:corner-channel}. (Propositions~\ref{prop:coloring}
+$\Dmix$. The upper bound in Theorem~\ref{thm:support-profile} is Proposition~\ref{prop:smoothed}. (Propositions~\ref{prop:coloring}
 and~\ref{prop:upper-profile} give the weaker bounds $O(1/v)$ and $(55/v)\log(54/v)$; the approximant of the latter at Choi accuracy $v$ has
 leakage at most $v$ and diamond distance at most $dv\le1/8$.)
 \end{proof}
@@ -2226,32 +2232,88 @@ $\|U(I\otimes\xi)-(I\otimes\xi)U\|_F\le2\sqrt{da\ln2}=:h$.
 \emph{Column-local residuals.} Write $U=\sum_{o,i}|o\rangle\langle i|\otimes A_{oi}$ and put $e_0=\sqrt{d\ell}$ and $s=e_0+h$. Projecting the
 purification $d^{-1/2}\sum_{o,i}|oi\rangle\otimes|A_{oi}\xi\rangle$ of $\mathcal J(\Psi)$ onto the span of the $K_g$ gives
 $A_{oi}=\sum_g(K_g)_{oi}X_g+R_{oi}$ with $\sum_{o,i}\|R_{oi}\xi\|_F^2=d\ell$. For each singleton diagonal position $w$, including that of the
-identity, let $V_w$ be a unitary polar extension of the diagonal block $A_w$, a contraction on the same bath. Column unitarity gives
-$\|(V_w-A_w)\xi\|_F\le e_0$, row unitarity and the centrality bound give $\|\xi(V_w-A_w)\|_F\le e_0+h$, and so $\chi_\rho(V_w)\le3s$.
+identity, let $V_w$ be a unitary polar extension of the diagonal block $A_w$, a contraction on the same bath.
+All other blocks in its column are residuals. Since $(I-|A_w|)^2\le I-|A_w|^2$, column unitarity gives
+$\|(V_w-A_w)\xi\|_F\le e_0$. For the corresponding row, the direct sum of its off-diagonal blocks has right-weighted norm at most $e_0$;
+moving $\xi$ to the left costs at most the global commutator norm $h$. Applying the same polar inequality on the output side gives
+$\|\xi(V_w-A_w)\|_F\le e_0+h$. Each block of $[U,I\otimes\xi]$ has norm at most $h$, and consequently
+\[
+\chi_\rho(V_w)\le e_0+(e_0+h)+h=2s.
+\]
+Also $\|(X_g-V_w)\xi\|_F\le2e_0$ whenever $w$ is the chosen anchor of $g$.
 
-\emph{Triangles.} For a triangle $xy=z$ with system blocks $B_{11},B_{12},B_{21},B_{22}$, comparison with the diagonal anchors gives
-$\|(B_{11}-V_e/\sqrt2)\xi\|_F$, $\|(B_{12}-V_y/\sqrt2)\xi\|_F$, $\|(B_{21}-V_x/\sqrt2)\xi\|_F$, $\|(B_{22}+V_z/\sqrt2)\xi\|_F\le3e_0$. The two full columns
-of $U$ are orthogonal, and the rows outside the block contribute at most $e_0$; replacing the four blocks by the anchors costs at
-most $12s$ in each internal product, so $\|(V_xV_e^*V_y-V_z)\xi\|_F\le50s$. With $\phi(w)=V_e^*V_w$ every triangle satisfies
-$\|(\phi(x)\phi(y)-\phi(z))\xi\|_F\le50s$ and $\chi_\rho(\phi(w))\le6s$. Following the prefix and inverse triangles through a relator of length
-at most $12$ gives $E_\rho(\phi(r_j))\le4000s$, and the same bound compares the prefix symbol of $\gamma$ with its word.
+\emph{Triangles, including the product replacements.} Put $c=1/\sqrt2$. Each of the four blocks in a triangle differs from its signed
+anchor $cV$ by an operator $F$ satisfying
+\[
+\|F\xi\|_F\le3e_0,\qquad \|\xi F\|_F\le3e_0+h+2s\le5s,\qquad \|F\|_{\rm op}\le2.
+\]
+The first estimate uses the slot residual and the anchor comparison; the second uses
+$\chi_\rho(B)\le h$ and $\chi_\rho(V)\le2s$. For two blocks $B_1,B_2$ with signed anchors $c_1V_1,c_2V_2$, $|c_i|=c$, write
+\[
+B_1^*B_2-\overline c_1c_2V_1^*V_2=B_1^*F_2+F_1^*c_2V_2.
+\]
+The first term has right-weighted norm at most $3s$. The second has norm at most
+$\|\xi F_1\|_F+\|F_1\|_{\rm op}\chi_\rho(V_2)\le5s+4s$, even after dropping the factor $c$.
+Thus each internal product costs at most $12s$.
+Let $C_1,C_2$ be the two columns restricted to rows outside this triangle. Their contribution obeys
+$\|C_1^*C_2\xi\|_F\le\|C_2\xi\|_F\le e_0$, since $\|C_1\|_{\rm op}\le1$ and the canonical gadget vanishes there.
+The exact equation $B_{11}^*B_{12}+B_{21}^*B_{22}+C_1^*C_2=0$ therefore gives
+\[
+\|(V_e^*V_y-V_x^*V_z)\xi\|_F\le2(12s+12s+e_0)\le50s.
+\]
+Left multiplication by $V_x$ and then $V_e^*$ proves the triangle estimate for $\phi(w)=V_e^*V_w$:
+$\|(\phi(x)\phi(y)-\phi(z))\xi\|_F\le50s$, with $\phi(e)=I$ and $\chi_\rho(\phi(w))\le4s\le6s$.
+
+\emph{From symbols to words.} An inverse triangle compares the assigned inverse symbol with the adjoint of its generator at cost $50s$.
+Let $D_l$ be the right-weighted difference between a length-$l$ evaluated word and its prefix symbol (or $I$ at the last relator step).
+Appending a letter costs at most $50s$ for an inverse-symbol replacement, $50s$ for the prefix triangle, and
+$2\chi_\rho(\phi(\text{letter}))\le12s$ to move a previous difference past the rightmost assigned symbol.
+Thus $D_1\le50s$ and $D_l\le D_{l-1}+112s$. Every relator has length at most $12$, so
+\[
+D_l\le(50+11\cdot112)s=1282s<1400s<4000s.
+\]
+The same estimate covers the length-four prefix for $\gamma$. The constants $12,50,4000$ thus include residual rows, inverse letters and all right-weight charges.
 
 \emph{Displacement.} The word $\gamma$ is a prefix of $r_2$ and has a diagonal anchor. The maximally entangled input on the anchors of
 the identity and of $\gamma$, together with $\tau(\lambda(\gamma))=0$, gives $|\mathrm{Re}\,\mathrm{Tr}(\rho A_e^*A_\gamma)|\le2u$, and with the anchor
 bounds $\|(\phi(\gamma)-I)\xi\|_F^2\ge2-4u-4e_0$ for the prefix symbol. Finally
-$4000s\le4000\sqrt d(1+2\sqrt{\ln2})\sqrt\nu\le2^{17}\sqrt\nu=e$, and $e\le1/20$ with $u\le1/8$ gives the claims.
+$4000s\le4000\sqrt d(1+2\sqrt{\ln2})\sqrt\nu\le2^{17}\sqrt\nu=e$.
+For the evaluated word the displacement is at least $\sqrt{3/2-e/1000}-e>1$ when $e\le1/20$;
+here $e_0\le s\le e/4000$ and the symbol-to-word difference is at most $e$. This proves all claims.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:one-round}]
 \emph{Amplification.} Let $\phi$ be as in Lemma~\ref{lem:weighted-extraction}, let $N\ge2$, put $A=\max\{N,A^*(3N)\}$, and suppose
 $10^8\sqrt N\,Ae\le1$. With $s_j=\phi(a)^j\phi(\alpha)\phi(a)^{-j}$, apply Lemma~\ref{lem:weighted-round} to $X_i=s_{3i}$ and $Y_i=s_{3i+1}$,
-$0\le i<N$; the conjugation estimate shows that its hypotheses hold with $\delta=16Ne$. The resulting exact pairs satisfy
-$\chi_\rho(c_i),\chi_\rho(x_i)\le20000Ne$ and, since $X_iY_i$ is a conjugate of $\phi(\gamma)$, $\|(c_i-I)\xi\|_F\ge1-476Ne$. For different
-copies each raw commutator is a conjugate of some $C_k$ with $k\le3N$, so Lemma~\ref{lem:charged} gives $\|(s_js_k-s_ks_j)\xi\|_F\le200Ae$;
-expanding the commutators of the products and adding the rounding errors gives
-$\|(c_ic_j-c_jc_i)\xi\|_F,\|(x_ic_j-c_jx_i)\xi\|_F\le20000Ae$. Theorem~\ref{thm:weighted-sector} then applies with $\Delta_i\ge\frac12$,
-$A_i+\theta_i\le10^{-3}$, $B_i+\eta_i\le10^{-3}$ and $\frac4{\sqrt3}(\sum_{j>i}\theta_j^2)^{1/2}\le10^{-3}$; since $G(10^{-6})<10^{-3}$, every
-summand exceeds $1/16$, and $S(\rho)\ge N/16$.
+$0\le i<N$. All indices are at most $3N-2$, so the squares and cubes in that lemma are conjugates of $r_1$ and $r_2$ with error at most
+$(6N+1)e$, and $\chi_\rho(s_j)\le6Ne$. Thus $\delta=16Ne$ suffices. Put $Z_i=X_iY_i$; rounding gives the explicit ledger
+\[
+\begin{array}{c|ccccc}
+\text{quantity}&\|(x_i-X_i)\xi\|_F&\|(c_i-Z_i)\xi\|_F&\chi_\rho(x_i)&\chi_\rho(c_i)&\chi_\rho(Z_i)\\ \hline
+\text{bound}/(Ne)&16&464&48&896&12.
+\end{array}
+\]
+Since $Z_i$ is a conjugate of $\phi(\gamma)$, its displacement is at least $1-6Ne$, and that of $c_i$ is at least $1-470Ne\ge1-476Ne$.
+For different copies a raw group commutator has area at most $A$, word length at most $24N$, and the product of its two generators has
+centrality at most $12Ne$. Lemma~\ref{lem:charged}, followed by the right-weight charge converting the group commutator to an additive one, gives
+\[
+\|(s_js_k-s_ks_j)\xi\|_F\le(25A+48N+24N)e\le97Ae\le200Ae.
+\]
+To exchange two products of two raw generators takes four swaps. In each swap the suffix has at most two raw generators, costing at most
+$24Ne$ in addition to $200Ae$. Hence the additive commutators of $Z_i,Z_j$ and of $X_i,Z_j$ are bounded by $896Ae$ and $448Ae$, respectively.
+For unitaries $U,V,U_0,V_0$, expanding both products with the raw operators on the right bounds the change of their additive commutator by
+\[
+2\|(U-U_0)\xi\|_F+2\|(V-V_0)\xi\|_F+2\chi_\rho(U_0)+2\chi_\rho(V_0).
+\]
+The ledger therefore bounds the rounded commutators by $(896+1904)Ae=2800Ae$ and $(448+996)Ae=1444Ae$, both below $20000Ae$.
+Also $\chi_\rho(c_i),\chi_\rho(x_i)\le20000Ae$.
+
+Set $b_0=20000Ae$. The hypothesis gives $\sqrt N b_0\le1/5000$. The row-sum estimates of Theorem~\ref{thm:weighted-sector} give
+$A_i,B_i\le\sqrt{40/3}\sqrt N b_0<4/5000$ and $\theta_i,\eta_i\le1/(5000\sqrt2)$.
+Thus $A_i+\theta_i,B_i+\eta_i<10^{-3}$, and the tail-centrality term is less than $10^{-3}$; also $\Delta_i\ge1/2$.
+For $p=2/(3\cdot10^6)$, $G(10^{-6})=h_2(p)+p\le p(\log(1/p)+1/\ln2+1)<24p<10^{-3}$.
+Since $\ln2>1/2$, each sector summand is larger than
+$(499/1000)^2/3-10^{-6}-10^{-3}>1/16$. Consequently $S(\rho)\ge N/16$.
 
 \emph{Choice of $N$.} With $A^*(3N)\le30(3N)^{\log130}$ (Theorem~\ref{thm:area-weighted}) and $e=2^{17}\sqrt\nu$, the condition reads
 $K_HN^{\log130+1/2}\sqrt\nu\le1$. Put $X=(K_H^2\nu)^{-\beta_H}$. If $X\ge2$, take $N=\lfloor X\rfloor$: the condition holds, it forces
@@ -2687,9 +2749,9 @@ qubits tensored with the last $h$ qubits, which serve as the export port. All op
 flat state of $q$ qubits has weight less than $mE_{\max}/2^q\le\epsilon/4$ outside it, which costs at most $\epsilon/4$ once.
 Taking logarithms in~\eqref{eq:Dcondition}, where $\log A_D$ and $\log L_c$ are $O(\log n+\log d+\log\log D)$, one can take
 $q\le\log m+\log(2+\log m)+b/2+O_d(x)$; moreover $b=O(d^2\min\{\sqrt{nx},x/s\})$ and $x\le\min\{\sqrt{nx},x/s\}$ in this branch,
-and $h$, $E_{\max}$ and $r$ are bounded in terms of $d$. A clock
-of $\lceil\log(n+1)\rceil$ pure qubits selects the round's unitaries. The bills are $Q=q+\lceil\log(n+1)\rceil$,
-$P=\lceil\log(n+1)\rceil$, $C=0$, $J=J_n\le n(H/2+s)$, and the error is below $51\epsilon/128$. If $x\ge n$, use $n$
+and $h$, $E_{\max}$ and $r$ are bounded in terms of $d$. Prescribe the selected round-dependent unitaries directly, as
+Definition~\ref{def:service} permits. No retained clock is needed, so $Q=q$, $P=C=0$, $J=J_n\le n(H/2+s)$,
+and the error is below $51\epsilon/128$. A pure clock of $\lceil\log(n+1)\rceil$ qubits is an optional implementation with the looser stated bills. If $x\ge n$, use $n$
 untouched $m$-dimensional baths, one per round, encoded in $\lceil n\log m\rceil$ qubits prepared uniformly on an
 $m^n$-dimensional subspace; this is exact with $J=C=0$, $Q=O_\Phi(n)$ and an extra initial deficit below one.
 \end{proof}
@@ -3138,6 +3200,29 @@ $\Gamma_\pm=\Phi\pm(\Psi-\Phi)/t$ are channels, $\Phi=\frac12(\Gamma_++\Gamma_-)
 experiments are generated by the same sequence of conditional channels from $n$ independent coins, fair for $\Phi$ and of
 bias $t$ for $\Psi$. One biased coin has relative entropy at most $t^2$ from a fair one, and Pinsker's inequality bounds the
 distance of the coin strings by $t\sqrt{n/2}$.
+\end{proof}
+
+\begin{corollary}[Full-rank targets at positive slack]\label{cor:fullrank-service}
+Let $d\ge2$, $\Phi\in\mathcal K_d$, $\mathcal J(\Phi)\ge\lambda I$ with $\lambda>0$, $0<\epsilon\le1/2$ and $0<s\le1$.
+Put $\delta=\lambda\epsilon/\sqrt{2n}$, $m=\DChoi_\Phi(\delta)$, $u=d\delta$ and $x=\log(256n/\epsilon)$.
+If $x<n$ and $h_2(u)+u\log(d^2-1)\le s$, there is a causal service of error at most $\epsilon$ with
+\[
+J\le n(H(\Phi)/2+s),\qquad P=C=0,\qquad
+Q\le\log m+\log(2+\log m)+O_d\big(x/s+\log(n+1)\big).
+\]
+For fixed positive $s,\epsilon$ the two conditions hold for all sufficiently large $n$.
+\end{corollary}
+
+\begin{proof}
+Choose a factor $\Psi$ of dimension $m$ at Choi distance at most $\delta$. Proposition~\ref{prop:fullrank} bounds the distance of the two
+independent-use experiments by $(\delta/\lambda)\sqrt{n/2}=\epsilon/2$.
+For a common purified input, the output-and-reference states have dimension $d^2$ and distance at most $u\le1/2$.
+Their entropies are the respective complementary entropies, so Fannes--Audenaert gives
+$H(\Psi)\le H(\Phi)+h_2(u)+u\log(d^2-1)\le H(\Phi)+s$.
+Apply Theorem~\ref{thm:upper} to $\Psi$ with service error $\epsilon/2$ and slack $s/2$. Its exchange is at most
+$n(H(\Psi)/2+s/2)\le n(H(\Phi)/2+s)$ and its error adds at most $\epsilon/2$.
+Since $x<n$, the fully flat physical initialization and prescribed round-dependent unitaries give $P=C=0$.
+This refinement does not apply to the proper-support Houghton target without support-preserving approximants.
 \end{proof}
 
 \begin{remark}

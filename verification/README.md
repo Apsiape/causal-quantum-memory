@@ -12,7 +12,8 @@ bounded finite checks, with per-command timeouts in the runner.
 - **houghton_labels.py:** exact integer/rational bookkeeping of the 104-dimensional
   gadget: 33 symbols, 35 triangles, 174 entries, 26 distinct group labels,
   singleton anchors and total squared coefficient weight 104. A length-L ray
-  word is represented by its action up to height L and its eventual translations.
+  word is represented by its action up to height L+1 and its eventual translations,
+  sampled at height L+2. A regression covers the last-letter-alpha boundary case.
   The reason this representation is complete is mathematical, not a Lean theorem.
 - **gadgetcheck.py:** numerical unitary/Kraus/entropy identities for the S3, Z4,
   and Z2 x Z2 finite-group gadgets. These examples do not prove the general
@@ -24,7 +25,8 @@ bounded finite checks, with per-command timeouts in the runner.
   for the rotating-dephasing example. The all-observer adaptive equality follows
   from the manuscript's common-processor proof, not finite numerical sampling.
 - **Lean Resources.lean:** exact dimension arithmetic, telescoping integer
-  replacement schedules, and a conditional integer budget inequality. The integer
+  replacement schedules, a conditional integer budget inequality, and the cleared-
+  denominator scalar margins in the expanded weighted-extraction ledger. The integer
   schedule applies to dyadic rank; the real-logarithmic general schedule and
   entropy budgets are not formalized.
 
@@ -39,7 +41,7 @@ supplies the Houghton far-commutator certificates, reweighting and group-profile
 arguments. Its verification notes state the exact formalization boundary.
 
 This repository does **not** formally verify the Haar concentration theorem,
-weighted extraction constants, conditional entropy arguments, adaptive process
+weighted matrix-norm and entropy inequalities (only their listed scalar arithmetic is kernel-checked), conditional entropy arguments, adaptive process
 norms, the complete reservoir compiler, or the cited operator-algebra results.
 Closed-device achievability remains a cited external theorem. These analytic
 dependencies are proved or cited in the manuscript; automated review and these

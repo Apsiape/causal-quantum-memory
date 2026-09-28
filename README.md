@@ -16,6 +16,11 @@ round-dependent control contract. Error always refers to the complete adaptive
 experiment, not merely one-call marginals. Gaps between upper and lower exponents
 remain explicit.
 
+For full-Choi-rank targets at fixed positive exchange slack, the compiler reads
+the finite-factor profile at accuracy of order epsilon/sqrt(n), with zero
+initial and imported purity in its rolling branch. This refinement does not
+apply to the proper-support Houghton target without additional hypotheses.
+
 This is a **private release candidate**, not an announced publication.
 Licenses and the joint public-release decision remain pending; see [RIGHTS.md](RIGHTS.md).
 

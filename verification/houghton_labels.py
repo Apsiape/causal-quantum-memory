@@ -1,7 +1,9 @@
 """Exact finite bookkeeping of all entry labels of the 104-dimensional gadget.
 
-A length-L word acts by a fixed translation on each ray above L; therefore
-values at heights 1..L and the three eventual translations determine it exactly.
+A length-L word acts by a fixed translation on each ray above L+1. Before
+each letter, a start at height L+2 is at height at least 3: translations move
+by at most one, and alpha only acts at heights 1 and 2. Thus values at heights
+1..L+1 and the three eventual translations determine the action exactly.
 The proof of that observation and the entropy/anchor implications remain in the
 manuscript; this program verifies the integer/rational bookkeeping.
 """
@@ -44,10 +46,19 @@ for x, y, z in triangles:
 L = max(map(len, [w for w, _ in slots] + REL))
 
 def signature(w):
-    base = tuple(act((ray, j), w) for ray in (1,2,3) for j in range(1, L+1))
-    tail = tuple(act((ray, L+1), w)[1]-(L+1) for ray in (1,2,3))
-    assert all(act((ray, L+1), w)[0] == ray for ray in (1,2,3))
+    assert len(w) <= L
+    base = tuple(act((ray, j), w) for ray in (1,2,3) for j in range(1, L+2))
+    tail = tuple(act((ray, L+2), w)[1]-(L+2) for ray in (1,2,3))
+    assert all(act((ray, L+2), w)[0] == ray for ray in (1,2,3))
     return base, tail
+
+# The older height-L cutoff is not valid for general words: the final alpha
+# can still act at height 2. This regression protects the extra boundary layer.
+for length in range(1, 25):
+    word = "a" * (length - 1) + "x"
+    assert act((1, length+1), word) == (1, 1)
+    assert act((1, length+2), word) == (1, 3)
+    assert 3 - (length+2) == -(length-1)
 
 identity = signature("")
 assert all(signature(w) == identity for w in REL)
