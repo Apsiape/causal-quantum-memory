@@ -11,10 +11,16 @@ versus polynomial memory requirements at the same optimal exchange rate.
 The paper studies this through finite-approximation profiles, sequential support
 tests, reservoir constructions and group presentations.
 
-The rank-rate compiler uses zero initial and imported purity under the stated
+The matched-invariant separation is Theorem A, stated in full at the start.
+Both the rank-rate compiler and the entropy-rate closure compiler (in its stated
+rolling regime) use zero initial and imported purity under the stated
 round-dependent control contract. Error always refers to the complete adaptive
 experiment, not merely one-call marginals. Gaps between upper and lower exponents
 remain explicit.
+
+For any pure probe with a flat output spectrum, memory bounds total purity at
+its rank exchange rate for every fixed error below one. This broader converse
+does not change the small-error restriction in the Houghton separation.
 
 For full-Choi-rank targets at fixed positive exchange slack, the compiler reads
 the finite-factor profile at accuracy of order epsilon/sqrt(n), with zero
@@ -41,7 +47,8 @@ The bibliography is embedded in paper.tex.
 ## Dependencies
 
 The group-theoretic companion,
-[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile),
+[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/0873417a8b8b5f3a6d0f7dfcf4dd255d37922ed9),
+is pinned to version `0873417` in the manuscript. It
 contains the group-word certificates and their Lean checker. They are not
 duplicated here. The manuscript separately cites the published closed-device
 achievability theorem and other external results. Companion links require access

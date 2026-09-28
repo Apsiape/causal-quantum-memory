@@ -24,11 +24,16 @@ bounded finite checks, with per-command timeouts in the runner.
 - **accuracycheck.py:** Choi distance, support leakage and product-state distances
   for the rotating-dephasing example. The all-observer adaptive equality follows
   from the manuscript's common-processor proof, not finite numerical sampling.
+- **scalarcheck.py:** exact rational upper bounds for the smoothed Choi example
+  at k=16, M=2120 and error 10^-9, and the exact integer bracket that forces the
+  bath-qubit ceiling 135767. The analytic Choi inequalities and pi < 22/7 are inputs.
 - **Lean Resources.lean:** exact dimension arithmetic, telescoping integer
   replacement schedules, a conditional integer budget inequality, and the cleared-
   denominator scalar margins in the expanded weighted-extraction ledger. The integer
   schedule applies to dyadic rank; the real-logarithmic general schedule and
-  entropy budgets are not formalized.
+  entropy budgets are not formalized. It also checks the integer-scaled budget
+  rearrangement for the fixed-error extension, conditional on its analytic
+  premises, and the numerical example's bath-dimension bracket.
 
 The Lean theorems contain no proof placeholders, native proof-evaluation oracle,
 or added mathematical axioms. Their standard logical dependencies are printed
@@ -36,7 +41,7 @@ when run.
 
 ## External and unformalized dependencies
 
-The companion [group paper](https://github.com/Apsiape/houghton-sofic-profile)
+The companion [group paper, version 0873417](https://github.com/Apsiape/houghton-sofic-profile/tree/0873417a8b8b5f3a6d0f7dfcf4dd255d37922ed9)
 supplies the Houghton far-commutator certificates, reweighting and group-profile
 arguments. Its verification notes state the exact formalization boundary.
 

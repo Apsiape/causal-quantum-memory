@@ -53,4 +53,18 @@ theorem centrality_scalar_margin : 19 < 20 ∧ 40 < 3 * 4^2 := by decide
 #print axioms rounded_commutator_charge
 #print axioms sector_margin
 #print axioms budget_inversion
+-- Integer-scaled rearrangement only: the spectral and square-root bounds
+-- supplying h are analytic premises, not formalized here.
+theorem fixed_error_budget (b Q excess coeff loss : Nat)
+    (h : 2*b ≤ 4*Q + 4*excess + b + coeff*Q + 2*loss) :
+    b ≤ (4+coeff)*Q + 4*excess + 2*loss := by
+  rw [Nat.add_mul]
+  omega
+
+theorem model_qubit_rounding :
+    2^22 < 2120^2 ∧ 2120^2 < 2^23 ∧
+    16*(4*2120+4) + 23 = 135767 := by decide
+
+#print axioms fixed_error_budget
+#print axioms model_qubit_rounding
 end CausalResources
