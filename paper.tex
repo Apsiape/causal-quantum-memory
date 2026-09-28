@@ -179,10 +179,13 @@ Corollary~\ref{cor:purity}(d) with $Q+4$ in place of $Q$; so the separation surv
 \end{mainthm}
 
 The proof is in Section~\ref{sec:flat-choi-proof}. The lower and upper memory exponents do not match: the theorem separates memory costs,
-not their exact asymptotic laws. A smaller pair on $M_{208}$ matches Choi rank, maximal complementary entropy, its optimal spectrum, and purity
+not their exact asymptotic laws. Its four ingredients are the Houghton memory obstruction (Theorem~\ref{thm:constant-lower}),
+the flat-probe purity bound (Theorem~\ref{thm:rank-purity}), spectrum completion with a recyclable corner tag, and the rank-rate compiler
+(Theorem~\ref{thm:rank-rate}) applied to full-Choi approximants. A smaller pair on $M_{208}$ matches Choi rank, maximal complementary entropy, its optimal spectrum, and purity
 cost, but not the full Choi spectrum (Corollary~\ref{cor:208}).
 More generally, Proposition~\ref{prop:spectrum-completion} completes any group gadget to a flat-Choi-spectrum channel while retaining it
-as an invariant corner. This preserves its memory obstruction up to a fixed tag cost; the construction above optimizes the system dimension.
+as an invariant corner. This preserves its memory obstruction up to a fixed tag cost, and preserves finite-factor-closure membership in
+both directions; the construction above optimizes the system dimension.
 
 The underlying example is a channel $\Phi_H$ on $\mathbb C^{104}$ built from Houghton's group (Section~\ref{sec:houghton}). It has the same
 Choi rank $26$, entropy $\log26$, flat optimal complementary spectrum and zero purity cost as the exact factor
@@ -2282,8 +2285,10 @@ $s\in\{a,b,\alpha\}$. If a null word $w$ has area $A_w$, then $E_\rho(\phi(w))\l
 \begin{proof}
 Take a van Kampen diagram of area $A_w$, mark each face at a vertex where its boundary reads a relator, and cut the disk, with each
 face punctured and its puncture joined to its marked vertex, along a spanning tree of the one-skeleton rooted at the base point. This
-writes $w$ freely as a nested product of conjugates of relators in which every tree edge occurs once as a conjugating letter. There
-are at most $12A_w+|w|$ edges. Each face costs at most $e$ and each tree edge at most $2e$, which gives
+writes $w$ freely as a nested product of relators and conjugations. Keep this expression nested: every tree edge contributes one
+conjugating pair around its whole subtree, not a separate root-to-face path for each enclosed relator. Subadditivity of $E_\rho$ and
+the conjugation charge $2\chi_\rho$ therefore charge each tree edge at most $2e$. There are at most $12A_w+|w|$ edges, and each face
+costs at most $e$, which gives
 $A_we+2(12A_w+|w|)e$.
 \end{proof}
 
@@ -2685,7 +2690,13 @@ Let $(T_a)$ be a Hermitian orthonormal basis of $M_D$ for the Hilbert--Schmidt i
 $\sum_aT_aXT_a=\Tr(X)I$ and $\sum_aT_a^2=DI$. Differentiate along $V\mapsto Ve^{itT_a}$. For $X=V^*AV$,
 $\sum_a[T_a,[T_a,X]]=2DX-2\Tr(X)I$, so the Laplacian satisfies $\mathcal{L}Z=-2DZ$. With $Y_a=i[T_a,X]\otimes I$, the
 inequality $(P-P')R(P-P')^*\le2PRP^*+2P'RP'^*$, the identity $\sum_a(T_a\otimes I)R(T_a\otimes I)=I\otimes\Tr_DR$ and the
-cyclicity of the partial trace for operators $X\otimes I$ give $\sum_aY_aRY_a^*\le4\alpha\|A\|^2I$, hence
+bound
+\[
+\Tr_D[(X\otimes I)R(X\otimes I)]\le\|X\|^2\Tr_D R
+\]
+give $\sum_aY_aRY_a^*\le4\alpha\|A\|^2I$. To check the displayed inequality, test on any spectator vector $v$ and put
+$R_v=(I\otimes\langle v|)R(I\otimes|v\rangle)\ge0$: then $\Tr(XR_vX)=\Tr(R_vX^2)\le\|X\|^2\Tr R_v$.
+In particular there is no loss in spectator dimension, and
 $\sum_a(\partial_aZ)^2\le4\alpha\|A\|^2F^*F$. Let $f(\theta)=\mathbb{E}\Tr e^{\theta Z}$. Integration by parts with
 $\mathcal{L}Z=-2DZ$ and the formula $\partial_ae^{\theta Z}=\theta\int_0^1e^{u\theta Z}(\partial_aZ)e^{(1-u)\theta Z}du$ give
 \[
@@ -3201,10 +3212,49 @@ since the four tag qubits add only four to the purity budget. This proves~(b) an
 The full-spectrum comparison is not specific to the Houghton label counts. The following construction preserves an arbitrary gadget
 as a corner, at the cost of a larger system. It reads the finite-word profile of Section~\ref{sec:res-group}, not an arbitrary channel approximant.
 
+\begin{lemma}[Quantitative invariant-corner restriction]\label{lem:corner-profile}
+Let $\Omega$ on $M_D$ have an invariant $d$-dimensional corner restricting to $\Phi$. For every $\delta\ge0$ with finite right side,
+\[
+\Dmix_\Phi((D/d)\delta)\le\Dmix_\Omega(\delta),\qquad
+\DChoi_\Phi((D/d)\delta)\le2\DChoi_\Omega(\delta).
+\]
+Consequently $\Delta_J(\Omega)\ge(d/D)\Delta_J(\Phi)$, and $\Omega\in\mathcal K_D$ implies $\Phi\in\mathcal K_d$.
+\end{lemma}
+
+\begin{proof}
+Choose coordinates in which the corner consists of the first $d$ coordinates. Let $U$ be a tracial factor of an approximant $\Psi$ to
+$\Omega$, with bath dimension $m$, and compress it to the corner-bath space to obtain the square contraction $A=WH$,
+where $H=(A^*A)^{1/2}$ and $W$ is a unitary polar extension. Set $C=W(I-H^2)^{1/2}$. The two operators
+$W_\pm=W(H\pm i\sqrt{I-H^2})$ are unitary. Averaging their tracial channels gives
+\[
+\Theta(X)=\Tr_m\big[A(X\otimes I_m/m)A^*+C(X\otimes I_m/m)C^*\big].
+\]
+Thus $\Theta\in\mathcal F_m$; it also has a single factor of dimension $2m$, using $W_+\oplus W_-$ with its flat bath.
+
+Feed a normalized Bell pair in the corner to $\Psi$, obtaining a state $\chi$ on the $D$-dimensional output and $d$-dimensional reference.
+Its ideal counterpart is the embedded $\mathcal J(\Phi)$. Projecting the reference of the full Choi states and rescaling by $D/d$ gives
+\[
+\tfrac12\|\chi-\mathcal J(\Phi)\|_1\le(D/d)\dJ(\Psi,\Omega),
+\]
+where the embedding is implicit. Pinch the output into the corner and its complement, with positive blocks $T,L$. The corner block
+$T$ is the Choi matrix of the $A$ term above. The $C$ term has a positive Choi matrix $K$ with $\Tr K=\Tr L$, by
+$C^*C=I-A^*A$ and unitarity of $U$. Hence
+\[
+\|\mathcal J(\Theta)-\mathcal J(\Phi)\|_1
+\le\|T-\mathcal J(\Phi)\|_1+\Tr L
+\le\|\chi-\mathcal J(\Phi)\|_1.
+\]
+For a finite mixture $\Psi$, repair each factor separately and retain its weight. The same argument applies to the sums of $T,L,K$,
+so it uses closeness of the whole mixture, not of individual components. Each repaired component is a mixture of factors with the
+same bath dimension. This proves both profile inequalities. Taking infima over finite mixtures gives the distance inequality, and
+letting the accuracy tend to zero gives the closure implication.
+\end{proof}
+
 \begin{proposition}[Flat-spectrum completion]\label{prop:spectrum-completion}
 Let $\Phi_G$ on $M_d$ be the gadget of $\mathcal P$, with $r\ge2$ distinct labels, and let $q\ge1$ be an integer with $R=2^q\ge r$. There is a unital channel
 $\Omega_G$ on $M_D$, where $D=2dR$, with an invariant $d$-dimensional corner equal to $\Phi_G$, Choi rank $R$, and normalized Choi spectrum
-flat on $R$ points. Moreover, $\Omega_G^c(\tau_D)=I_R/R$ and $H(\Omega_G)=q$. If $\Phi_G\in\mathcal K_d$, then $\Omega_G\in\mathcal K_D$.
+flat on $R$ points. Moreover, $\Omega_G^c(\tau_D)=I_R/R$ and $H(\Omega_G)=q$, and
+$\Omega_G\in\mathcal K_D$ if and only if $\Phi_G\in\mathcal K_d$.
 For $N_*=2|\mathcal T|+D-2d$ and $e,z>0$,
 \begin{equation}\label{eq:completion-profile}
 \DChoi_{\Omega_G}(N_*z/2)\le R\,\mathsf h_{\mathcal P}(e,z)
@@ -3242,7 +3292,8 @@ involving a new label is exact. There are $N_*$ slots and their scalar coefficie
 \dJ(\Omega_{G,m},\Omega_G)\le\frac{z}{2D}\Big(\sum_a|c_a|\Big)^2\le N_*z/2.
 \]
 This proves~\eqref{eq:completion-profile}. If $\Phi_G\in\mathcal K_d$, Theorem~\ref{thm:correspondence}(f) supplies these assignments for every
-positive $e,z$, so $\Omega_G\in\mathcal K_D$. The trace-orthonormal powers $Z_D^a$, $a<R\le D$, and Proposition~\ref{prop:weyl} give the comparison channel.
+positive $e,z$, so $\Omega_G\in\mathcal K_D$. The converse is Lemma~\ref{lem:corner-profile}. The trace-orthonormal powers $Z_D^a$, $a<R\le D$,
+and Proposition~\ref{prop:weyl} give the comparison channel.
 
 Finally $D=d2^{q+1}$. Identify the first corner with tag zero in $\mathbb C^{2^{q+1}}\otimes\mathbb C^d$. Retain a tag of $q+1$ qubits,
 initially pure, feed it with each input into the completed-channel service, and keep the returned tag for the next call. An observer of
@@ -3270,10 +3321,27 @@ so $Q^{1+\beta}\ge c'n^\beta$ for a fixed $c'>0$.
 
 The generic Houghton completion has dimension $2\cdot104\cdot32=6656$; Theorem~\ref{thm:flat-choi-separation} reduces this to $1664$.
 The general construction neither improves the memory exponent nor promises sublinear memory for an arbitrary steep approximation profile.
-It also preserves failure of exact finite tracial mixture realization. Indeed, if a finite tracial mixture realizes $\Omega_G$, zero output
-leakage from the corner forces zero leakage for each positive-weight component. Faithfulness of its flat bath then makes that component's
-unitary preserve the corner tensored with the whole bath. In finite dimension the restriction is unitary, and restricting all components
-gives an exact finite tracial mixture for $\Phi_G$.
+It also preserves failure of exact finite tracial mixture realization, by Lemma~\ref{lem:corner-profile} at $\delta=0$.
+
+\begin{corollary}[Purity and nonapproximable corners]\label{cor:completion-purity}
+For the completion in Proposition~\ref{prop:spectrum-completion}, $\kappa(\Omega_G)\ge\kappa(\Phi_G)$, using the operational characterization
+of Theorem~\ref{thm:purity}(c), including its external achievability dependency. Independently of that achievability, if
+$\Delta=\Delta_J(\Phi_G)>0$, every service of $\Omega_G$ with $J\le nq/2$ and $\epsilon\le1/16$, $\epsilon<\Delta$, satisfies
+\[
+Q\ge\frac{n(\Delta-\epsilon)^2}{28\ln2}-\frac{q+4}{14}.
+\]
+\end{corollary}
+
+\begin{proof}
+For any $\eta>0$, Theorem~\ref{thm:purity}(c) supplies vanishing-error services of $\Omega_G$ with limiting upper purity rate at most
+$\kappa(\Omega_G)+\eta$. Tag recycling adds only $q+1$ initial purity bits and no imports. Apply the purity converse to their induced
+services of $\Phi_G$, divide by $n$, and let $\eta\downarrow0$. For the finite-error statement, Theorem~\ref{thm:rank-purity} gives
+$P+C\le14Q+3$ for the completion at its rank rate. Its induced corner service has deficit $P+C+q+1$, so Theorem~\ref{thm:purity}(b) gives
+$n(\Delta-\epsilon)^2/(2\ln2)\le14Q+q+4$.
+\end{proof}
+
+This is a conditional linear obstruction when the original gadget is outside its closure class. It identifies no new such gadget and
+does not settle the closure branch of the Slofstra example.
 
 %======================================================================
 \section{Group channels}\label{sec:group-channels}
@@ -3590,7 +3658,7 @@ arguments proved in the text. They do not claim a formal verification of the ful
 \bibitem{Kesten1959} H.~Kesten, Symmetric random walks on groups, Trans. Amer. Math. Soc. \textbf{92} (1959), 336--354.
 \bibitem{BoesWilming2018} P.~Boes, H.~Wilming, R.~Gallego and J.~Eisert, Catalytic quantum randomness, Phys. Rev. X \textbf{8} (2018), 041016; arXiv:1804.03027.
 \bibitem{Tropp2012} J.~A.~Tropp, User-friendly tail bounds for sums of random matrices, Found. Comput. Math. \textbf{12} (2012), 389--434; arXiv:1004.4389.
-\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/8cd93899a269660747f5046b66e9b001371ba86c}{version 8cd9389}.
+\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/3c9fc5962682ec6dbbd99da22ca8cb60ba317755}{version 3c9fc59}.
 \bibitem{HaagerupMusat2015} U.~Haagerup and M.~Musat, An asymptotic property of factorizable completely positive maps and the Connes embedding problem, Comm. Math. Phys. \textbf{338} (2015), 721--752; arXiv:1408.6476.
 \bibitem{JNVWY2020} Z.~Ji, A.~Natarajan, T.~Vidick, J.~Wright and H.~Yuen, MIP$^*$ = RE, arXiv:2001.04383 (2020).
 \bibitem{Fritz2012} T.~Fritz, Tsirelson's problem and Kirchberg's conjecture, Rev. Math. Phys. \textbf{24} (2012), 1250012; arXiv:1008.1168.

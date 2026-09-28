@@ -30,6 +30,12 @@ bounded finite checks, with per-command timeouts in the runner.
 - **tagcheck.py:** numerical verification of the tagging construction and its
   one-half Choi-distance identity in small stand-in dimensions. It does not
   directly construct the 208-dimensional hard channel's infinite factor.
+- **cornercheck.py:** deterministic finite matrix tests of corner compression,
+  the two-unitary polar repair and its single doubled-bath realization, including
+  singular compressions and mixtures with cancelling perturbations. It checks
+  trace preservation, unitality, leakage/completion trace equality and the
+  dimension-scaled Choi-distance bound. It does not prove the general profile,
+  closure, purity-monotonicity or adaptive-transfer theorems.
 - **accuracycheck.py:** Choi distance, support leakage and product-state distances
   for the rotating-dephasing example. The all-observer adaptive equality follows
   from the manuscript's common-processor proof, not finite numerical sampling.
@@ -51,7 +57,7 @@ when run.
 
 ## External and unformalized dependencies
 
-The companion [group paper, version 8cd9389](https://github.com/Apsiape/houghton-sofic-profile/tree/8cd93899a269660747f5046b66e9b001371ba86c)
+The companion [group paper, version 3c9fc59](https://github.com/Apsiape/houghton-sofic-profile/tree/3c9fc5962682ec6dbbd99da22ca8cb60ba317755)
 supplies the Houghton far-commutator certificates, reweighting and group-profile
 arguments. Its verification notes state the exact formalization boundary.
 
