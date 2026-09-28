@@ -18,6 +18,11 @@ bounded finite checks, with per-command timeouts in the runner.
 - **gadgetcheck.py:** numerical unitary/Kraus/entropy identities for the S3, Z4,
   and Z2 x Z2 finite-group gadgets. These examples do not prove the general
   group-gadget theorem.
+- **flat_choi_check.py:** exact ray-action label and rational slot bookkeeping
+  for the dimension-1664 construction: 32 equal coefficient weights, Choi
+  eigenvalues 1/32, 1804 slots, translation differences and error allocation.
+  This does not prove the cross-block holonomy identity, adaptive tag reduction,
+  or reservoir compiler; those arguments are given in the manuscript.
 - **tagcheck.py:** numerical verification of the tagging construction and its
   one-half Choi-distance identity in small stand-in dimensions. It does not
   directly construct the 208-dimensional hard channel's infinite factor.
@@ -33,7 +38,8 @@ bounded finite checks, with per-command timeouts in the runner.
   schedule applies to dyadic rank; the real-logarithmic general schedule and
   entropy budgets are not formalized. It also checks the integer-scaled budget
   rearrangement for the fixed-error extension, conditional on its analytic
-  premises, and the numerical example's bath-dimension bracket.
+  premises, the numerical example's bath-dimension bracket, omission of the final
+  replacement in the integer schedule, and the four-tag-qubit budget rearrangement.
 
 The Lean theorems contain no proof placeholders, native proof-evaluation oracle,
 or added mathematical axioms. Their standard logical dependencies are printed
@@ -41,7 +47,7 @@ when run.
 
 ## External and unformalized dependencies
 
-The companion [group paper, version 0873417](https://github.com/Apsiape/houghton-sofic-profile/tree/0873417a8b8b5f3a6d0f7dfcf4dd255d37922ed9)
+The companion [group paper, version 45116ce](https://github.com/Apsiape/houghton-sofic-profile/tree/45116ce0a32f02919129148df978917ebfe27d19)
 supplies the Houghton far-commutator certificates, reweighting and group-profile
 arguments. Its verification notes state the exact formalization boundary.
 

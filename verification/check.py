@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parent
-for script in ("houghton_labels.py", "gadgetcheck.py", "tagcheck.py", "accuracycheck.py", "scalarcheck.py"):
+for script in ("houghton_labels.py", "flat_choi_check.py", "gadgetcheck.py", "tagcheck.py", "accuracycheck.py", "scalarcheck.py"):
     subprocess.run([sys.executable, script], cwd=ROOT, check=True, timeout=120)
 subprocess.run(["lean", "-M", "512", "-j", "1", "-T", "100000", "Resources.lean"],
                cwd=ROOT / "lean", check=True, timeout=120)

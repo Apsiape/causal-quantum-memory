@@ -58,13 +58,15 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={quantum channels, facto
 
 \begin{abstract}
 What determines the memory needed to simulate a quantum channel repeatedly, when every output must be released before the next input arrives?
-We exhibit two channels on $\mathbb C^{208}$ with Choi rank $32$, maximal complementary entropy $5$, a flat optimal complementary spectrum,
-and zero asymptotic purity cost. At exchange at most $5n/2$ qubits, one has an exact zero-purity implementation with five
+We exhibit two channels on $\mathbb C^{1664}$ with identical normalized Choi spectra: $32$ eigenvalues $1/32$ and all others zero. Both have
+maximal complementary entropy $5$, attained at the maximally mixed input, and zero asymptotic purity cost.
+At exchange at most $5n/2$ qubits, one has an exact zero-purity implementation with five
 memory qubits for arbitrarily many uses; the other requires $\Omega(n^{1/(2\log_2 130+2)})$ memory qubits at every fixed error at most $1/16$, regardless
 of the available purity. The latter also admits a zero-purity implementation with memory $O(n^{1/3}\log^{4/3}n)$ at that exchange.
 
-More generally, for sublinear memory and vanishing error, exchange and purity have least rates $(H+\kappa)/2$ and $\kappa$, where $H$
-is the maximal complementary entropy and $\kappa$ is the closed-device purity cost; the achievability uses the closed-device rate theorem.
+More generally, for sublinear memory and vanishing error, the closed region of exchange and consumed-purity rates $(j,b)$ is
+$b\ge\kappa$, $j\ge b$, $2j-b\ge H$, where $H$ is the maximal complementary entropy and $\kappa$ is the closed-device purity cost;
+achievability uses the closed-device rate theorem.
 We prove that $\kappa$ vanishes exactly on the
 closure of finite tracial factorizations and is bounded below by the squared Choi distance to that closure. Within the closure, sequential
 support tests and reservoir constructions bound memory through finite-approximation profiles. For channels constructed from finite group
@@ -155,34 +157,29 @@ sublinear memory and vanishing error the least exchange rate is $(H+\kappa)/2$ a
 factors, and on $\mathcal K_d$ the exchange threshold is $H/2$. Memory measures what neither $H$ nor $\kappa$ records: how hard the channel is to
 approximate.
 
-The sharpest comparison is the following explicit pair. Let $\Phi_H$ be the $104$-dimensional Houghton channel defined in
-Section~\ref{sec:houghton}, let $Z_D=\diag(e^{2\pi ij/D})_{j=0}^{D-1}$, and set
-\[
-\Xi(X)=\frac1{32}\sum_{a=0}^{31}Z_{208}^aXZ_{208}^{-a},\qquad
-\Theta_6(X)=\frac16\sum_{a=0}^5Z_{104}^aXZ_{104}^{-a}.
-\]
-For $X\in M_{208}=M_2\otimes M_{104}$, written in blocks $X_{ij}$ of a tag qubit, put
-\[
-\widehat\Phi(X)=|0\rangle\langle0|\otimes\Phi_H(X_{00})+|1\rangle\langle1|\otimes\Theta_6(X_{11}).
-\]
+The sharpest comparison also matches the complete single-use Choi spectrum. Write $Z_D=\diag(e^{2\pi ij/D})_{j=0}^{D-1}$ and
+$\Xi_*(X)=\frac1{32}\sum_{a=0}^{31}Z_{1664}^aXZ_{1664}^{-a}$. Section~\ref{sec:flat-choi-proof} constructs a second explicit channel $\Omega$ by
+appending diagonal blocks to two copies of the Houghton gadget and balancing the weights of its group labels.
 
-\begin{mainthm}[Constant against polynomial memory]\label{cor:208}
-The channels $\Xi$ and $\widehat\Phi$ on $M_{208}$ both have Choi rank $32$, maximal complementary entropy $5$ with a flat optimal complementary
-output, and lie in $\mathcal K_{208}$, so both have $\kappa=0$ and optimal exchange rate $\frac52$. Put $\beta_H=1/(2\log_2 130+1)$.
+\begin{mainthm}[Memory beyond the Choi spectrum]\label{thm:flat-choi-separation}
+The channels $\Xi_*$ and $\Omega$ on $M_{1664}$ have identical normalized Choi spectra, with $32$ eigenvalues $1/32$ and all others zero.
+Both have maximal complementary entropy $5$, attained at the maximally mixed input, and lie in $\mathcal K_{1664}$, so both have
+$\kappa=0$ and optimal exchange rate $\frac52$. Put $\beta_H=1/(2\log_2 130+1)$.
 At exchange $J\le\frac52n$:
 \begin{enumerate}[label=(\alph*)]
-\item $\Xi$ has a causal service with error $0$, $Q=5$ and $P=C=0$ for every $n\ge1$;
-\item every causal service of $\widehat\Phi$ with error $\epsilon\le1/16$ has $Q=\Omega(n^{1/(2\log_2 130+2)})$, whatever its purity, and
-$Q\ge c_A(n/\log(n+1))^{\beta_H}-\frac98$ if $P+C\le A\log(n+1)$;
-\item for every $n\ge1$ and $0<\epsilon\le1$, $\widehat\Phi$ has a causal service with error $\epsilon$, $P=C=0$ and
+\item $\Xi_*$ has a causal service with error $0$, $Q=5$ and $P=C=0$ for every $n\ge1$;
+\item every causal service of $\Omega$ with error $\epsilon\le1/16$ has $Q=\Omega(n^{1/(2\log_2 130+2)})$, whatever its purity, and
+$Q\ge c_{A+3}(n/\log(n+1))^{\beta_H}-\frac{33}{8}$ if $P+C\le A\log(n+1)$;
+\item for every $n\ge1$ and $0<\epsilon\le1$, $\Omega$ has a causal service with error $\epsilon$, $P=C=0$ and
 $Q=O((n/\epsilon)^{1/3}\log^{4/3}(2n/\epsilon))$.
 \end{enumerate}
-Above that exchange, with excess $E_{\rm x}=(J-\frac52n)_+$, every service of $\widehat\Phi$ with error $\epsilon\le1/16$ satisfies the bound of
-Corollary~\ref{cor:purity}(d) with $Q+1$ in place of $Q$; so the separation survives an excess exchange of $O(n^\gamma)$ for every $\gamma<1$.
+Above that exchange, with excess $E_{\rm x}=(J-\frac52n)_+$, every service of $\Omega$ with error $\epsilon\le1/16$ satisfies the bound of
+Corollary~\ref{cor:purity}(d) with $Q+4$ in place of $Q$; so the separation survives an excess exchange of $O(n^\gamma)$ for every $\gamma<1$.
 \end{mainthm}
 
-The proof is in Section~\ref{sec:matched-proof}. The lower and upper memory exponents do not match: the theorem separates memory costs,
-not their exact asymptotic laws.
+The proof is in Section~\ref{sec:flat-choi-proof}. The lower and upper memory exponents do not match: the theorem separates memory costs,
+not their exact asymptotic laws. A smaller pair on $M_{208}$ matches Choi rank, maximal complementary entropy, its optimal spectrum, and purity
+cost, but not the full Choi spectrum (Corollary~\ref{cor:208}).
 
 The underlying example is a channel $\Phi_H$ on $\mathbb C^{104}$ built from Houghton's group (Section~\ref{sec:houghton}). It has the same
 Choi rank $26$, entropy $\log26$, flat optimal complementary spectrum and zero purity cost as the exact factor
@@ -413,7 +410,7 @@ minimal complement.
 \begin{definition}[Causal service]\label{def:service}
 A causal service of $\Phi$ for $n$ rounds consists of a memory register of $Q$ qubits prepared in a fixed state
 $\beta_0$, and, for each round $t$, fixed unitaries on the input and memory, a release of the $d$-dimensional
-output, and a replacement step in which a prescribed set of memory qubits is exported permanently and replaced by the
+output, and, if $t<n$, a replacement step in which a prescribed set of memory qubits is exported permanently and replaced by the
 same number of imported qubits in a fixed joint state, independent of everything else (the qubits imported in one step may be
 correlated with each other). The protocol is public. An observer chooses each input, possibly
 entangled with its own references and adaptively after all earlier outputs. The \emph{error} is the supremum over
@@ -430,7 +427,8 @@ happen between rounds.
 \begin{remark}
 The contract counts every qubit that is retained, including clocks, padding and workspace. There is no free reset,
 postselection or measurement record. Efficient gate synthesis is not required. In Definition~\ref{def:service} imports happen
-between rounds, so after composing the unitaries of a round every service is collision-at-call. Theorem~\ref{thm:bridge}
+between rounds, with no replacement after the final output. A bath-only final replacement may be retained in a mathematical dilation and
+omitted from the physical device: it cannot change the observer's state. After composing the unitaries of a round every service is collision-at-call. Theorem~\ref{thm:bridge}
 also allows imports inside a round. Theorem~\ref{thm:sequential} does not: a retained maximally mixed qubit, refreshed between four
 controlled Pauli twirls, serves the completely depolarizing channel on $M_4$ exactly with $Q=1$ and $P=C=0$, while one unitary with a
 two-dimensional bath gives Choi rank at most four and so stays at Choi distance at least $3/4$ from it.
@@ -522,6 +520,23 @@ whose membership in $\mathcal K_d$ is unknown we call $H/2$ its \emph{entropy ra
 prescribed error decay and purity linear in $n$ when $\kappa>0$; finer requirements, such as logarithmic purity at a fixed error, are where
 approximation enters.
 
+\begin{theorem}[Exchange--purity rate region]\label{thm:rate-region}
+Fix a channel $\Phi$. Consider sequences of causal services, one for every horizon $n$, with $Q_n=o(n)$ and error tending to zero.
+The closure of their finite achievable rate pairs
+\[
+j=\lim_{n\to\infty}J_n/n,\qquad b=\lim_{n\to\infty}(P_n+C_n)/n
+\]
+is exactly
+\[
+\boxed{\quad b\ge\kappa(\Phi),\qquad j\ge b,\qquad 2j-b\ge H(\Phi).\quad}
+\]
+In particular, at a prescribed actual purity-consumption rate $b\ge\kappa(\Phi)$, the least exchange rate in this closed region is
+$\max\{b,(H(\Phi)+b)/2\}$. Achievability uses the closed-device rate theorem~\cite[Theorem~2.1]{Douglas2026closed}; it does not prescribe an error-decay rate.
+\end{theorem}
+
+Here $b$ is the consumed purity rate, not an upper budget. Increasing an allowed budget need not increase the least exchange;
+requiring actual consumption at rate $b$ is a different constraint.
+
 \begin{proposition}[The range of $\kappa$]\label{prop:kappa-range}
 \begin{enumerate}[label=(\alph*)]
 \item $\kappa$ is convex, and $\kappa(\Phi)\le\log d$.
@@ -533,12 +548,13 @@ point of the channels on $M_d$~\cite{Choi1975}, then $\kappa(\Phi)=H(\Phi)$.
 \[
 \kappa(\Phi)\le\min\{\log d,\ (\log d/\lambda)\,\delta\}.
 \]
+\item $\kappa$ is lower semicontinuous on the channels on $M_d$.
 \end{enumerate}
 \end{proposition}
 
 Part~(d) bounds $\kappa$ linearly by distance to any fixed full-Choi-rank member of the closure class. It is not a two-point Lipschitz
 statement on a neighborhood: $\mathcal K_d$ consists of unital channels and has empty interior in the space of all channels when $d\ge2$.
-At some rank-deficient members of the closure, $\kappa$ jumps.
+At some rank-deficient members of the closure, $\kappa$ jumps down at the limit, consistently with~(e).
 
 \begin{proposition}[$\kappa$ is discontinuous at the closure]\label{prop:discontinuity}
 \begin{enumerate}[label=(\alph*)]
@@ -732,7 +748,7 @@ $\mathcal K_d$) whose optimal complementary spectrum is flat that rate is the op
 Let $\Phi$ on $M_d$ have a finite tracial factorization of bath dimension $m$ and Choi rank $r\ge2$. For every $n\ge1$ and $0<\epsilon\le1$, with
 $x=\log(128n/\epsilon)$, there is a causal service of $\Phi$ with error $\epsilon$,
 \[
-J=\Big\lfloor\frac n2\log r\Big\rfloor,\qquad P=C=0,
+J\le\Big\lfloor\frac n2\log r\Big\rfloor,\qquad P=C=0,
 \]
 and $Q\le\log m+\log(2+\log m)+O_d(x)+\lceil\log(n+1)\rceil$.
 If $H(\Phi)=\log r$, no history of the construction ever exceeds its cost threshold.
@@ -825,7 +841,7 @@ Let $\Phi$ on $M_d$ have Choi rank $r\ge2$, let $n\ge1$ and $0<\epsilon\le1$, an
 dimension $m$ with $\dJ(\Psi,\Phi)\le\epsilon/(8dn)$; for $\Phi\in\mathcal K_d$ one may take $m=\DChoi_\Phi(\epsilon/(8dn))$. There is a causal service of $\Phi$ with error
 $\epsilon$,
 \[
-J=\Big\lfloor\frac n2\log r\Big\rfloor,\qquad P=C=0,\qquad Q\le\log m+\log(2+\log m)+O_d\big(x^2\big) .
+J\le\Big\lfloor\frac n2\log r\Big\rfloor,\qquad P=C=0,\qquad Q\le\log m+\log(2+\log m)+O_d\big(x^2\big) .
 \]
 The constants depend only on $d$.
 \end{theorem}
@@ -1052,7 +1068,8 @@ P+C\ \le\ 14Q+4E_{\rm x}+2\log\tfrac{16}7 .
 In particular $P+C\le14Q+2\log\frac{16}7$ at $J\le\frac n2\log r$.
 \end{theorem}
 
-The general fixed-error form does not widen the error range of the Houghton extraction or of Theorem~\ref{cor:208}, which remains $\epsilon\le1/16$.
+The general fixed-error form does not widen the error range of the Houghton extraction or of Theorem~\ref{thm:flat-choi-separation} and
+Corollary~\ref{cor:208}, which remains $\epsilon\le1/16$.
 
 For $\Phi_H$ the probe spectrum is flat on $26$ levels (Theorem~\ref{thm:strong-converse}), so Theorem~\ref{thm:constant-lower} applies with a budget
 $B=14Q+3$ and gives a memory bound at the optimal rate that needs no assumption on the purity (Corollary~\ref{cor:purity}(c)).
@@ -1125,7 +1142,33 @@ corollary's like $\epsilon^{-1/3}$; at $\epsilon=n^{-a}$ the corollary is better
 A lower bound read solely from the one-round profile cannot exceed order $n^{1/3}$ at a fixed error (Proposition~\ref{prop:smoothed-u0}), so the
 exponent $\frac13$ is the natural target for a lower bound.
 
-Theorem~\ref{cor:208} combines these bounds with a tag qubit to give constant versus polynomial memory while matching the stated invariants.
+\subsection{A smaller matched-invariant pair}
+
+Let $Z_D=\diag(e^{2\pi ij/D})_{j=0}^{D-1}$, and set
+\[
+\Xi(X)=\frac1{32}\sum_{a=0}^{31}Z_{208}^aXZ_{208}^{-a},\qquad
+\Theta_6(X)=\frac16\sum_{a=0}^5Z_{104}^aXZ_{104}^{-a}.
+\]
+For $X\in M_{208}=M_2\otimes M_{104}$, written in tag blocks $X_{ij}$, put
+\[
+\widehat\Phi(X)=|0\rangle\langle0|\otimes\Phi_H(X_{00})+|1\rangle\langle1|\otimes\Theta_6(X_{11}).
+\]
+
+\begin{corollary}[Constant against polynomial memory in dimension $208$]\label{cor:208}
+The channels $\Xi$ and $\widehat\Phi$ both have Choi rank $32$, maximal complementary entropy $5$ with a flat optimal complementary output,
+and lie in $\mathcal K_{208}$. Thus both have $\kappa=0$ and optimal exchange rate $\frac52$. At exchange $J\le\frac52n$:
+\begin{enumerate}[label=(\alph*)]
+\item $\Xi$ has a causal service with error $0$, $Q=5$ and $P=C=0$ for every $n\ge1$;
+\item every service of $\widehat\Phi$ with error $\epsilon\le1/16$ has $Q=\Omega(n^{1/(2\log_2 130+2)})$, whatever its purity, and
+$Q\ge c_A(n/\log(n+1))^{\beta_H}-\frac98$ if $P+C\le A\log(n+1)$;
+\item for every $n\ge1$ and $0<\epsilon\le1$, $\widehat\Phi$ has a service with error $\epsilon$, $P=C=0$ and
+$Q=O((n/\epsilon)^{1/3}\log^{4/3}(2n/\epsilon))$.
+\end{enumerate}
+For excess exchange $E_{\rm x}=(J-\frac52n)_+$, every service of $\widehat\Phi$ with error $\epsilon\le1/16$ obeys
+Corollary~\ref{cor:purity}(d) with $Q+1$ in place of $Q$. This pair need not have identical Choi spectra.
+\end{corollary}
+
+Section~\ref{sec:matched-proof} proves the corollary. Theorem~\ref{thm:flat-choi-separation} trades the smaller dimension for equality of the full Choi spectrum.
 
 \section{Houghton's group and the channel}\label{sec:houghton}
 %======================================================================
@@ -2027,17 +2070,34 @@ $\epsilon_n\to0$, divide by $2n$ and use $\kappa_{\epsilon_n}\to\kappa$.
 
 (b) Insert instead $P+C\ge n(\Delta_J-\epsilon)_+^2/(2\ln2)$ from Theorem~\ref{thm:purity}(b), and $J\le nH/2$.
 
-(c) By~\cite[Theorem~2.1]{Douglas2026closed} the pair $((H+\kappa)/2,(H-\kappa)/2)$ lies in the closure of the achievable rate pairs, so for $\eta>0$
-there are closed devices for every horizon $L$, with errors $\delta_L\to0$, bath dimensions $R_L$ and bath states $\omega_L$, such that
-$\log R_L/L\le(H+\kappa)/2+\eta+o(1)$ and $(\log R_L-S(\omega_L))/L\le\kappa+\eta+o(1)$. Put $s_n=\sup_{L\ge\sqrt n}\delta_L$, which tends to zero,
-$g(n)=\min\{\sqrt n,s_n^{-1/2}\}$, which tends to infinity, and $L_n=\lceil n/g(n)\rceil\ge\sqrt n$. Serve $n$ rounds in consecutive blocks of $L_n$
-rounds, the last block taking the remainder, so that every block has length between $L_n$ and $2L_n$. Serve each block by the closed device for its
-length. The memory has $Q_n=\max_L\lceil\log R_L\rceil$ qubits over the two block lengths used, the unused ones maximally mixed; the first block's bath
-is the initial memory. Before each block after the first, export the $\lceil\log R_L\rceil$ qubits that will hold that block's bath ($L$ its length)
-and import its fresh bath $\omega_L$ embedded in them. Fresh baths are independent of everything before, so a hybrid argument over the at most
-$g(n)$ blocks bounds the error of the whole experiment by $g(n)s_n\le s_n^{1/2}\to0$. The memory is $O(L_n)=O(n/g(n))=o(n)$. The step before a block of
-length $L$ exchanges $\lceil\log R_L\rceil\le\log R_L+1$ qubits, and each block, including the first, costs at most $\log R_L-S(\omega_L)+1$ in purity, so
-$J_n/n$ and $(P_n+C_n)/n$ obey the stated bounds.
+(c) Apply the achievability construction in the following proof of Theorem~\ref{thm:rate-region} to closed pairs approaching
+$((H+\kappa)/2,(H-\kappa)/2)$. Its converse and construction do not use part~(c) of this corollary.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:rate-region}]
+The purity converse gives $b\ge\kappa$. Since $P\le Q$ and $C\le J$, sublinear memory gives $b\le j$. Dividing the entropy ledger of
+Proposition~\ref{prop:exchange} by $n$ gives $2j-b\ge H$. These inequalities are closed.
+
+Conversely, put $r=j$ and $s=j-b$. The three inequalities are precisely $s\ge0$, $r-s\ge\kappa$ and $r+s\ge H$, the closed-device region
+of~\cite[Theorem~2.1]{Douglas2026closed}. Take an actually achievable closed pair arbitrarily near $(r,s)$. Its devices exist for every length
+$L$, with bath dimension $R_L$, initializer entropy $S_L$, error $\delta_L\to0$, and actual rates $\log R_L/L\to r$ and $S_L/L\to s$.
+It suffices to turn this pair into $(j,b)=(r,r-s)$ for open devices and then take closures.
+
+Set $a_n=\sup_{L\ge\lfloor\sqrt n\rfloor}\delta_L\to0$. Choose integers
+$B_n=\lfloor\min\{\sqrt n,a_n^{-1/2}\}\rfloor$, omitting the second entry when $a_n=0$ and using at least one block for small $n$.
+Then $B_n\to\infty$, $B_n\le\sqrt n$ and $B_na_n\to0$. Partition $n$ into $B_n$ nearly equal integer lengths $L_i$. Their minimum is at least
+$\lfloor\sqrt n\rfloor$ and their maximum is $o(n)$. Run the closed device of length $L_i$ in block $i$. Pad the retained register with flat
+unused qubits to $Q_n=\max_i q_{L_i}$, where $q_L=\lceil\log R_L\rceil$. Before each later block replace the $q_{L_i}$ slots assigned to its bath
+by an independent copy of its initializer. Slots not in that block's bath are not acted upon during it; any residual correlations in them
+cannot affect the fresh bath or the observer's subsequent reduced state.
+
+The complete-experiment hybrid bound is at most $B_na_n\to0$, with the observer's entire memory treated as the reference at each block.
+Also $Q_n=O(\max_i L_i)=o(n)$, and
+\[
+J_n=\sum_{i=2}^{B_n}q_{L_i},\qquad P_n+C_n=\sum_{i=1}^{B_n}(q_{L_i}-S_{L_i}).
+\]
+The first omitted bath size is $o(n)$, and integer rounding contributes at most $B_n=o(n)$. Since every $L_i\to\infty$ uniformly and
+$\sum_iL_i=n$, division by $n$ gives the rates $r$ and $r-s$. Taking closures proves the theorem.
 \end{proof}
 
 \subsection{The range of $\kappa$}
@@ -2094,6 +2154,11 @@ diverge as $\rho$ approaches a state that maximizes $S(\Phi^c(\rho))$ on the bou
 $p\ge1$ the claim is (a). Otherwise $\mathcal J(\Phi)-(1-p)\mathcal J(\Theta)=Y+p\mathcal J(\Theta)\ge0$ has trace $p$ and reference marginal $p\tau_d$, so it is $p$
 times the Choi state of a channel $\Lambda$, and $\Phi=(1-p)\Theta+p\Lambda$. By convexity, $\kappa(\Theta)=0$ and (a),
 $\kappa(\Phi)\le p\log d$.
+
+(e) If $\ddia(\Phi,\Psi)\le u$, every feasible extension for $k_{\rho,\epsilon}(\Psi)$ is feasible for $k_{\rho,\epsilon+u}(\Phi)$, by the triangle
+inequality on the purified input. Taking infima and then suprema gives $\kappa_{\epsilon+u}(\Phi)\le\kappa_\epsilon(\Psi)$.
+For $\Phi_j\to\Phi$ and fixed $\eta>0$, eventually $\ddia(\Phi_j,\Phi)\le\eta/2$, hence
+$\kappa_\eta(\Phi)\le\kappa_{\eta/2}(\Phi_j)\le\kappa(\Phi_j)$. Take the liminf in $j$ and then $\eta\downarrow0$.
 \end{proof}
 
 \subsection{Discontinuity}
@@ -2781,7 +2846,8 @@ flat state of $q$ qubits has weight less than $mE_{\max}/2^q\le\epsilon/4$ outsi
 Taking logarithms in~\eqref{eq:Dcondition}, where $\log A_D$ and $\log L_c$ are $O(\log n+\log d+\log\log D)$, one can take
 $q\le\log m+\log(2+\log m)+b/2+O_d(x)$; moreover $b=O(d^2\min\{\sqrt{nx},x/s\})$ and $x\le\min\{\sqrt{nx},x/s\}$ in this branch,
 and $h$, $E_{\max}$ and $r$ are bounded in terms of $d$. Prescribe the selected round-dependent unitaries directly, as
-Definition~\ref{def:service} permits. No retained clock is needed, so $Q=q$, $P=C=0$, $J=J_n\le n(H/2+s)$,
+Definition~\ref{def:service} permits. Omit the final bath-only replacement from the physical device; the frame argument may keep it as a
+comparison isometry without changing the observer's state. No retained clock is needed, so $Q=q$, $P=C=0$, $J\le J_n\le n(H/2+s)$,
 and the error is below $51\epsilon/128$. A pure clock of $\lceil\log(n+1)\rceil$ qubits is an optional implementation with the looser stated bills. If $x\ge n$, use $n$
 untouched $m$-dimensional baths, one per round, encoded in $\lceil n\log m\rceil$ qubits prepared uniformly on an
 $m^n$-dimensional subspace; this is exact with $J=C=0$, $Q=O_\Phi(n)$ and an extra initial deficit below one.
@@ -2983,7 +3049,8 @@ argument of Theorem~\ref{thm:upper}. No clock is needed: Definition~\ref{def:ser
 mixers and replacements can be specified directly as that sequence. The protocol uses no random controller or additional retained register.
 
 \emph{From $\Psi$ to $\Phi$.} By~\eqref{eq:dJ-ddia}, $\ddia(\Psi,\Phi)\le\epsilon/(8n)$, so replacing the ideal uses of $\Psi$ by uses of $\Phi$ changes every observer's
-final state by at most $\epsilon/8$, and the total error is below $\epsilon$. The exchange is $J=\lfloor n\nu\rfloor$ and $P=C=0$.
+final state by at most $\epsilon/8$, and the total error is below $\epsilon$. Omitting the final bath-only replacement gives
+$J\le\lfloor n\nu\rfloor$ and $P=C=0$.
 Unlike in the proof of Theorem~\ref{thm:closure-upper}, no exchange is spent on $H(\Psi)-H(\Phi)$: the excess cost
 of the approximant is paid by the term $n\zeta$ in $b$.
 \end{proof}
@@ -3008,7 +3075,7 @@ Theorem~\ref{thm:constant-lower} with $B=P+C=O(\log n)$.
 
 \subsection{The matched-invariant separation}\label{sec:matched-proof}
 
-\begin{proof}[Proof of Theorem~\ref{cor:208}]
+\begin{proof}[Proof of Corollary~\ref{cor:208}]
 \emph{The channel $\Xi$.} The $32$ unitaries $Z_{208}^a$ are orthonormal for the normalized trace, since $\tau(Z_{208}^b)=0$ for $0<|b|<208$, and
 $32=2^5$, so Proposition~\ref{prop:weyl} gives Choi rank $32$, $H=5$ with flat complementary output, and~(a). The unitary $\sum_aZ_{208}^a\otimes|a\rangle\langle a|$
 with a flat $32$-dimensional bath is an exact factorization, so $\Xi\in\mathcal K_{208}$.
@@ -3042,6 +3109,87 @@ $J\le\frac n2\log32$, Theorem~\ref{thm:rank-purity} gives $P+C\le14Q+3$, hence $
 proof of Corollary~\ref{cor:purity}(c), gives $Q'=\Omega(n^{\beta_H/(1+\beta_H)})$, and with $P+C\le A\log(n+1)$ it gives the second bound. Above
 the exchange $\frac52n$, Theorem~\ref{thm:rank-purity} gives $P+C\le14Q+4E_{\rm x}+3$, hence $P'+C'\le14Q'+4E_{\rm x}$, and the argument of
 Corollary~\ref{cor:purity}(d) applies to $S'$, whose exchange is that of $S$.
+\end{proof}
+
+%======================================================================
+\subsection{Matching the full Choi spectrum}\label{sec:flat-choi-proof}
+
+\begin{proof}[Construction and proof of Theorem~\ref{thm:flat-choi-separation}]
+\emph{Balancing the labels.} Write the canonical Houghton gadget as $U_H=\sum_{g\in G}K_g\otimes\lambda(g)$ and put
+$\mu_g=\|K_g\|_F^2$. Its singleton slots have weight one and its triangle slots weight one-half. Grouping them by the labels of
+Table~\ref{tab:labels} gives the histogram
+\[
+2\ (17\text{ times}),\quad 5/2,\quad4\ (3\text{ times}),\quad9/2,\quad6,\quad10,\quad25/2,\quad45/2.
+\]
+Thus $\sum_g\mu_g=104$, every $2\mu_g$ is an integer and $2\mu_g\le45$. Form a block-diagonal unitary $U_*$ from two copies of $U_H$,
+then $52-2\mu_g$ singleton blocks $\lambda(g)$ for each old label, and $52$ singleton blocks for each of the six new labels
+$a^j$, $3\le j\le8$. Their translations differ from those of all old labels. There are $26\cdot52-208=1144$ old-label singleton
+blocks and $312$ new-label blocks, so the system dimension is $208+1144+312=1664=16\cdot104$.
+
+Let $\Omega$ be the channel obtained with the canonical group trace. Grouping slots by label gives $32$ Kraus matrices $A_g$ with
+disjoint matrix-entry supports and $\|A_g\|_F^2=52$. Hence
+\[
+\mathcal J(\Omega)=\frac1{1664}\sum_g|A_g\rangle\!\rangle\langle\!\langle A_g|
+\]
+has exactly $32$ nonzero eigenvalues, all $1/32$. Also $\Omega^c(\tau_{1664})=I_{32}/32$, so $H(\Omega)=5$.
+The trace-orthonormal unitaries $Z_{1664}^a$, $0\le a<32$, give the same Choi spectrum and optimal complementary output for $\Xi_*$.
+It is an exact finite factor, and Proposition~\ref{prop:weyl} gives its exact service with $Q=5$, $P=C=0$ and
+$J=5\lfloor(n-1)/2\rfloor\le5n/2$.
+
+\emph{Finite approximants, including cross-block moments.} Use the smoothed model $\rho_{M,k}$ of Lemma~\ref{lem:choi-structure}, with even
+$M\ge12$ and bath dimension $m=M^22^{k(4M+4)}$. In the two old gadget copies evaluate the literal slot words as before. For each added
+old-label singleton use its canonical normal form $\hat g=h\,a^u b^v$ from Table~\ref{tab:labels}; for the new labels use $\rho(a)^j$.
+Every singleton is unitary and each triangle uses the actual product in its lower-right entry. This is therefore an exact finite
+tracial factor, not an approximate unitary.
+
+The holonomy proof of Lemma~\ref{lem:choi-structure} applies also when either canonical entry is an added singleton: for equal translations,
+the canonical moment is $1$ for equal labels, $4^{-k}$ for a three-cycle difference and $0$ otherwise. One exceptional original slot
+multiplies that moment by $z$ or $\bar z$; with two exceptional slots the holonomies cancel. The reason remains the same: the canonical
+permutations act on coordinates $1,\ldots,4$, while the correction acts on their complement. Unequal translations give zero trace.
+The new translations $(3,0),\ldots,(8,0)$ are distinct from the old ones, whose first coordinates lie between $-1$ and $2$ and second
+coordinates between $-1$ and $1$. Every unequal comparison involving a new label thus has a nonzero coordinate difference of magnitude
+at most $9<M$, so it moves the clock and also has zero trace. Equal new labels have moment one.
+
+It follows that every slot-pair moment differs from the canonical group moment by at most $4^{-k}+|1-z|$. There are
+$N=2\cdot174+1144+312=1804$ nonzero slots with scalar coefficients $c_a$ and $\sum_a|c_a|^2=1664$.
+The Choi expansion, the triangle inequality for matrix units and Cauchy--Schwarz give
+\[
+\dJ(\Omega_{M,k},\Omega)\le\frac{(\sum_a|c_a|)^2}{2\cdot1664}(4^{-k}+|1-z|)
+\le902(4^{-k}+|1-z|).
+\]
+Lemma~\ref{lem:second-order} gives $|1-z|\le k\pi^2/(2M^3)+8k^2\pi^2/M^4$. For $0<\delta\le1/2$, take
+\[
+k=\lceil\log_4(1804/\delta)\rceil,\qquad
+M\ge\max\{12,(1804k\pi^2/\delta)^{1/3},(28864k^2\pi^2/\delta)^{1/4}\},\quad M\text{ even}.
+\]
+The three error contributions are at most $\delta/2$, $\delta/4$ and $\delta/4$. Taking the least such even $M$ proves
+\begin{equation}\label{eq:flat-choi-profile}
+\log\DChoi_\Omega(\delta)=O\big(\delta^{-1/3}\log^{4/3}(2/\delta)\big).
+\end{equation}
+In particular $\Omega\in\mathcal K_{1664}$ and $\kappa(\Omega)=0$. Theorem~\ref{thm:rank-rate}, applied at Choi accuracy
+$\epsilon/(8\cdot1664n)$ and rank $32$, proves~(c), with no initial or imported purity. The logarithmic terms of that compiler are
+absorbed by the displayed memory bound. Both channels' optimal asymptotic exchange rate is $5/2$ by Corollary~\ref{cor:exchange-purity}.
+
+\emph{Transferring the lower bound.} Identify the system with $\mathbb C^{16}\otimes\mathbb C^{104}$ so that tag $0$ is the first original
+Houghton block. This block is invariant and its restriction is exactly $\Phi_H$. The tag-recycling argument in the proof of
+Corollary~\ref{cor:208} now uses four initially pure tag qubits, rather than one: a service of $\Omega$ induces a service of $\Phi_H$ with
+\[
+Q'=Q+4,\qquad P'=P+4,\qquad C'=C,\qquad J'=J,
+\]
+and no larger complete-experiment error. Indeed, an observer can feed the returned tag into the next call; ideally it always stays zero,
+and the reduced output process is exactly that of $\Phi_H$. This accounts for the tag without resetting it.
+
+The flat rank-$32$ probe and Theorem~\ref{thm:rank-purity}, at $\epsilon\le1/16$, give
+$P+C\le14Q+4E_{\rm x}+3$, hence $P'+C'\le14Q'+4E_{\rm x}$. Theorem~\ref{thm:constant-lower} yields
+\[
+\big(14(Q+4)+4E_{\rm x}+\log(n+1)\big)(Q+4+1/8)^{1/\beta_H}\ge c_a^{1/\beta_H}n.
+\]
+For $E_{\rm x}=0$ this first rules out $Q=O(\log n)$ and then gives $Q=\Omega(n^{\beta_H/(1+\beta_H)})$.
+The same argument as Corollary~\ref{cor:purity}(d) handles sublinear excess exchange. If instead $P+C\le A\log(n+1)$, direct application gives
+\[
+Q\ge c_a\left(\frac{n}{(A+5)\log(n+1)}\right)^{\beta_H}-\frac{33}{8},
+\]
+since the four tag qubits add only four to the purity budget. This proves~(b) and the excess-exchange assertion.
 \end{proof}
 
 %======================================================================
@@ -3359,7 +3507,7 @@ arguments proved in the text. They do not claim a formal verification of the ful
 \bibitem{Kesten1959} H.~Kesten, Symmetric random walks on groups, Trans. Amer. Math. Soc. \textbf{92} (1959), 336--354.
 \bibitem{BoesWilming2018} P.~Boes, H.~Wilming, R.~Gallego and J.~Eisert, Catalytic quantum randomness, Phys. Rev. X \textbf{8} (2018), 041016; arXiv:1804.03027.
 \bibitem{Tropp2012} J.~A.~Tropp, User-friendly tail bounds for sums of random matrices, Found. Comput. Math. \textbf{12} (2012), 389--434; arXiv:1004.4389.
-\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/0873417a8b8b5f3a6d0f7dfcf4dd255d37922ed9}{version 0873417}.
+\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/45116ce0a32f02919129148df978917ebfe27d19}{version 45116ce}.
 \bibitem{HaagerupMusat2015} U.~Haagerup and M.~Musat, An asymptotic property of factorizable completely positive maps and the Connes embedding problem, Comm. Math. Phys. \textbf{338} (2015), 721--752; arXiv:1408.6476.
 \bibitem{JNVWY2020} Z.~Ji, A.~Natarajan, T.~Vidick, J.~Wright and H.~Yuen, MIP$^*$ = RE, arXiv:2001.04383 (2020).
 \bibitem{Fritz2012} T.~Fritz, Tsirelson's problem and Kirchberg's conjecture, Rev. Math. Phys. \textbf{24} (2012), 1250012; arXiv:1008.1168.

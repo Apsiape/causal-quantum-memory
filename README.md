@@ -5,13 +5,18 @@ Seth Douglas and Nidhal Mghirbi — September 2026.
 [Read the manuscript](paper.pdf) · [TeX source](paper.tex) ·
 [Verification scope](verification/README.md)
 
-Two channels with matched Choi rank, maximal complementary entropy, flat optimal
-complementary spectrum and asymptotic purity cost can nevertheless have constant
-versus polynomial memory requirements at the same optimal exchange rate.
+Two explicit channels on dimension 1664 have the same complete normalized Choi
+spectrum (32 eigenvalues 1/32), maximal complementary entropy five and zero
+asymptotic purity cost, yet have constant versus polynomial memory requirements
+at the same optimal exchange rate. A smaller 208-dimensional pair matches the
+rank, entropy and optimal complementary spectrum, but not the full Choi spectrum.
 The paper studies this through finite-approximation profiles, sequential support
 tests, reservoir constructions and group presentations.
 
-The matched-invariant separation is Theorem A, stated in full at the start.
+The full-spectrum separation is Theorem A, stated in full at the start.
+For sublinear memory and vanishing error, the closed exchange–purity rate region
+is b >= kappa, j >= b, 2j - b >= H. Here b is actual consumed purity, not an
+upper budget; achievability uses the cited closed-device theorem.
 Both the rank-rate compiler and the entropy-rate closure compiler (in its stated
 rolling regime) use zero initial and imported purity under the stated
 round-dependent control contract. Error always refers to the complete adaptive
@@ -47,9 +52,9 @@ The bibliography is embedded in paper.tex.
 ## Dependencies
 
 The group-theoretic companion,
-[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/0873417a8b8b5f3a6d0f7dfcf4dd255d37922ed9),
-is pinned to version `0873417` in the manuscript. It
+[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/45116ce0a32f02919129148df978917ebfe27d19),
+is pinned to version `45116ce` in the manuscript. It
 contains the group-word certificates and their Lean checker. They are not
-duplicated here. The manuscript separately cites the published closed-device
+duplicated here. The manuscript separately cites the closed-device preprint's
 achievability theorem and other external results. Companion links require access
 while the repositories remain private.

@@ -23,6 +23,18 @@ theorem export_schedule (n r : Nat) : exports r n = slots n r := by
       have h := slots_monotone n r
       omega
 
+theorem omit_final_replacement (n r : Nat) : exports r (n - 1) ≤ slots n r := by
+  rw [export_schedule]
+  cases n with
+  | zero => simp [slots]
+  | succ k => simpa using slots_monotone k r
+
+-- The hypothesis is the analytic rank-purity bound; only the resource
+-- conversion after adding four pure tag qubits is formalized here.
+theorem four_tag_budget (purity Q excess : Nat)
+    (h : purity ≤ 14 * Q + 4 * excess + 3) :
+    purity + 4 ≤ 14 * (Q + 4) + 4 * excess := by omega
+
 theorem budget_inversion (purity Q excess : Nat)
     (h : purity ≤ 14 * Q + 4 * excess + 3) :
     purity - 4 * excess - 3 ≤ 14 * Q := by omega
@@ -67,4 +79,6 @@ theorem model_qubit_rounding :
 
 #print axioms fixed_error_budget
 #print axioms model_qubit_rounding
+#print axioms omit_final_replacement
+#print axioms four_tag_budget
 end CausalResources
