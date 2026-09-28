@@ -7,41 +7,44 @@ Seth Douglas and Nidhal Mghirbi — September 2026.
 
 Two explicit channels on dimension 1664 have the same complete normalized Choi
 spectrum (32 eigenvalues 1/32), maximal complementary entropy five and zero
-asymptotic purity cost, yet have constant versus polynomial memory requirements
-at the same optimal exchange rate. A smaller 208-dimensional pair matches the
-rank, entropy and optimal complementary spectrum, but not the full Choi spectrum.
-The paper studies this through finite-approximation profiles, sequential support
-tests, reservoir constructions and group presentations.
-Any group gadget can be completed to a flat-Choi-spectrum channel while remaining
-an invariant corner, with a counted fixed tag cost for transferring service lower
-bounds. Quantitative corner restriction shows that the generic construction
-preserves finite-factor-closure membership in both directions. Purity cost cannot
-decrease, directly from its conditional-entropy definition; a nonapproximable corner
-also yields a conditional linear memory obstruction at the completed rank rate.
-This identifies no new nonapproximable gadget. The explicit 1664-dimensional
-example is smaller than its generic completion.
+asymptotic purity cost. At the same optimal exchange rate, one uses five memory
+qubits exactly; the other needs polynomially many, even at fixed error at most
+1/16 and without a separate purity restriction. The latter also has a
+zero-purity service using O(n^(1/3) log^(4/3) n) memory at fixed error. The lower
+and upper exponents do not match. Theorem A states the precise separation.
 
-The full-spectrum separation is Theorem A, stated in full at the start.
-For sublinear memory and vanishing error, the closed exchange–purity rate region
-is b >= kappa, j >= b, 2j - b >= H. Here b is actual consumed purity, not an
-upper budget; achievability uses the cited closed-device theorem.
-Both the rank-rate compiler and the entropy-rate closure compiler (in its stated
-rolling regime) use zero initial and imported purity under the stated
-round-dependent control contract. Error always refers to the complete adaptive
-experiment, not merely one-call marginals. Gaps between upper and lower exponents
-remain explicit.
-
-For any pure probe with a flat output spectrum, memory bounds total purity at
-its rank exchange rate for every fixed error below one. This broader converse
-does not change the small-error restriction in the Houghton separation.
-
-For full-Choi-rank targets at fixed positive exchange slack, the compiler reads
-the finite-factor profile at accuracy of order epsilon/sqrt(n), with zero
-initial and imported purity in its rolling branch. This refinement does not
-apply to the proper-support Houghton target without additional hypotheses.
+Every output is released before the next input arrives. Error refers to the
+complete adaptive experiment with quantum references, not merely one-call
+marginals. All retained registers count as memory, and exchange counts
+replacement slots rather than both directions of traffic.
 
 This is a **private release candidate**, not an announced publication.
 Licenses and the joint public-release decision remain pending; see [RIGHTS.md](RIGHTS.md).
+
+## Reading guide
+
+The main article occupies pages 1–33, including the abstract and contents.
+The complete 67-page manuscript includes all technical appendices and references;
+no separate unpublished proof supplement is needed.
+
+| Question | Where to read |
+|---|---|
+| What is separated, and under which resource contract? | Theorem A; Sections 1–2 |
+| What sets the exchange and purity boundary? | Section 3 |
+| How is the hard channel constructed, bounded below and served? | Sections 4–6 |
+| Why do the complete Choi spectra agree? | Section 7 |
+| What extends to exact factors and other group channels? | Sections 8–9 |
+| What remains unresolved? | Section 10 |
+
+Appendices A–D contain the compiler, weighted extraction and refined converse
+proofs. Appendices E–K retain alternative services, purity examples, the general
+group correspondence, the Slofstra application, the smaller matched-invariant
+pair, general spectrum completion and adaptive-accuracy comparisons.
+
+The general exchange–purity rate region uses the cited closed-device
+achievability theorem; the explicit separation does not. Companion group results
+are version-pinned below. The manuscript distinguishes these dependencies from
+its own proofs and from the narrower scope of the executable checks.
 
 ## Reproduce
 
@@ -60,8 +63,8 @@ The bibliography is embedded in paper.tex.
 ## Dependencies
 
 The group-theoretic companion,
-[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/1eca2f6700f8459c243a22c71fd295801024aeec),
-is pinned to version `1eca2f6` in the manuscript. It
+[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/7c12e13cd3ff86c9b6a1401744d06f540f7f3414),
+is pinned to version `7c12e13` in the manuscript. It
 contains the group-word certificates and their Lean checker. They are not
 duplicated here. The manuscript separately cites the closed-device preprint's
 achievability theorem and other external results. Companion links require access
