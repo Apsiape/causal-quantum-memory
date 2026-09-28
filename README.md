@@ -18,8 +18,20 @@ complete adaptive experiment with quantum references, not merely one-call
 marginals. All retained registers count as memory, and exchange counts
 replacement slots rather than both directions of traffic.
 
-This is a **private release candidate**, not an announced publication.
-Licenses and the joint public-release decision remain pending; see [RIGHTS.md](RIGHTS.md).
+This repository contains the preprint, its source, and scoped verification
+artifacts. The manuscript is the authority for exact statements and hypotheses;
+the automated checks do not constitute full formal verification or peer review.
+
+## License and citation
+
+The manuscript and repository content are available under **CC BY 4.0**.
+The software and machine-readable certificates are additionally available under
+the **MIT License**, at your option; see [RIGHTS.md](RIGHTS.md) for the scope.
+
+Please cite Seth Douglas and Nidhal Mghirbi, *Causal quantum-channel simulation:
+memory beyond entropy* (2026). [CITATION.cff](CITATION.cff) provides
+machine-readable citation metadata. Tagged releases archive the corresponding
+manuscript and verification artifacts together.
 
 ## Reading guide
 
@@ -67,5 +79,5 @@ The group-theoretic companion,
 is pinned to version `e5f8ccf` in the manuscript. It
 contains the group-word certificates and their Lean checker. They are not
 duplicated here. The manuscript separately cites the closed-device preprint's
-achievability theorem and other external results. Companion links require access
-while the repositories remain private.
+achievability theorem and other external results. The pinned group source remains
+the mathematical dependency even when its release metadata is updated.
