@@ -24,3 +24,19 @@ assert k*(4*M+4) + 22 == 135766
 assert k*(4*M+4) + 23 == 135767
 print(f"Choi upper bound < {float(error):.12g}; constructed log2 dimension "
       f"{k*(4*M+4)+2*math.log2(M):.9f}; exact qubit ceiling 135767.")
+
+# Certified margins for the 135 M^(log2 107) area bound. In each inequality
+# the ratio decreases with p, so p >= 337/50 suffices; all comparisons below
+# are integers after raising to the fiftieth power.
+assert 107**50 > 2**337
+th_squared_base = (750*135*68)**2 * 624
+assert th_squared_base**50 * 9**337 * 16**724 < 625**724  # c_H > .0016
+kh_squared_numerator = (10**8*135*2**17)**2 * 16
+assert kh_squared_numerator**50 * 9**337 * 17**724 < 15**50 * 6250**724  # c_a > .00017
+p=math.log2(107)
+beta=1/(2*p+1)
+th=750*135*3**p*68*math.sqrt(624)
+kh=10**8*135*3**p*2**17
+ca=(16*kh**(2*beta))**-1*(16/15)**(-beta)
+assert 2.831e11 < th < 2.833e11 and 2.07e41 < (8*ca)**(-1/beta) < 2.08e41
+print("Exact 107-profile prefactors c_H > .0016, c_a > .00017 passed; rounded displays checked.")

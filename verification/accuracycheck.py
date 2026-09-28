@@ -25,3 +25,18 @@ for theta in (0.0, 0.01, 0.2, 0.7, np.pi/2):
         assert np.isclose(trace_distance(tensor_power(p,n), tensor_power(zero,n)),
                           np.sqrt(max(0, 1-c**(2*n))), atol=2e-8)
 print("Rotating-dephasing example: Choi distance, leakage and n=1..6 product distances verified.")
+
+bell=np.array([1,0,0,1])/np.sqrt(2)
+bell=np.outer(bell,bell)
+flat=np.kron(bell,np.eye(4)/4)
+support=np.kron(bell,np.eye(4))
+assert np.allclose(np.linalg.eigvalsh(flat)[-4:],[.25]*4)
+for t in (.1,.01,.001):
+    rho=np.diag([(1+t)/2,(1-t)/2])
+    actual=np.kron(bell,np.kron(rho,np.eye(2)/2))
+    assert np.allclose(support@actual@support,actual)
+    assert np.isclose(trace_distance(actual,flat),t/2)
+    vals=np.diag(rho)
+    gain=1+sum(vals*np.log2(vals))
+    assert abs(gain/t**2-1/(2*np.log(2)))<.002
+print("Flat-Choi SWAP example: common rank-four support, distance t/2 and quadratic entropy production passed.")

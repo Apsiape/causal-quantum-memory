@@ -16,7 +16,7 @@ Any group gadget can be completed to a flat-Choi-spectrum channel while remainin
 an invariant corner, with a counted fixed tag cost for transferring service lower
 bounds. Quantitative corner restriction shows that the generic construction
 preserves finite-factor-closure membership in both directions. Purity cost cannot
-decrease, using the cited operational characterization; a nonapproximable corner
+decrease, directly from its conditional-entropy definition; a nonapproximable corner
 also yields a conditional linear memory obstruction at the completed rank rate.
 This identifies no new nonapproximable gadget. The explicit 1664-dimensional
 example is smaller than its generic completion.
@@ -60,8 +60,8 @@ The bibliography is embedded in paper.tex.
 ## Dependencies
 
 The group-theoretic companion,
-[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/3c9fc5962682ec6dbbd99da22ca8cb60ba317755),
-is pinned to version `3c9fc59` in the manuscript. It
+[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile/tree/40936052560b89bf5cc1f79017501be161895421),
+is pinned to version `4093605` in the manuscript. It
 contains the group-word certificates and their Lean checker. They are not
 duplicated here. The manuscript separately cites the closed-device preprint's
 achievability theorem and other external results. Companion links require access

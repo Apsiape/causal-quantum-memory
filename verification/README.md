@@ -39,9 +39,14 @@ bounded finite checks, with per-command timeouts in the runner.
 - **accuracycheck.py:** Choi distance, support leakage and product-state distances
   for the rotating-dephasing example. The all-observer adaptive equality follows
   from the manuscript's common-processor proof, not finite numerical sampling.
+  It also checks the flat-Choi SWAP example's rank-four support, distance t/2,
+  and quadratic entropy-production expansion at three parameters. The universal
+  obstruction to linear trace-distance repair is the written unitality argument.
 - **scalarcheck.py:** exact rational upper bounds for the smoothed Choi example
   at k=16, M=2120 and error 10^-9, and the exact integer bracket that forces the
   bath-qubit ceiling 135767. The analytic Choi inequalities and pi < 22/7 are inputs.
+  Integer comparisons certify the updated 107-exponent margins c_H > .0016 and
+  c_a > .00017; floating-point tests check only the illustrative rounded displays.
 - **Lean Resources.lean:** exact dimension arithmetic, telescoping integer
   replacement schedules, a conditional integer budget inequality, and the cleared-
   denominator scalar margins in the expanded weighted-extraction ledger. The integer
@@ -57,7 +62,7 @@ when run.
 
 ## External and unformalized dependencies
 
-The companion [group paper, version 3c9fc59](https://github.com/Apsiape/houghton-sofic-profile/tree/3c9fc5962682ec6dbbd99da22ca8cb60ba317755)
+The companion [group paper, version 4093605](https://github.com/Apsiape/houghton-sofic-profile/tree/40936052560b89bf5cc1f79017501be161895421)
 supplies the Houghton far-commutator certificates, reweighting and group-profile
 arguments. Its verification notes state the exact formalization boundary.
 

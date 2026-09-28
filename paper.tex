@@ -61,7 +61,7 @@ What determines the memory needed to simulate a quantum channel repeatedly, when
 We exhibit two channels on $\mathbb C^{1664}$ with identical normalized Choi spectra: $32$ eigenvalues $1/32$ and all others zero. Both have
 maximal complementary entropy $5$, attained at the maximally mixed input, and zero asymptotic purity cost.
 At exchange at most $5n/2$ qubits, one has an exact zero-purity implementation with five
-memory qubits for arbitrarily many uses; the other requires $\Omega(n^{1/(2\log_2 130+2)})$ memory qubits at every fixed error at most $1/16$, regardless
+memory qubits for arbitrarily many uses; the other requires $\Omega(n^{1/(2\log_2 107+2)})$ memory qubits at every fixed error at most $1/16$, regardless
 of the available purity. The latter also admits a zero-purity implementation with memory $O(n^{1/3}\log^{4/3}n)$ at that exchange.
 
 More generally, for sublinear memory and vanishing error, the closed region of exchange and consumed-purity rates $(j,b)$ is
@@ -71,7 +71,7 @@ We prove that $\kappa$ vanishes exactly on the
 closure of finite tracial factorizations and is bounded below by the squared Choi distance to that closure. Within the closure, sequential
 support tests and reservoir constructions bound memory through finite-approximation profiles. For channels constructed from finite group
 presentations, these bounds translate into quantitative unitary approximation of the fixed list of gadget words. Houghton's group supplies the explicit
-separation above. All operational
+separation above; its support-profile exponent lies between $1/(2\log_2 107+1)$ and $1/3$. All operational
 bounds use complete-experiment error against adaptive observers with quantum references.
 \end{abstract}
 
@@ -165,12 +165,13 @@ appending diagonal blocks to two copies of the Houghton gadget and balancing the
 \begin{mainthm}[Memory beyond the Choi spectrum]\label{thm:flat-choi-separation}
 The channels $\Xi_*$ and $\Omega$ on $M_{1664}$ have identical normalized Choi spectra, with $32$ eigenvalues $1/32$ and all others zero.
 Both have maximal complementary entropy $5$, attained at the maximally mixed input, and lie in $\mathcal K_{1664}$, so both have
-$\kappa=0$ and optimal exchange rate $\frac52$. Put $\beta_H=1/(2\log_2 130+1)$.
+$\kappa=0$ and optimal exchange rate $\frac52$. Put $\beta_H=1/(2\log_2 107+1)$.
 At exchange $J\le\frac52n$:
 \begin{enumerate}[label=(\alph*)]
 \item $\Xi_*$ has a causal service with error $0$, $Q=5$ and $P=C=0$ for every $n\ge1$;
-\item every causal service of $\Omega$ with error $\epsilon\le1/16$ has $Q=\Omega(n^{1/(2\log_2 130+2)})$, whatever its purity, and
-$Q\ge c_{A+3}(n/\log(n+1))^{\beta_H}-\frac{33}{8}$ if $P+C\le A\log(n+1)$;
+\item every causal service of $\Omega$ with error $\epsilon\le1/16$ has $Q=\Omega(n^{1/(2\log_2 107+2)})$, whatever its purity, and
+for every fixed $A\ge0$, $Q\ge c_{A+3}(n/\log(n+1))^{\beta_H}-\frac{33}{8}$ if $P+C\le A\log(n+1)$,
+where $c_A$ is defined after Theorem~\ref{thm:constant-lower};
 \item for every $n\ge1$ and $0<\epsilon\le1$, $\Omega$ has a causal service with error $\epsilon$, $P=C=0$ and
 $Q=O((n/\epsilon)^{1/3}\log^{4/3}(2n/\epsilon))$.
 \end{enumerate}
@@ -185,12 +186,21 @@ the flat-probe purity bound (Theorem~\ref{thm:rank-purity}), spectrum completion
 cost, but not the full Choi spectrum (Corollary~\ref{cor:208}).
 More generally, Proposition~\ref{prop:spectrum-completion} completes any group gadget to a flat-Choi-spectrum channel while retaining it
 as an invariant corner. This preserves its memory obstruction up to a fixed tag cost, and preserves finite-factor-closure membership in
-both directions; the construction above optimizes the system dimension.
+both directions; the construction above reduces the system dimension to $1664$, without a minimality claim.
+
+\paragraph{Why the spectra can agree.}
+The original gadget has $26$ mutually orthogonal system coefficient matrices $K_g$, but unequal squared Frobenius norms $\mu_g$.
+Two copies make every $2\mu_g$ integral. Adding $52-2\mu_g$ scalar blocks for each old group label and $52$ for each of six new labels
+makes all $32$ norms equal to $52$, in total dimension $32\cdot52=1664$.
+Orthogonality then gives the common Choi spectrum, while an untouched $104$-dimensional corner still acts as $\Phi_H$.
+Four retained pure qubits suffice to select and recycle that corner: they add four to memory and initial purity, not a fresh cost per call.
+The lower bound applies the flat-probe purity estimate to the completed channel, then transfers to this corner. The upper bound combines
+the second-order Choi approximants with the rank-rate compiler. This is why matching a full Choi spectrum does not erase the obstruction.
 
 The underlying example is a channel $\Phi_H$ on $\mathbb C^{104}$ built from Houghton's group (Section~\ref{sec:houghton}). It has the same
 Choi rank $26$, entropy $\log26$, flat optimal complementary spectrum and zero purity cost as the exact factor
 $\Phi_0=\mathrm{id}_4\otimes\Delta_{26}$, where $\Delta_{26}$ is complete dephasing. At their optimal exchange rate, $\Phi_0$ needs only
-$O(\log n)$ memory, while $\Phi_H$ needs at least order $(n/\log n)^{1/15.04}$ at logarithmic purity and at most
+$O(\log n)$ memory, while $\Phi_H$ needs at least order $(n/\log n)^{1/14.48}$ at logarithmic purity and at most
 $O(n^{1/3}\log^{4/3}n)$ (Theorem~\ref{thm:intro-lower}).
 Table~\ref{tab:glance} collects the bounds.
 
@@ -210,7 +220,7 @@ Any channel in $\mathcal K_d$ & memory between the one-round profile at leakage 
 $\epsilon/(8dn)$ & Thms~\ref{thm:sequential}, \ref{thm:closure-upper}, \ref{thm:rank-rate}\\
 Gadget channel of a group & memory between the group's approximation profile at relator defect about $(\log n/n)^{1/4}$ and about
 $(n\log n)^{-1/2}$; if $\Phi_G\in\mathcal K_d$, the upper bound at the optimal rate & Thm~\ref{thm:group-bracket}\\
-Houghton channel $\Phi_H$ & in $\mathcal K_{104}$, $H=\log26$; memory between $(n/\log n)^{\beta_H}$, $\beta_H\approx1/15.04$, and
+Houghton channel $\Phi_H$ & in $\mathcal K_{104}$, $H=\log26$; memory between $(n/\log n)^{\beta_H}$, $\beta_H\approx1/14.48$, and
 $n^{1/3}\log^{4/3}n$, the upper bound at the optimal rate & Thm~\ref{thm:constant-lower}, Cor~\ref{cor:third}\\
 Slofstra channel $\Phi_S$ & memory at least $n^{1/8-o(1)}$, whichever side of $\mathcal K_d$ it lies on; at its rank rate at least $n^{1/9-o(1)}$
 whatever the purity, and linear if $\Phi_S\notin\mathcal K_d$ & Thm~\ref{thm:slofstra}\\
@@ -290,11 +300,11 @@ approximate representations of a finite piece of it need stretched-exponential d
 Choi rank $26$ and $H(\Phi_H)=\log26$, and lies in $\mathcal K_{104}$, so $\kappa(\Phi_H)=0$.
 
 \begin{mainthm}[Polynomial memory in the closure; Theorems~\ref{thm:constant-lower}, \ref{thm:rank-purity} and Corollary~\ref{cor:third}]\label{thm:intro-lower}
-Fix $0<\epsilon\le1/16$ and $A\ge4$, and put $\beta_H=1/(2\log130+1)\approx1/15.04$.
+Fix $0<\epsilon\le1/16$ and $A\ge4$, and put $\beta_H=1/(2\log107+1)\approx1/14.48$.
 \begin{enumerate}[label=(\alph*)]
 \item Every causal service of $\Phi_H$ for $n$ rounds with error $\epsilon$ and $P+C\le A\log(n+1)$ has, at any exchange,
 $Q\ge c_A(n/\log(n+1))^{\beta_H}-\frac18$.
-\item At the optimal exchange $J\le\frac n2\log26$, every causal service with error $\epsilon$ has $Q=\Omega(n^{1/(2\log130+2)})$, whatever its purity.
+\item At the optimal exchange $J\le\frac n2\log26$, every causal service with error $\epsilon$ has $Q=\Omega(n^{1/(2\log107+2)})$, whatever its purity.
 \item There is a causal service with error $\epsilon$, $J\le\frac n2\log26$, $P=C=0$ and $Q=O(n^{1/3}\log^{4/3}n)$.
 \end{enumerate}
 \end{mainthm}
@@ -409,6 +419,11 @@ most $\dJ$ under a change of channel, and~\eqref{eq:dJ-ddia} gives
 \Dmix_\Phi(u)\le\Dsupp_\Phi(u,v)\le\Dmix_\Phi(\min\{u/d,v\})\le\DChoi_\Phi(\min\{u/d,v\}).
 \end{equation}
 For channels of full Choi rank $\Pi_\Phi=I$ and the leakage condition is empty.
+Throughout, a dimension profile has value $+\infty$ when its defining feasible set is empty.
+
+A static profile does not determine memory without an exchange rate. For example, biased dephasing has $\DChoi\le4$ at every accuracy,
+yet at sufficiently small fixed error its memory is at least of square-root order at the entropy rate, logarithmic at any fixed rate
+strictly between the entropy and rank rates, and constant at the rank rate. Remark~\ref{rem:biased} gives the channel and precise bounds.
 
 For a channel $\Phi$ let $H(\Phi)=\max_\rho S(\Phi^c(\rho))$ be its maximal complementary entropy, computed with a
 minimal complement.
@@ -988,10 +1003,10 @@ The channel $\Phi_H$ of Section~\ref{sec:houghton} satisfies, for $0<\delta\le1/
 \]
 and, for every $\delta>0$,
 \[
-\log\Dmix_{\Phi_H}(\delta)\ \ge\ c_H\,\delta^{-\beta_H}-\tfrac1{16},\qquad\beta_H=\frac1{2\log130+1}\approx\frac1{15.04}.
+\log\Dmix_{\Phi_H}(\delta)\ \ge\ c_H\,\delta^{-\beta_H}-\tfrac1{16},\qquad\beta_H=\frac1{2\log107+1}\approx\frac1{14.48}.
 \]
-Here $c_H=T_H^{-2\beta_H}/16$ with $T_H=750\cdot30\cdot3^{\log130}\cdot68\sqrt{624}\approx8.567\cdot10^{10}$; numerically $c_H>2.2\cdot10^{-3}$,
-and the bound is nontrivial for $\delta<T_H^{-2}\approx1.4\cdot10^{-22}$. In particular $\Phi_H$ lies in the closure class but has no
+Here $c_H=T_H^{-2\beta_H}/16$ with $T_H=750\cdot135\cdot3^{\log107}\cdot68\sqrt{624}\approx2.832\cdot10^{11}$; numerically $c_H>1.6\cdot10^{-3}$,
+and the bound is nontrivial for $\delta<T_H^{-2}\approx1.25\cdot10^{-23}$. In particular $\Phi_H$ lies in the closure class but has no
 exact finite tracial factorization, nor an exact finite mixture of them.
 \end{theorem}
 
@@ -1014,18 +1029,31 @@ $T(\rho)=\mathrm{Tr}_{104}U(\tau_{104}\otimes\rho)U^*$. Then
 \[
 \log\mathrm{rank}\,\rho\ \ge\ S(\rho)\ \ge\ c_*(\ell+a)^{-\beta_H}-\tfrac18,
 \]
-with $c_*=(16K_H^{2\beta_H})^{-1}>2.5\cdot10^{-4}$ and $K_H=10^8\cdot30\cdot3^{\log130}\cdot2^{17}$. In particular no such channel has
+with $c_*=(16K_H^{2\beta_H})^{-1}>1.7\cdot10^{-4}$ and $K_H=10^8\cdot135\cdot3^{\log107}\cdot2^{17}$. In particular no such channel has
 $\ell+a=0$.
 \end{theorem}
+
+\begin{remark}[Flat Choi support does not give linear trace-distance repair]\label{rem:flat-repair}
+Let $\Phi=\mathrm{id}_2\otimes\mathcal D_2$, where $\mathcal D_2(X)=\Tr(X)I_2/2$, and let
+$\rho_t=\diag((1+t)/2,(1-t)/2)$, $0<t<1$. Swapping the second system qubit with a bath in state $\rho_t$ realizes
+$\Psi_t=\mathrm{id}_2\otimes\mathcal R_{\rho_t}$, where $\mathcal R_\rho(X)=\Tr(X)\rho$.
+The Choi state of $\Phi$ is flat of rank four, and $\Psi_t$ has exactly the same support, hence zero support leakage.
+Its bath entropy production at the maximally mixed input is
+$a_t=1-h_2((1+t)/2)=t^2/(2\ln2)+O(t^4)$.
+Every finite tracial mixture $\Theta$ is unital. Applying the output marginal of its Choi state shows
+$\dJ(\Psi_t,\Theta)\ge\tfrac12\|\Psi_t(\tau_4)-\tau_4\|_1=t/2$;
+the tracial channel $\Phi$ attains equality. Thus a uniform trace-distance repair of order $\ell+a$ is false even with flat Choi support and
+$\ell=0$. This does not refute a leakage-only repair bound that still allows square-root trace-distance error.
+\end{remark}
 
 \begin{theorem}[Constant-error lower bound]\label{thm:constant-lower}
 Every causal service of $\Phi_H$ for $n$ rounds with error $\epsilon\le1/16$ and $P+C\le B$ has, at any exchange,
 \[
-Q\ \ge\ c_a\Big(\frac{n}{B+\log(n+1)}\Big)^{\beta_H}-\frac18,\qquad c_a=c_*\,(16/15)^{-\beta_H}>2.5\cdot10^{-4}.
+Q\ \ge\ c_a\Big(\frac{n}{B+\log(n+1)}\Big)^{\beta_H}-\frac18,\qquad c_a=c_*\,(16/15)^{-\beta_H}>1.7\cdot10^{-4}.
 \]
 \end{theorem}
 
-The constants are far from optimal: the bound is positive only when $n/(B+\log(n+1))>(8c_a)^{-1/\beta_H}\approx2.8\cdot10^{40}$.
+The constants are far from optimal: the bound is positive only when $n/(B+\log(n+1))>(8c_a)^{-1/\beta_H}\approx2.1\cdot10^{41}$.
 For $A\ge0$ we write $c_A=c_a(A+2)^{-\beta_H}$: if $P+C\le A\log(n+1)+1$, then $B+\log(n+1)\le(A+2)\log(n+1)$ and the theorem gives
 $Q\ge c_A(n/\log(n+1))^{\beta_H}-\frac18$.
 What Theorem~\ref{thm:constant-lower} establishes is the exponent.
@@ -1086,7 +1114,7 @@ $B=14Q+3$ and gives a memory bound at the optimal rate that needs no assumption 
 $P+C\ge n\big(c_a/(Q+\frac18)\big)^{1/\beta_H}-\log(n+1)$; bounded memory needs a purity budget linear in $n$.
 \item With pure imports, $\Phi_H$ has a causal service with error $0$, $Q=5$, $J=5(n-1)$ and $P+C=5n$.
 \item Every causal service of $\Phi_H$ with error $\epsilon\le1/16$ and $J\le\frac n2\log26$ satisfies
-$\big(14Q+3+\log(n+1)\big)\big(Q+\frac18\big)^{1/\beta_H}\ge c_a^{1/\beta_H}n$, so $Q=\Omega(n^{\beta_H/(1+\beta_H)})=\Omega(n^{1/(2\log130+2)})$
+$\big(14Q+3+\log(n+1)\big)\big(Q+\frac18\big)^{1/\beta_H}\ge c_a^{1/\beta_H}n$, so $Q=\Omega(n^{\beta_H/(1+\beta_H)})=\Omega(n^{1/(2\log107+2)})$
 whatever its purity budget.
 \item More generally, every causal service of $\Phi_H$ with error $\epsilon\le1/16$ and excess exchange $E_{\rm x}=(J-\frac n2\log26)_+$ satisfies, whatever
 its purity budget,
@@ -1165,7 +1193,7 @@ The channels $\Xi$ and $\widehat\Phi$ both have Choi rank $32$, maximal compleme
 and lie in $\mathcal K_{208}$. Thus both have $\kappa=0$ and optimal exchange rate $\frac52$. At exchange $J\le\frac52n$:
 \begin{enumerate}[label=(\alph*)]
 \item $\Xi$ has a causal service with error $0$, $Q=5$ and $P=C=0$ for every $n\ge1$;
-\item every service of $\widehat\Phi$ with error $\epsilon\le1/16$ has $Q=\Omega(n^{1/(2\log_2 130+2)})$, whatever its purity, and
+\item every service of $\widehat\Phi$ with error $\epsilon\le1/16$ has $Q=\Omega(n^{1/(2\log_2 107+2)})$, whatever its purity, and
 $Q\ge c_A(n/\log(n+1))^{\beta_H}-\frac98$ if $P+C\le A\log(n+1)$;
 \item for every $n\ge1$ and $0<\epsilon\le1$, $\widehat\Phi$ has a service with error $\epsilon$, $P=C=0$ and
 $Q=O((n/\epsilon)^{1/3}\log^{4/3}(2n/\epsilon))$.
@@ -1403,7 +1431,7 @@ $\sigma_j=a^j\alpha a^{-j}$, and let $A^*(M)$ be the largest area in $P$ of a co
 $0\le p,q\le M$ and $|p-q|\ge2$. These commutators are trivial in $H_3$ because the transpositions have disjoint supports.
 
 \begin{theorem}[Reweighted far-commutator area]\label{thm:area-weighted}
-$A^*(M)\le30\,M^{\log130}$ for every $M\ge2$.
+$A^*(M)\le135\,M^{\log107}$ for every $M\ge2$.
 \end{theorem}
 
 \begin{proposition}[Quadratic lower bound]\label{prop:area-lower}
@@ -1884,7 +1912,7 @@ which $\gamma$ acts trivially.
 \begin{proof}[Proof of the lower bounds in Theorems~\ref{thm:profile} and~\ref{thm:support-profile}]
 Let $\Psi\in\mathcal F_m$ have $\ddia(\Psi,\Phi_H)\le1/8$ and leakage at most $v\le T_H^{-2}$, which is far below $(144^2d)^{-1}$, and put
 $N=\lfloor(T_H^2v)^{-\beta_H}\rfloor\ge1$. Lemma~\ref{lem:extraction} gives an $e$-representation with $e=68\sqrt{6d}\sqrt v$ and
-$\|\phi(\gamma)-I\|_2\ge1/2$ on a bath of dimension at most $m$. With $A^*(3N)\le30(3N)^{\log130}$ (Theorem~\ref{thm:area-weighted}) the
+$\|\phi(\gamma)-I\|_2\ge1/2$ on a bath of dimension at most $m$. With $A^*(3N)\le135(3N)^{\log107}$ (Theorem~\ref{thm:area-weighted}) the
 condition of Proposition~\ref{prop:dimension} reads $T_HN^{1/(2\beta_H)}\sqrt v\le1$, which holds by the choice of $N$. Hence
 $\log m\ge N/16\ge c_Hv^{-\beta_H}-1/16$. For $v>T_H^{-2}$ the right side is negative. With $v=0$ every $N$ is allowed, so no mixture
 with zero leakage lies within diamond distance $1/8$. If $\dJ(\Psi,\Phi_H)\le\delta\le1/(8d)$, the leakage is at most $\delta$ and
@@ -2411,8 +2439,8 @@ For $p=2/(3\cdot10^6)$, $G(10^{-6})=h_2(p)+p\le p(\log(1/p)+1/\ln2+1)<24p<10^{-3
 Since $\ln2>1/2$, each sector summand is larger than
 $(499/1000)^2/3-10^{-6}-10^{-3}>1/16$. Consequently $S(\rho)\ge N/16$.
 
-\emph{Choice of $N$.} With $A^*(3N)\le30(3N)^{\log130}$ (Theorem~\ref{thm:area-weighted}) and $e=2^{17}\sqrt\nu$, the condition reads
-$K_HN^{\log130+1/2}\sqrt\nu\le1$. Put $X=(K_H^2\nu)^{-\beta_H}$. If $X\ge2$, take $N=\lfloor X\rfloor$: the condition holds, it forces
+\emph{Choice of $N$.} With $A^*(3N)\le135(3N)^{\log107}$ (Theorem~\ref{thm:area-weighted}) and $e=2^{17}\sqrt\nu$, the condition reads
+$K_HN^{\log107+1/2}\sqrt\nu\le1$. Put $X=(K_H^2\nu)^{-\beta_H}$. If $X\ge2$, take $N=\lfloor X\rfloor$: the condition holds, it forces
 $e\le1/20$, and $S(\rho)\ge\lfloor X\rfloor/16\ge X/16-1/8$. If $X<2$ the bound is trivial. If $\nu=0$ every $N$ is allowed, which is
 impossible for a finite bath.
 \end{proof}
@@ -3323,9 +3351,43 @@ The generic Houghton completion has dimension $2\cdot104\cdot32=6656$; Theorem~\
 The general construction neither improves the memory exponent nor promises sublinear memory for an arbitrary steep approximation profile.
 It also preserves failure of exact finite tracial mixture realization, by Lemma~\ref{lem:corner-profile} at $\delta=0$.
 
+\begin{proposition}[Intrinsic corner monotonicity]\label{prop:kappa-corner}
+If a channel $\Omega$ on $M_D$ has an invariant $d$-dimensional corner restricting to $\Phi$, then
+$\kappa(\Omega)\ge\kappa(\Phi)$. This follows from definition~\eqref{eq:kappa-def}, without an operational achievability theorem.
+\end{proposition}
+\begin{proof}
+The case $d=D$ is immediate. Otherwise choose coordinates for the corner, fix a faithful state $\rho$ on it, and put
+$\rho_p=p\rho\oplus(1-p)\tau_{D-d}$ for $0<p<1$. Take any $\varepsilon$-feasible extension $\sigma$ in the definition of
+$k_{\rho_p,\varepsilon}(\Omega)$. Pinch its reference $Q$ into the corner and its complement. The normalized branches $\sigma_0,\sigma_1$
+have probabilities $p,1-p$, both with the same $Z$ marginal, because $\sigma_{QZ}=\rho_p^T\otimes\sigma_Z$.
+Pinching increases $S(QAZ)$ by at most $h_2(p)$; the direct-sum entropy formula then gives
+\[
+S(QA\mid Z)_\sigma\ge p S(Q_0A\mid Z)_{\sigma_0}+(1-p)S(Q_1A\mid Z)_{\sigma_1}.
+\]
+The second conditional entropy is at least $-\log D$: write it as $S(Q_1\mid Z)+S(A\mid Q_1Z)$ and use the product reference marginal.
+The first branch has the required product marginal and is within $\varepsilon/p$ of the embedded ideal output of $\Phi$, by compression
+of the marginal trace-distance bound. Its output leakage $\ell$ from the invariant corner is therefore at most $\varepsilon/p$.
+
+Retract that output by $\mathcal E(X)=V^*XV+\Tr[(I-VV^*)X]\tau_d$, where $V$ embeds the corner. The resulting extension
+$\widetilde\sigma_0$ is feasible for $k_{\rho,\varepsilon/p}(\Phi)$. Comparing on the original output space, gentle compression and replacement
+give $\tfrac12\|\sigma_0-V\widetilde\sigma_0V^*\|_1\le t:=\sqrt\ell+\ell/2$.
+For sufficiently small $\varepsilon$ we have $t\le1$, and the conditional-entropy continuity bound on the system $Q_0A$ of dimension $dD$ is
+\[
+w_{dD}(t)=2t\log(dD)+(1+t)h_2\bigl(t/(1+t)\bigr).
+\]
+For completeness this bound follows by writing the positive and negative parts of two states' difference as $t\omega_+,t\omega_-$,
+equating the mixtures $(\sigma+t\omega_-)/(1+t)=(\sigma'+t\omega_+)/(1+t)$, and applying concavity and the binary entropy-of-mixture
+bound for conditional entropy; its range on a system of dimension $dD$ is $[-\log(dD),\log(dD)]$.
+Thus, with $t$ replaced by its bound in terms of $\varepsilon/p$,
+\[
+k_{\rho_p,\varepsilon}(\Omega)\ge p k_{\rho,\varepsilon/p}(\Phi)-p w_{dD}(t)-(1-p)\log D.
+\]
+First let $\varepsilon\downarrow0$ with $p,\rho$ fixed, then $p\uparrow1$, then take the supremum over faithful $\rho$.
+The bound is independent of the dimension of $Z$, which is essential when taking the infima.
+\end{proof}
+
 \begin{corollary}[Purity and nonapproximable corners]\label{cor:completion-purity}
-For the completion in Proposition~\ref{prop:spectrum-completion}, $\kappa(\Omega_G)\ge\kappa(\Phi_G)$, using the operational characterization
-of Theorem~\ref{thm:purity}(c), including its external achievability dependency. Independently of that achievability, if
+For the completion in Proposition~\ref{prop:spectrum-completion}, $\kappa(\Omega_G)\ge\kappa(\Phi_G)$. If
 $\Delta=\Delta_J(\Phi_G)>0$, every service of $\Omega_G$ with $J\le nq/2$ and $\epsilon\le1/16$, $\epsilon<\Delta$, satisfies
 \[
 Q\ge\frac{n(\Delta-\epsilon)^2}{28\ln2}-\frac{q+4}{14}.
@@ -3333,9 +3395,7 @@ Q\ge\frac{n(\Delta-\epsilon)^2}{28\ln2}-\frac{q+4}{14}.
 \end{corollary}
 
 \begin{proof}
-For any $\eta>0$, Theorem~\ref{thm:purity}(c) supplies vanishing-error services of $\Omega_G$ with limiting upper purity rate at most
-$\kappa(\Omega_G)+\eta$. Tag recycling adds only $q+1$ initial purity bits and no imports. Apply the purity converse to their induced
-services of $\Phi_G$, divide by $n$, and let $\eta\downarrow0$. For the finite-error statement, Theorem~\ref{thm:rank-purity} gives
+The first assertion is Proposition~\ref{prop:kappa-corner}. For the finite-error statement, Theorem~\ref{thm:rank-purity} gives
 $P+C\le14Q+3$ for the completion at its rank rate. Its induced corner service has deficit $P+C+q+1$, so Theorem~\ref{thm:purity}(b) gives
 $n(\Delta-\epsilon)^2/(2\ln2)\le14Q+q+4$.
 \end{proof}
@@ -3658,7 +3718,7 @@ arguments proved in the text. They do not claim a formal verification of the ful
 \bibitem{Kesten1959} H.~Kesten, Symmetric random walks on groups, Trans. Amer. Math. Soc. \textbf{92} (1959), 336--354.
 \bibitem{BoesWilming2018} P.~Boes, H.~Wilming, R.~Gallego and J.~Eisert, Catalytic quantum randomness, Phys. Rev. X \textbf{8} (2018), 041016; arXiv:1804.03027.
 \bibitem{Tropp2012} J.~A.~Tropp, User-friendly tail bounds for sums of random matrices, Found. Comput. Math. \textbf{12} (2012), 389--434; arXiv:1004.4389.
-\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/3c9fc5962682ec6dbbd99da22ca8cb60ba317755}{version 3c9fc59}.
+\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/40936052560b89bf5cc1f79017501be161895421}{version 4093605}.
 \bibitem{HaagerupMusat2015} U.~Haagerup and M.~Musat, An asymptotic property of factorizable completely positive maps and the Connes embedding problem, Comm. Math. Phys. \textbf{338} (2015), 721--752; arXiv:1408.6476.
 \bibitem{JNVWY2020} Z.~Ji, A.~Natarajan, T.~Vidick, J.~Wright and H.~Yuen, MIP$^*$ = RE, arXiv:2001.04383 (2020).
 \bibitem{Fritz2012} T.~Fritz, Tsirelson's problem and Kirchberg's conjecture, Rev. Math. Phys. \textbf{24} (2012), 1250012; arXiv:1008.1168.
