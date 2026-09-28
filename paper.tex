@@ -76,6 +76,7 @@ bounds use complete-experiment error against adaptive observers with quantum ref
 \end{abstract}
 
 \tableofcontents
+\clearpage
 
 %======================================================================
 \section{Introduction}\label{sec:intro}
@@ -97,7 +98,7 @@ imports (see the box below). Exchange at rate $H(\Phi)/2$, half the maximal comp
 with sublinear memory and purity (Proposition~\ref{prop:exchange}). The questions are how much purity and how much memory the
 device then needs, and what decides it.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[font=\small,>={Stealth[length=2mm]},
   rnd/.style={draw,rounded corners=2pt,minimum width=1.0cm,minimum height=0.8cm,fill=blue!6},
@@ -106,8 +107,8 @@ device then needs, and what decides it.
   {Observer: chooses each input after seeing the earlier outputs, and keeps quantum references};
 \foreach \x/\lab in {0/{U_1},3/{U_2},6/{U_3},9/{U_n}} {
   \node[rnd] at (\x,0) {$\lab$};
-  \draw[->] (\x-0.25,2.05) -- node[left]{\scriptsize input} (\x-0.25,0.4);
-  \draw[->] (\x+0.25,0.4) -- node[right]{\scriptsize output} (\x+0.25,2.05);
+  \draw[->] (\x-0.25,0 |- obs.south) -- node[left]{\scriptsize input} (\x-0.25,0.4);
+  \draw[->] (\x+0.25,0.4) -- node[right]{\scriptsize output} (\x+0.25,0 |- obs.south);
 }
 \draw[very thick,blue!60!black] (-1.4,0) node[left]{$\beta_0$} -- (-0.5,0);
 \draw[very thick,blue!60!black] (0.5,0) -- (2.5,0);
@@ -180,6 +181,8 @@ Corollary~\ref{cor:purity}(d) with $Q+4$ in place of $Q$; so the separation surv
 The proof is in Section~\ref{sec:flat-choi-proof}. The lower and upper memory exponents do not match: the theorem separates memory costs,
 not their exact asymptotic laws. A smaller pair on $M_{208}$ matches Choi rank, maximal complementary entropy, its optimal spectrum, and purity
 cost, but not the full Choi spectrum (Corollary~\ref{cor:208}).
+More generally, Proposition~\ref{prop:spectrum-completion} completes any group gadget to a flat-Choi-spectrum channel while retaining it
+as an invariant corner. This preserves its memory obstruction up to a fixed tag cost; the construction above optimizes the system dimension.
 
 The underlying example is a channel $\Phi_H$ on $\mathbb C^{104}$ built from Houghton's group (Section~\ref{sec:houghton}). It has the same
 Choi rank $26$, entropy $\log26$, flat optimal complementary spectrum and zero purity cost as the exact factor
@@ -210,8 +213,8 @@ Slofstra channel $\Phi_S$ & memory at least $n^{1/8-o(1)}$, whichever side of $\
 whatever the purity, and linear if $\Phi_S\notin\mathcal K_d$ & Thm~\ref{thm:slofstra}\\
 \bottomrule
 \end{tabular}
-\caption{Results at a glance, at constant error and a logarithmic purity budget unless stated. $H$ is the maximal complementary entropy and $r$ the
-Choi rank.}
+\caption{Results at a glance, at constant error and a logarithmic purity budget unless stated. The nonflat exact-factor lower bound requires
+sufficiently small fixed error as in Corollary~\ref{cor:flat-split}(b). $H$ is the maximal complementary entropy and $r$ the Choi rank.}
 \label{tab:glance}
 \end{table}
 
@@ -726,7 +729,7 @@ suffices, at zero error and at every fixed error below one; for $p=\frac12$ it i
 \end{proposition}
 
 \begin{proposition}[Equal mixtures of orthonormal unitaries]\label{prop:weyl}
-Let $U_0,\dots,U_{r-1}$ be unitaries on $\mathbb C^d$ with $\tau_d(U_a^*U_b)=\delta_{ab}$ and $r=2^q$, and let
+Let $U_0,\dots,U_{r-1}$ be unitaries on $\mathbb C^d$ with $\tau_d(U_a^*U_b)=\delta_{ab}$ and $r=2^q$ for an integer $q\ge0$, and let
 $\Phi(\rho)=\frac1r\sum_aU_a\rho U_a^*$. Then $H(\Phi)=q$, and for every $n$ there is a causal service with error $0$, $Q=q$, $P=C=0$
 and $J=q\lfloor(n-1)/2\rfloor$, at the optimal rate $H/2$. Complete dephasing on $\mathbb C^{2^q}$ and the completely depolarizing
 qubit channel are examples.
@@ -735,7 +738,7 @@ qubit channel are examples.
 \begin{remark}\label{rem:biased}
 Biased dephasing $\rho\mapsto\frac14\rho+\frac34Z\rho Z$ has the exact factorization
 $U=I\otimes|0\rangle\langle0|+Z\otimes(I_4-|0\rangle\langle0|)$ with a four-dimensional bath, so $\DChoi\le4$ at every accuracy.
-Its Choi state has eigenvalues $\frac14,\frac34$, so $r=2$, $H=h_2(1/4)\approx0.811$ and $V=\frac3{16}\log^23$. At $J\le nH/2$
+Its Choi state has eigenvalues $\frac14,\frac34$, so $r=2$, $H=h_2(1/4)\approx0.811$ and $V=\frac3{16}\log^23$. At $J\le nH/2$ and sufficiently small fixed error,
 Theorem~\ref{thm:slack} forces memory of order $\sqrt n$, at a fixed rate strictly between $H/2$ and $\frac12$
 Theorem~\ref{thm:log-lower} gives $\Theta(\log n)$, and at rate $\frac12$ Proposition~\ref{prop:dephasing} gives one qubit. Bounded
 profiles thus coexist with memory of order $\sqrt n$, $\log n$ or $1$, according to the exchange rate.
@@ -764,7 +767,7 @@ $P=0$ and $Q=O_\Phi(\log(2n/\epsilon))$.
 \end{enumerate}
 \end{corollary}
 
-So at the optimal rate a flat exact factor needs only logarithmic memory, and a non-flat one needs at least order $\sqrt n$ and at most order
+So at the optimal rate and sufficiently small fixed error, a flat exact factor needs only logarithmic memory, and a non-flat one needs at least order $\sqrt n$ and at most order
 $\sqrt{n\log n}$. Above the optimum
 every exact factor needs $\Theta(\log n)$ at fixed rates strictly between $H/2$ and $\frac12\log r$ (Theorem~\ref{thm:log-lower}) and $O(\log(n/\epsilon))$ at
 the rank rate; Propositions~\ref{prop:dephasing} and~\ref{prop:weyl} show that bounded memory can suffice there.
@@ -1401,7 +1404,7 @@ $A^*(M)\le30\,M^{\log130}$ for every $M\ge2$.
 \end{theorem}
 
 \begin{proposition}[Quadratic lower bound]\label{prop:area-lower}
-For odd $k\ge9$, $\mathrm{Area}(C_k)\ge(k-7)(k-5)/8$, where $C_k=[\alpha,a^k\alpha a^{-k}]$. Hence $A^*(R)\ge R^2/16$ for $R\ge23$.
+For odd $k\ge9$, $\mathrm{Area}(C_k)\ge(k-7)(k-5)/8$, where $C_k=[\alpha,a^k\alpha a^{-k}]$. Hence $A^*(R)\ge R^2/16$ for every integer $R\ge23$.
 \end{proposition}
 
 The area bound is proved by a doubling self-similarity of $H_3$, with finite relations certified by machine;
@@ -2670,10 +2673,11 @@ $\log(2/\epsilon_n)=O_a(\log n)$ gives the upper bound.
 \begin{lemma}\label{lem:concentration}
 Let $F:\mathbb{C}^{M}\to\mathbb{C}^D\otimes\mathbb{C}^S$, $R=FF^*$, $g=\|F^*F\|$ and $\alpha=\|\Tr_{\mathbb{C}^D}R\|$. For
 Hermitian $A$ on $\mathbb{C}^D$ and Haar-random $V\in U(D)$ put
-$Z=F^*\big((V^*AV)\otimes I\big)F-\tau_D(A)F^*F$. Then
+$Z=F^*\big((V^*AV)\otimes I\big)F-\tau_D(A)F^*F$. If $\alpha g\|A\|^2>0$, then for every $t>0$,
 \[
 \Pr\{\|Z\|\ge t\}\le2M\exp\!\Big[-\frac{Dt^2}{4\alpha g\|A\|^2}\Big].
 \]
+If $\alpha g\|A\|^2=0$, then $Z=0$ and the probability is zero for every $t>0$.
 \end{lemma}
 
 \begin{proof}
@@ -2907,7 +2911,7 @@ $\mathrm{Tr}(P\rho)\ge1-\delta$; a projection of rank $D$ captures at most the $
 \emph{A spectral excess.} For $0\le u\le1/(2R)$ let $q_u(i)\propto\lambda_i^{1-u}$, $\mu(u)=\mathbb E_{q_u}Z$ and
 $D(u)=\sum_iq_u(i)\log(q_u(i)/\lambda_i)$. Then $\mu'=(\ln2)\mathrm{Var}_{q_u}Z$ and $D'=u\mu'$. Since $q_u(i)/\lambda_i\ge2^{-uR}$, the pairwise form
 of the variance gives $\mathrm{Var}_{q_u}Z\ge2^{-2uR}V\ge V/2$, and $\mathrm{Var}_{q_u}Z\le R^2/4$; so $a\le\mu'\le A$, $\mu(u)-H\ge au$ and
-$D(u)\le Au^2/2$. Let $b\ge x\ge x_0$ be integers and $u=\gamma\sqrt{x/b}$. Under $q_u^{\otimes b}$ the sum of $b$ copies of $Z$ lies
+$D(u)\le Au^2/2$. Let $b$ be an integer, let $x$ be real with $b\ge x\ge x_0$, and put $u=\gamma\sqrt{x/b}$. Under $q_u^{\otimes b}$ the sum of $b$ copies of $Z$ lies
 within $R\sqrt b$ of $b\mu(u)$ with probability at least $3/4$ by Chebyshev's inequality, and on this band
 $\lambda^{\otimes b}\ge q_u^{\otimes b}2^{-bD(u)-uR\sqrt b}$. So the band has $\lambda^{\otimes b}$-mass $w\ge\frac34 2^{-x/4}\ge2\cdot2^{-x}$, using
 $A\gamma^2\le\frac14$ and $x\ge64R^2\gamma^2$, and its eigenvalues are at most $2^{-b\mu(u)+R\sqrt b}$. A projection capturing $1-2^{-x}$ of
@@ -3191,6 +3195,85 @@ Q\ge c_a\left(\frac{n}{(A+5)\log(n+1)}\right)^{\beta_H}-\frac{33}{8},
 \]
 since the four tag qubits add only four to the purity budget. This proves~(b) and the excess-exchange assertion.
 \end{proof}
+
+\subsection{Spectrum completion for general gadgets}\label{sec:spectrum-completion}
+
+The full-spectrum comparison is not specific to the Houghton label counts. The following construction preserves an arbitrary gadget
+as a corner, at the cost of a larger system. It reads the finite-word profile of Section~\ref{sec:res-group}, not an arbitrary channel approximant.
+
+\begin{proposition}[Flat-spectrum completion]\label{prop:spectrum-completion}
+Let $\Phi_G$ on $M_d$ be the gadget of $\mathcal P$, with $r\ge2$ distinct labels, and let $q\ge1$ be an integer with $R=2^q\ge r$. There is a unital channel
+$\Omega_G$ on $M_D$, where $D=2dR$, with an invariant $d$-dimensional corner equal to $\Phi_G$, Choi rank $R$, and normalized Choi spectrum
+flat on $R$ points. Moreover, $\Omega_G^c(\tau_D)=I_R/R$ and $H(\Omega_G)=q$. If $\Phi_G\in\mathcal K_d$, then $\Omega_G\in\mathcal K_D$.
+For $N_*=2|\mathcal T|+D-2d$ and $e,z>0$,
+\begin{equation}\label{eq:completion-profile}
+\DChoi_{\Omega_G}(N_*z/2)\le R\,\mathsf h_{\mathcal P}(e,z)
+\end{equation}
+whenever the right side is finite. Every causal service of $\Omega_G$ induces one of $\Phi_G$ with no larger complete-experiment error and
+\[
+(Q',J',P',C')=(Q+q+1,J,P+q+1,C).
+\]
+The comparison channel $\Xi_D(X)=R^{-1}\sum_{a=0}^{R-1}Z_D^aXZ_D^{-a}$ has the same Choi spectrum and entropy data, and an exact service
+with $Q=q$, $P=C=0$ and $J=q\lfloor(n-1)/2\rfloor$.
+\end{proposition}
+
+\begin{proof}
+Write $U_G=\sum_gA_g\otimes\lambda(g)$ and $\mu_g=\|A_g\|_F^2$. The coefficient matrices have disjoint supports,
+$\sum_g\mu_g=d$, and $2\mu_g$ is integral because slot coefficients have squared magnitudes one or one-half.
+In the tracial algebra $L(G)\otimes M_R$, use the old labels $\lambda(g)\otimes I_R$ and $R-r$ new labels
+$I\otimes Z_R^j$, $1\le j\le R-r$. These $R$ unitaries are trace-orthonormal: old labels by the group trace, new labels by the clock trace,
+and old/new comparisons because a nonzero clock power has trace zero.
+
+Form a block-diagonal unitary from two copies of $U_G\otimes I_R$, then $2d-2\mu_g$ singleton blocks for every old label and $2d$ for
+every new label. All multiplicities are nonnegative integers, and the system dimension is
+\[
+2d+\sum_g(2d-2\mu_g)+2d(R-r)=2dR.
+\]
+Every coefficient matrix now has squared Frobenius norm $2d$, and their supports remain disjoint. Thus the normalized Choi eigenvalues
+are $(2d)/D=1/R$, and the complementary output at $\tau_D$ is $I_R/R$, attaining the largest possible entropy $\log R$.
+The channel is unital by its tracial-unitary realization, and the first original block is an invariant corner restricting to $\Phi_G$.
+
+For an assignment of dimension $m=\mathsf h_{\mathcal P}(e,z)$, evaluate each original gadget using its literal slot words and each added
+old-label singleton using an original singleton anchor for that label. Such anchors exist by Proposition~\ref{prop:gadget-entropy}.
+Tensor all these bath matrices with $I_R$ and use $I_m\otimes Z_R^j$ for the new labels. Every block is exactly unitary, giving a single
+factor of dimension $mR$. All old/old slot moments, including the added anchors, differ from their target by at most $z$; every comparison
+involving a new label is exact. There are $N_*$ slots and their scalar coefficients satisfy $\sum_a|c_a|^2=D$. Hence the Choi expansion gives
+\[
+\dJ(\Omega_{G,m},\Omega_G)\le\frac{z}{2D}\Big(\sum_a|c_a|\Big)^2\le N_*z/2.
+\]
+This proves~\eqref{eq:completion-profile}. If $\Phi_G\in\mathcal K_d$, Theorem~\ref{thm:correspondence}(f) supplies these assignments for every
+positive $e,z$, so $\Omega_G\in\mathcal K_D$. The trace-orthonormal powers $Z_D^a$, $a<R\le D$, and Proposition~\ref{prop:weyl} give the comparison channel.
+
+Finally $D=d2^{q+1}$. Identify the first corner with tag zero in $\mathbb C^{2^{q+1}}\otimes\mathbb C^d$. Retain a tag of $q+1$ qubits,
+initially pure, feed it with each input into the completed-channel service, and keep the returned tag for the next call. An observer of
+$\Omega_G$ can perform exactly this recycling. Ideally the tag stays zero and its reduced process is $\Phi_G^{\otimes n}$; contractivity
+therefore transfers complete-experiment error. The tag is never reset or exchanged, giving the stated resource ledger.
+\end{proof}
+
+\begin{corollary}[Transferring a purity-dependent obstruction]\label{cor:completion-memory}
+Suppose that, for every $B\ge0$, any $n$-round service of $\Phi_G$ with error at most $1/16$ and $P+C\le B$ obeys, at any exchange,
+\[
+Q\ge c\left(\frac{n}{B+\log(n+1)}\right)^\beta-C_0,
+\]
+where $c,\beta>0$ and $C_0\ge0$ are fixed. Then every service of the completion $\Omega_G$ at $J\le nq/2$ and error at most $1/16$ has
+$Q=\Omega(n^{\beta/(1+\beta)})$, without a purity restriction.
+\end{corollary}
+
+\begin{proof}
+The flat rank-$R$ probe and Theorem~\ref{thm:rank-purity} give $P+C\le14Q+3$. Proposition~\ref{prop:spectrum-completion} and the assumed bound imply
+\[
+Q+q+1+C_0\ge c\left(\frac{n}{14Q+q+4+\log(n+1)}\right)^\beta.
+\]
+For large $n$ this excludes $Q\le\log(n+1)$. Otherwise both the denominator and the left side are bounded above by fixed multiples of $Q$,
+so $Q^{1+\beta}\ge c'n^\beta$ for a fixed $c'>0$.
+\end{proof}
+
+The generic Houghton completion has dimension $2\cdot104\cdot32=6656$; Theorem~\ref{thm:flat-choi-separation} reduces this to $1664$.
+The general construction neither improves the memory exponent nor promises sublinear memory for an arbitrary steep approximation profile.
+It also preserves failure of exact finite tracial mixture realization. Indeed, if a finite tracial mixture realizes $\Omega_G$, zero output
+leakage from the corner forces zero leakage for each positive-weight component. Faithfulness of its flat bath then makes that component's
+unitary preserve the corner tensored with the whole bath. In finite dimension the restriction is unitary, and restricting all components
+gives an exact finite tracial mixture for $\Phi_G$.
 
 %======================================================================
 \section{Group channels}\label{sec:group-channels}
@@ -3507,7 +3590,7 @@ arguments proved in the text. They do not claim a formal verification of the ful
 \bibitem{Kesten1959} H.~Kesten, Symmetric random walks on groups, Trans. Amer. Math. Soc. \textbf{92} (1959), 336--354.
 \bibitem{BoesWilming2018} P.~Boes, H.~Wilming, R.~Gallego and J.~Eisert, Catalytic quantum randomness, Phys. Rev. X \textbf{8} (2018), 041016; arXiv:1804.03027.
 \bibitem{Tropp2012} J.~A.~Tropp, User-friendly tail bounds for sums of random matrices, Found. Comput. Math. \textbf{12} (2012), 389--434; arXiv:1004.4389.
-\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/45116ce0a32f02919129148df978917ebfe27d19}{version 45116ce}.
+\bibitem{DouglasMghirbiA} S.~Douglas and N.~Mghirbi, Houghton's group $H_3$ has superpolynomial sofic profile, companion manuscript (2026), \href{https://github.com/Apsiape/houghton-sofic-profile/tree/8cd93899a269660747f5046b66e9b001371ba86c}{version 8cd9389}.
 \bibitem{HaagerupMusat2015} U.~Haagerup and M.~Musat, An asymptotic property of factorizable completely positive maps and the Connes embedding problem, Comm. Math. Phys. \textbf{338} (2015), 721--752; arXiv:1408.6476.
 \bibitem{JNVWY2020} Z.~Ji, A.~Natarajan, T.~Vidick, J.~Wright and H.~Yuen, MIP$^*$ = RE, arXiv:2001.04383 (2020).
 \bibitem{Fritz2012} T.~Fritz, Tsirelson's problem and Kirchberg's conjecture, Rev. Math. Phys. \textbf{24} (2012), 1250012; arXiv:1008.1168.

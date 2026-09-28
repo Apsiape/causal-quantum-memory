@@ -17,6 +17,54 @@ def closure(gens):
                 if h not in G: G.add(h); new.append(h)
         frontier = new
     return sorted(G)
+
+def check_spectrum_completion(A, name):
+    """Finite matrix regression, not a proof of the all-gadget/service lemma.
+
+    Use the R by R Kraus Gram matrix instead of allocating a D^2 by D^2
+    Choi matrix. The two have the same nonzero eigenvalues.
+    """
+    old = list(A.values())
+    d = old[0].shape[0]
+    r = len(old)
+    R = 1 << (r - 1).bit_length()
+    D = 2 * d * R
+    coeff = np.zeros((R, D, D))
+    offset = 2 * d
+    for g, matrix in enumerate(old):
+        coeff[g, :d, :d] = matrix
+        coeff[g, d:2*d, d:2*d] = matrix
+        twice_weight = 2 * np.sum(matrix * matrix)
+        assert np.isclose(twice_weight, round(twice_weight))
+        count = 2 * d - round(twice_weight)
+        assert count >= 0
+        idx = np.arange(offset, offset + count)
+        coeff[g, idx, idx] = 1
+        offset += count
+    for g in range(r, R):
+        idx = np.arange(offset, offset + 2*d)
+        coeff[g, idx, idx] = 1
+        offset += 2*d
+    assert offset == D
+    vectors = coeff.reshape(R, -1)
+    gram = vectors @ vectors.T / D
+    assert np.allclose(gram, np.eye(R) / R)
+    assert np.allclose(sum(K.T @ K for K in coeff), np.eye(D))
+    assert np.allclose(sum(K @ K.T for K in coeff), np.eye(D))
+    for g, matrix in enumerate(old):
+        assert np.array_equal(coeff[g, :d, :d], matrix)
+    assert not np.any(coeff[:, d:, :d])
+    assert not np.any(coeff[:, :d, d:])
+    assert not np.any(coeff[r:, :d, :d])
+    # Added clock labels are orthogonal to I and to one another, including
+    # the case R=r when no new label is needed.
+    powers = np.exp(2j * np.pi * np.outer(np.arange(R-r+1), np.arange(R)) / R)
+    assert np.allclose(powers @ powers.conj().T / R, np.eye(R-r+1))
+    # The comparison diagonal unitaries have the same normalized Gram.
+    comparison = np.exp(2j * np.pi * np.outer(np.arange(R), np.arange(D)) / D)
+    assert np.allclose(comparison @ comparison.conj().T / D, np.eye(R))
+    print(f"{name} completion: D={D}, R={R}, flat Choi Gram, TP/unital and invariant corner pass.")
+
 def run(gens, relators, name):
     # gens: dict name->perm ; relators: list of lists of (name, +/-1)
     elems = closure(list(gens.values())); N = len(elems); idx = {g: i for i, g in enumerate(elems)}
@@ -75,6 +123,7 @@ def run(gens, relators, name):
     ev = np.linalg.eigvalsh(comp); S = -sum(x*np.log2(x) for x in ev if x > 1e-14)
     assert rankK == r and np.allclose(comp, np.eye(r)/r)
     print(f"{name}: |G|={N}, d={d}, distinct carried r={r}, Kraus rank={rankK}, comp flat={np.allclose(comp, np.eye(r)/r)}, S={S:.6f}, log r={np.log2(r):.6f}")
+    check_spectrum_completion(A, name)
 # S3 = <s,t | s^2, t^2, (st)^3>
 s = (1, 0, 2); t = (0, 2, 1)
 run({'s': s, 't': t}, [[('s',1),('s',1)], [('t',1),('t',1)], [('s',1),('t',1)]*3], "S3")

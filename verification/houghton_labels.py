@@ -52,7 +52,7 @@ def signature(w):
     assert all(act((ray, L+2), w)[0] == ray for ray in (1,2,3))
     return base, tail
 
-# The older height-L cutoff is not valid for general words: the final alpha
+# A height-L cutoff is not valid for general words: the final alpha
 # can still act at height 2. This regression protects the extra boundary layer.
 for length in range(1, 25):
     word = "a" * (length - 1) + "x"

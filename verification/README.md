@@ -16,8 +16,12 @@ bounded finite checks, with per-command timeouts in the runner.
   sampled at height L+2. A regression covers the last-letter-alpha boundary case.
   The reason this representation is complete is mathematical, not a Lean theorem.
 - **gadgetcheck.py:** numerical unitary/Kraus/entropy identities for the S3, Z4,
-  and Z2 x Z2 finite-group gadgets. These examples do not prove the general
-  group-gadget theorem.
+  and Z2 x Z2 finite-group gadgets, and their general spectrum completions:
+  the normalized Kraus Gram matrix, trace preservation, unitality, invariant
+  corner and clock-label orthogonality. The small Kraus Gram matrix avoids
+  allocating a dense Choi matrix. These examples do not prove the general
+  group-gadget or spectrum-completion theorems, the approximation-profile
+  transfer, or the adaptive tag-recycling argument.
 - **flat_choi_check.py:** exact ray-action label and rational slot bookkeeping
   for the dimension-1664 construction: 32 equal coefficient weights, Choi
   eigenvalues 1/32, 1804 slots, translation differences and error allocation.
@@ -47,7 +51,7 @@ when run.
 
 ## External and unformalized dependencies
 
-The companion [group paper, version 45116ce](https://github.com/Apsiape/houghton-sofic-profile/tree/45116ce0a32f02919129148df978917ebfe27d19)
+The companion [group paper, version 8cd9389](https://github.com/Apsiape/houghton-sofic-profile/tree/8cd93899a269660747f5046b66e9b001371ba86c)
 supplies the Houghton far-commutator certificates, reweighting and group-profile
 arguments. Its verification notes state the exact formalization boundary.
 
