@@ -1,0 +1,43 @@
+# Causal quantum-channel simulation: memory beyond entropy
+
+Seth Douglas and Nidhal Mghirbi — September 2026.
+
+[Read the manuscript](paper.pdf) · [TeX source](paper.tex) ·
+[Verification scope](verification/README.md)
+
+Two channels with matched Choi rank, maximal complementary entropy, flat optimal
+complementary spectrum and asymptotic purity cost can nevertheless have constant
+versus polynomial memory requirements at the same optimal exchange rate.
+The paper studies this through finite-approximation profiles, sequential support
+tests, reservoir constructions and group presentations.
+
+The rank-rate compiler uses zero initial and imported purity under the stated
+round-dependent control contract. Error always refers to the complete adaptive
+experiment, not merely one-call marginals. Gaps between upper and lower exponents
+remain explicit.
+
+This is a **private release candidate**, not an announced publication.
+Licenses and the joint public-release decision remain pending; see [RIGHTS.md](RIGHTS.md).
+
+## Reproduce
+
+Requires Python 3.10+, NumPy and SciPy for numerical checks, a TeX distribution with
+the packages listed in paper.tex, and Lean 4.30.0 for the scalar formal checks.
+
+    python -m pip install -r verification/requirements.txt
+    python build.py
+    python verification/check.py
+
+Checks cover specified finite identities and arithmetic, not the full analytical
+proofs. See the verification notes before interpreting a passing result.
+Generated TeX files stay in build/; paper.pdf is the canonical output.
+The bibliography is embedded in paper.tex.
+
+## Dependencies
+
+The group-theoretic companion,
+[Houghton's group H_3 has superpolynomial sofic profile](https://github.com/Apsiape/houghton-sofic-profile),
+contains the group-word certificates and their Lean checker. They are not
+duplicated here. The manuscript separately cites the published closed-device
+achievability theorem and other external results. Companion links require access
+while the repositories remain private.

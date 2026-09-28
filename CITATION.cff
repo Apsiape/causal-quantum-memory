@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "Please cite the manuscript; this repository supplies source and verification artifacts."
+type: software
+title: "Causal quantum-channel simulation: memory beyond entropy"
+authors:
+  - family-names: Douglas
+    given-names: Seth
+  - family-names: Mghirbi
+    given-names: Nidhal
+url: "https://github.com/Apsiape/causal-quantum-memory"
+repository-code: "https://github.com/Apsiape/causal-quantum-memory"
+preferred-citation:
+  type: unpublished
+  title: "Causal quantum-channel simulation: memory beyond entropy"
+  authors:
+    - family-names: Douglas
+      given-names: Seth
+    - family-names: Mghirbi
+      given-names: Nidhal
+  year: 2026
+  url: "https://github.com/Apsiape/causal-quantum-memory"
