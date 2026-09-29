@@ -2,12 +2,16 @@
   "title": "Causal quantum-channel simulation: memory beyond entropy",
   "upload_type": "publication",
   "publication_type": "preprint",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "creators": [
-    {"name": "Douglas, Seth"},
-    {"name": "Mghirbi, Nidhal"}
+    {
+      "name": "Douglas, Seth"
+    },
+    {
+      "name": "Mghirbi, Nidhal"
+    }
   ],
-  "description": "<p>We study repeated quantum-channel simulation in which every output is released before the next input arrives and all retained memory and exchanged qubits are counted. Two explicit channels on dimension 1664 have identical normalized Choi spectra, maximal complementary entropy five, and zero asymptotic purity cost. At exchange at most 5n/2 qubits, one has an exact zero-purity implementation with five memory qubits, whereas the other requires Omega(n^(1/(2 log_2(107)+2))) memory qubits at fixed complete-experiment error at most 1/16, regardless of available purity. The latter also has a zero-purity implementation with O(n^(1/3) log^(4/3)(n)) memory at that exchange.</p><p>The paper develops exchange-purity bounds, sequential support tests, and reservoir constructions that relate memory to finite-approximation profiles. Houghton's group supplies the explicit separation. All operational bounds use complete-experiment error against adaptive observers with quantum references. The general rate-region achievability result uses a cited closed-device theorem; the explicit separation does not.</p><p>This preprint archive includes the PDF, TeX source, finite verification scripts, and scoped Lean arithmetic proofs. The artifacts do not formally verify the entire manuscript; their scope and external dependencies are documented in verification/README.md.</p>",
+  "description": "<p>How much memory does it take to apply the same quantum channel many times, when each output must be released before the next input arrives and every retained qubit counts? One-use invariants do not decide it. Two explicit channels on dimension 1664 have identical normalized Choi spectra (32 eigenvalues 1/32), the same maximal complementary entropy 5, and zero asymptotic purity cost. At the same optimal exchange rate, one is implemented exactly with five memory qubits for any number of uses, while the other needs Omega(n^(1/(2 log_2(107)+2))) memory qubits for n uses, at every fixed error at most 1/16 and whatever purity is available; memory O(n^(1/3) log^(4/3) n) suffices for it. The hard channel is built from Houghton's group H_3.</p><p>Behind the example is a general theory: the achievable exchange and purity rates, the purity cost kappa, which vanishes exactly on the closure of finite tracial factorizations, and memory bounds from how well a channel's environment is approximated by finite ones, and, for channels built from finite presentations, from the approximation profile of the group. Version 1.1 adds where the expensive channels lie: on the relative boundary of the closure; any fixed depolarizing admixture brings them down to polylogarithmic memory at the rank rate; on a face containing the Houghton channel a single moment of a trace on the group decides expense; and one free fermion per site already forces polynomial memory.</p><p>All operational bounds use complete-experiment error against adaptive observers with quantum references. The general rate-region achievability result uses a cited closed-device theorem; the explicit separation does not. This preprint archive includes the PDF, TeX source, finite verification scripts, and scoped Lean arithmetic proofs. The artifacts do not formally verify the entire manuscript; their scope and external dependencies are documented in verification/README.md.</p>",
   "keywords": [
     "quantum channels",
     "quantum memory",
@@ -23,11 +27,15 @@
   "notes": "The authors' archive content is licensed CC BY 4.0. Software and machine-readable verification artifacts are additionally available under MIT at the recipient's option; see RIGHTS.md. This is a preprint, not a claim of journal peer review.",
   "related_identifiers": [
     {
-      "identifier": "https://doi.org/10.5281/zenodo.23027625",
+      "identifier": "https://doi.org/10.5281/zenodo.23027624",
       "relation": "cites"
     },
     {
-      "identifier": "https://github.com/Apsiape/houghton-sofic-profile/tree/e5f8ccfb226eb3b4c7ff83d7c05665e797059909",
+      "identifier": "https://doi.org/10.5281/zenodo.23027624",
+      "relation": "isReferencedBy"
+    },
+    {
+      "identifier": "https://github.com/Apsiape/houghton-sofic-profile/tree/v1.1.0",
       "relation": "cites"
     }
   ]

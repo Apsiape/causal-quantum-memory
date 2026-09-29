@@ -15,6 +15,15 @@ bounded finite checks, with per-command timeouts in the runner.
   word is represented by its action up to height L+1 and its eventual translations,
   sampled at height L+2. A regression covers the last-letter-alpha boundary case.
   The reason this representation is complete is mathematical, not a Lean theorem.
+- **tracecheck.py:** the trace channels of the Houghton face. It rebuilds the
+  104-dimensional gadget and its 26 labels and computes the moment matrices of the
+  regular trace and of the fermionic traces with one to four flavours. In exact
+  rational arithmetic it checks rank 26 and the moment f = tau(gamma) = 4^-k. In
+  floating point it checks positive semidefiniteness, the full moment spectrum
+  {1 (x12), 1 - 4^-k (x5), 1 + 4^-k, 1 + 4^-k (1 +- sqrt 17)/2 (x4 each)}, the
+  inequalities f/104 <= ||J - J_H||_op <= d_J, and the normalized-Choi distance to
+  Phi_H (0.0944 for one flavour). It does not prove the face characterization, the
+  case f = 1 or the expense bound, which are proved in the manuscript.
 - **gadgetcheck.py:** numerical unitary/Kraus/entropy identities for the S3, Z4,
   and Z2 x Z2 finite-group gadgets, and their general spectrum completions:
   the normalized Kraus Gram matrix, trace preservation, unitality, invariant
@@ -85,7 +94,7 @@ when run.
 
 ## External and unformalized dependencies
 
-The companion [group paper, version e5f8ccf](https://github.com/Apsiape/houghton-sofic-profile/tree/e5f8ccfb226eb3b4c7ff83d7c05665e797059909)
+The companion [group paper, version 1.1.0](https://github.com/Apsiape/houghton-sofic-profile/tree/v1.1.0)
 supplies the Houghton far-commutator certificates, reweighting and group-profile
 arguments. Its verification notes state the exact formalization boundary.
 
