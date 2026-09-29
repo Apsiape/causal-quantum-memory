@@ -2,6 +2,8 @@
 
 Seth Douglas and Nidhal Mghirbi — September 2026.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23027627.svg)](https://doi.org/10.5281/zenodo.23027627)
+
 [Read the manuscript](paper.pdf) · [TeX source](paper.tex) ·
 [Verification scope](verification/README.md)
 
@@ -29,9 +31,14 @@ The software and machine-readable certificates are additionally available under
 the **MIT License**, at your option; see [RIGHTS.md](RIGHTS.md) for the scope.
 
 Please cite Seth Douglas and Nidhal Mghirbi, *Causal quantum-channel simulation:
-memory beyond entropy* (2026). [CITATION.cff](CITATION.cff) provides
+memory beyond entropy* (2026), version 1.0.0,
+[doi:10.5281/zenodo.23027627](https://doi.org/10.5281/zenodo.23027627).
+[CITATION.cff](CITATION.cff) provides
 machine-readable citation metadata. Tagged releases archive the corresponding
 manuscript and verification artifacts together.
+
+The version-specific DOI above identifies the v1.0.0 archive. The
+[all-versions DOI](https://doi.org/10.5281/zenodo.23027626) identifies the evolving work.
 
 ## Reading guide
 
@@ -81,3 +88,6 @@ contains the group-word certificates and their Lean checker. They are not
 duplicated here. The manuscript separately cites the closed-device preprint's
 achievability theorem and other external results. The pinned group source remains
 the mathematical dependency even when its release metadata is updated.
+The companion's v1.0.0 archive is
+[doi:10.5281/zenodo.23027625](https://doi.org/10.5281/zenodo.23027625);
+its mathematical source is unchanged from the pinned commit.

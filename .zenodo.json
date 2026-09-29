@@ -23,6 +23,10 @@
   "notes": "The authors' archive content is licensed CC BY 4.0. Software and machine-readable verification artifacts are additionally available under MIT at the recipient's option; see RIGHTS.md. This is a preprint, not a claim of journal peer review.",
   "related_identifiers": [
     {
+      "identifier": "https://doi.org/10.5281/zenodo.23027625",
+      "relation": "cites"
+    },
+    {
       "identifier": "https://github.com/Apsiape/houghton-sofic-profile/tree/e5f8ccfb226eb3b4c7ff83d7c05665e797059909",
       "relation": "cites"
     }
