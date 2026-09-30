@@ -43,7 +43,8 @@ memory beyond entropy* (2026), version 1.1.2,
 machine-readable citation metadata. Tagged releases archive the corresponding
 manuscript and verification artifacts together.
 
-The DOI above is the all-versions DOI, which identifies the evolving work. The v1.1.1 archive is
+The DOI above is the all-versions DOI, which identifies the evolving work. The v1.1.2 archive is
+[doi:10.5281/zenodo.23070870](https://doi.org/10.5281/zenodo.23070870), the v1.1.1 archive is
 [doi:10.5281/zenodo.23065791](https://doi.org/10.5281/zenodo.23065791), the v1.1.0 archive is
 [doi:10.5281/zenodo.23048998](https://doi.org/10.5281/zenodo.23048998), and the v1.0.0 archive is
 [doi:10.5281/zenodo.23027627](https://doi.org/10.5281/zenodo.23027627).
