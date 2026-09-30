@@ -51,7 +51,7 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={quantum channels, facto
 \title{Causal quantum-channel simulation:\\[3pt]
 \large memory beyond entropy}
 \author{Seth Douglas \and Nidhal Mghirbi}
-\date{September 2026 (version 1.1.1)}
+\date{September 2026 (version 1.1.2)}
 
 \begin{document}
 \maketitle
@@ -60,19 +60,21 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={quantum channels, facto
 How much memory does it take to apply the same quantum channel many times, when each output must be released before the next input arrives and
 every retained qubit counts? The usual one-use invariants do not decide it. We exhibit two channels on $\mathbb C^{1664}$ with identical
 normalized Choi spectra ($32$ eigenvalues $1/32$), the same maximal complementary entropy $5$, and zero asymptotic purity cost. At the same
-optimal exchange rate, one is implemented exactly with five memory qubits for any number of uses, while the other, at that rate, needs
+exchange budget, $J\le5n/2$ qubit replacements for $n$ uses, which attains the optimal rate, one is implemented exactly with five memory
+qubits for any number of uses, while the other needs
 $\Omega(n^{1/(2\log_2107+2)})$ memory qubits for $n$ uses, at every fixed error at most $1/16$ and whatever purity is available; memory
 $O(n^{1/3}\log^{4/3}n)$ suffices for it. The hard channel is built from Houghton's group $H_3$, and its memory cost is inherited from how hard the
 group is to approximate by finite ones.
 
 Behind the example is a general theory. For vanishing error and sublinear memory, the closure of the achievable pairs of exchange rate $j$ and
 consumed-purity rate $b$ is $b\ge\kappa$, $j\ge b$, $2j-b\ge H$, where $H$ is the maximal complementary entropy and $\kappa$ the closed-device
-purity cost; achievability relies on the closed-device rate theorem of a separate preprint. We prove that $\kappa$ vanishes exactly on the closure
-of finite tracial factorizations and is bounded below by the squared Choi distance to it. Inside the closure, memory is bracketed by two readings
+purity cost; achievability relies on the closed-device rate theorem of a separate preprint. That preprint shows that $\kappa$ vanishes on the closure
+of finite tracial factorizations; we prove that it vanishes only there, and that it is bounded below by the squared Choi distance to the closure. Inside the closure, memory is bracketed by two readings
 of how well the channel's environment is approximated by finite ones, and for channels built from finite presentations, by the approximation
-profile of the group. Channels that need polynomial memory at every exchange rate lie on the relative boundary of the closure: any fixed
-depolarizing admixture brings them down to polylogarithmic memory at the rank rate, and on a face containing the Houghton channel a single moment
-of a trace on the group decides between the two behaviours; one free fermion per site already forces polynomial memory.
+profile of the group. Channels that need polynomial memory at every exchange rate when purity is limited to $O(\log n)$ lie on the relative
+boundary of the closure: any fixed depolarizing admixture brings them down to polylogarithmic memory at the rank rate, and on a face containing
+the Houghton channel a single moment of a trace on the group decides between the two behaviours; one free fermion per site already forces
+polynomial memory at logarithmic purity.
 \end{abstract}
 
 \begingroup
@@ -94,7 +96,8 @@ channel uses, including against adaptive observers with quantum references.
 
 Our main result separates memory costs while matching the complete normalized
 Choi spectrum, maximal complementary entropy and asymptotic purity cost. At
-the same optimal exchange rate, one explicit channel has an exact implementation
+the same exchange budget of $\frac52n$ replacement slots for $n$ uses, which
+attains the optimal exchange rate, one explicit channel has an exact implementation
 with five memory qubits; another requires polynomially many qubits, even at
 constant error and without a separate restriction on purity. Thus the spectrum
 of one use does not determine the memory needed for causal repeated use.
@@ -114,7 +117,9 @@ by a unitary and a finite maximally mixed bath. On this closure class the
 optimal exchange rate with sublinear memory and purity is $H/2$. For a general
 channel the purity cost $\kappa$ also matters: the closed region of exchange and
 consumed-purity rates is $b\ge\kappa$, $j\ge b$, $2j-b\ge H$
-(Theorem~\ref{thm:rate-region}). We prove that $\kappa=0$ exactly on
+(Theorem~\ref{thm:rate-region}, whose achievability uses~\cite[Theorem~2.1]{Douglas2026closed}).
+The implication $\Phi\in\mathcal K_d\Rightarrow\kappa(\Phi)=0$ is proved
+in~\cite[Section~8]{Douglas2026closed}; we prove the converse, so $\kappa=0$ exactly on
 $\mathcal K_d$. The main separation takes place entirely inside that class.
 
 Let $Z_D=\operatorname{diag}(e^{2\pi ij/D})_{j=0}^{D-1}$ and put
@@ -125,7 +130,7 @@ balancing the group-label weights of a channel built from Houghton's group.
 \begin{mainthm}[Memory beyond the Choi spectrum]\label{thm:flat-choi-separation}
 The channels $\Xi_*$ and $\Omega$ on $M_{1664}$ have identical normalized Choi spectra, with $32$ eigenvalues $1/32$ and all others zero.
 Both have maximal complementary entropy $5$, attained at the maximally mixed input, and lie in $\mathcal K_{1664}$, so both have
-$\kappa=0$ and optimal exchange rate $\frac52$. Put $\beta_H=1/(2\log_2 107+1)$.
+$\kappa=0$~\cite[Section~8]{Douglas2026closed} and optimal exchange rate $\frac52$. Put $\beta_H=1/(2\log_2 107+1)$.
 At exchange $J\le\frac52n$:
 \begin{enumerate}[label=(\alph*)]
 \item $\Xi_*$ has a causal service with error $0$, $Q=5$ and $P=C=0$ for every $n\ge1$;
@@ -172,20 +177,25 @@ exchange dependence: a nonflat entropy-maximizing complementary spectrum
 forces a square-root-order memory lower bound at the entropy rate for sufficiently
 small fixed error; at fixed intermediate rates memory is logarithmic, while
 bounded memory can suffice at the rank rate
-(Section~\ref{sec:exact-regimes}). Finally, Section~\ref{sec:where} locates the channels that need polynomial memory at every exchange rate.
+(Section~\ref{sec:exact-regimes}). Finally, Section~\ref{sec:where} locates the channels that need polynomial memory at every exchange rate when purity is limited
+to $O(\log n)$.
 
 \begin{mainthm}[Where the expensive channels lie]\label{thm:where-intro}
 \leavevmode
 \begin{enumerate}[label=(\alph*)]
 \item Every channel in the relative interior of $\mathcal K_d$, and every channel $(1-\eta)\Phi+\eta\,\mathrm{Dep}_d$ with $\Phi\in\mathcal K_d$ and
-$0<\eta\le1$, has causal services at its rank rate with zero purity and memory polylogarithmic in $n/\epsilon$. So channels that need polynomial
-memory at every exchange rate lie on the relative boundary of $\mathcal K_d$ (Proposition~\ref{prop:boundary}).
+$0<\eta\le1$ (which lies in the relative interior because $\mathrm{Dep}_d$ does, by a theorem of Watrous~\cite[Corollary~2]{Watrous2009}), has
+causal services at its rank rate with zero purity and memory polylogarithmic in $n/\epsilon$. So channels that need polynomial memory at every exchange rate when purity is
+limited to $O(\log n)$ lie on the relative boundary of $\mathcal K_d$ (Proposition~\ref{prop:boundary}).
 \item Evaluating the gadget of $\Phi_H$ with an arbitrary tracial state $\tau$ of $H_3$ in place of the regular one gives a face of
 $\mathcal K_{104}$ containing $\Phi_H$. Its channels need only polylogarithmic memory when $\tau(\gamma)=1$, for a three-cycle $\gamma$, and
-polynomial memory at logarithmic purity when $\tau(\gamma)<1$ (Theorem~\ref{thm:face}). The trace of the fermionic Fock representation with one
-mode per site has $\tau(\gamma)=\frac14$.
+polynomial memory at logarithmic purity when $\tau(\gamma)<1$ (Theorem~\ref{thm:face}).
 \end{enumerate}
 \end{mainthm}
+
+For example, the Thoma character of the finitary symmetric group with $\alpha_1=\beta_1=\frac12$~\cite{Thoma1964}, which is the fermionic
+Fock trace with one mode per site, extends by zero to a trace on $H_3$ with $\tau(\gamma)=\frac14$, so by Theorem~\ref{thm:where-intro}(b) its trace channel needs
+polynomial memory at logarithmic purity (Section~\ref{sec:face}).
 
 In a companion paper~\cite{DouglasMghirbiC} we extend the weighted extraction to every group gadget and
 combine it with an elementary amenable group of nearly exponential sofic profile; the resulting explicit channel needs memory $n^{1-o(1)}$ at
@@ -194,25 +204,33 @@ logarithmic purity.
 \paragraph{Related work.}
 Kretschmann and Werner developed causal memory-channel representations
 \cite{KretschmannWerner2005}; quantum networks provide a general sequential
-framework~\cite{Chiribella2009}. Bisio, D'Ariano, Perinotti and Sedl\'ak studied
-quantum-memory cost with classical-memory assistance and showed that its
-optimization is global~\cite{Bisio2011,Bisio2012}. Here every retained register is counted,
+framework~\cite{Chiribella2009}. Bisio, D'Ariano, Perinotti and Chiribella found
+the minimal memory needed to realize a quantum strategy sequentially~\cite{Bisio2011};
+with classical-memory assistance, Bisio, D'Ariano, Perinotti and Sedl\'ak showed that
+this memory cost must be optimized globally, not step by step~\cite{Bisio2012}. Here every retained register is counted,
 and exchange and purity are constrained. Ryb\'ar and Ziman studied repeatability
 of a fixed channel under reuse of one environment~\cite{RybarZiman2008}; our entropy bookkeeping extends the subadditivity argument in their
 proof of Theorem~2.
 Correct one-use marginals need not imply independent repeated uses, a distinction
-also important for catalytic randomness~\cite{BoesWilming2018}. The closed
-resource model is treated in~\cite{Douglas2026closed}; our purity theorem closes
-an equivalence left open there. Memory effects~\cite{CGLM2014,Zammit2025}, collision models~\cite{CLGP2022} and sequential
+also important for catalytic randomness~\cite{BoesWilming2018,LieJeong2021}. The closed
+resource model, a quantitative version of Ryb\'ar and Ziman's setting with complete error,
+is treated in~\cite{Douglas2026closed}; our purity theorem proves the converse of its
+implication $\Phi\in\mathcal K_d\Rightarrow\kappa(\Phi)=0$. Memory effects~\cite{CGLM2014,Zammit2025}, collision models~\cite{CLGP2022} and sequential
 instruments~\cite{SauSedlak2025} address related but different tasks.
 
 Quantum reverse Shannon theorems price communication with entanglement
 assistance~\cite{BDHSW2014,BCR2011}, and thermodynamic channel simulation prices
-work~\cite{FBB2019,FaistRenner2018}; they do not impose our immediate-output resource contract. Exchange at rate $H/2$ recalls the rates of
-state merging and the mother protocol~\cite{ADHW2009}.
+work~\cite{FBB2019,FaistRenner2018}; they do not impose our immediate-output resource contract. At trivial Hamiltonians the work rate of the
+universal parallel implementation of Faist, Berta and Brand\~ao, their thermodynamic capacity~\cite{FBB2019}, is
+$\max_\rho[S(\rho)-S(\Phi(\rho))]$ in units of $k_BT\ln2$, which vanishes on unital channels. The purity cost $\kappa$ is at least this
+rate~\cite[Proposition~7.4]{Douglas2026closed}, and Theorem~\ref{thm:purity} shows that the gap is positive for unital channels outside
+$\mathcal K_d$; the difference comes from our contract, which releases each output immediately and counts every retained register. Exchange at
+rate $H/2$ recalls the rates of state merging, due to Horodecki, Oppenheim and Winter~\cite{HOW2005,HOW2007}, and of the mother
+protocol~\cite{ADHW2009}.
 Factorizable maps originate in~\cite{AD2006}; their connection to Connes'
 embedding problem and finite-ancilla non-closure is developed
-in~\cite{HaagerupMusat2011,HaagerupMusat2015,MusatRordam2020,Musat2025,Russell2019}.
+in~\cite{HaagerupMusat2011,HaagerupMusat2015,MusatRordam2020,Musat2025}; for related non-closure of synchronous correlation sets
+see~\cite{Russell2019}.
 Those qualitative results do not supply the quantitative service-memory bounds
 proved here. Channels built from the moment matrices of unitaries in a tracial algebra, whose approximability by finite-ancilla channels is
 equivalent to finite-dimensional approximability of the moments, appear in~\cite{HaagerupMusat2015,MusatRordam2020} (see
@@ -229,7 +247,7 @@ channel and its approximants. Sections~\ref{sec:bridge} and~\ref{sec:upper}
 give the memory lower and upper bounds, and Section~\ref{sec:flat-choi-proof}
 assembles the matched-spectrum separation. Sections~\ref{sec:exact-regimes}
 and~\ref{sec:res-group} state the general consequences, and Section~\ref{sec:where}
-locates the channels that need polynomial memory at every exchange rate; it is new in version 1.1. The appendices retain
+locates the channels that need polynomial memory at every exchange rate when purity is limited to $O(\log n)$. The appendices retain
 the analytic compiler proof, weighted extraction, exact-factor refinements,
 alternative constructions and all further applications.
 
@@ -468,7 +486,9 @@ Write $\mathcal K_d$ for the closure class of channels on $M_d$ (Definition~\ref
 for the Choi distance from $\Phi$ to finite tracial mixtures. A channel is \emph{generally factorizable} if
 $\Phi(\rho)=(\mathrm{id}\otimes\tau_N)[U(\rho\otimes1)U^*]$ for a finite von Neumann algebra $N$ with a faithful normal tracial state
 $\tau_N$ and a unitary $U\in M_d\otimes N$~\cite{AD2006,HaagerupMusat2011}. Every channel in $\mathcal K_d$ is generally
-factorizable~\cite[Theorem~3.6]{HaagerupMusat2015}, $\Phi_H$ is generally factorizable through the group von Neumann algebra of $H_3$, and
+factorizable: a limit of finite factorizations factors exactly through an ultrapower of the hyperfinite $\mathrm{II}_1$ factor, by the
+ultraproduct argument in the proof of~\cite[Theorem~3.6]{HaagerupMusat2015} that derives its condition~(1) from~(2), through~(3); see
+also~\cite[Section~3]{Musat2025}. The channel $\Phi_H$ is generally factorizable through the group von Neumann algebra of $H_3$, and
 every generally factorizable channel is unital.
 
 The purity cost of repeated use is the closed-device cost of~\cite{Douglas2026closed}. For a state $\rho>0$ on $\mathbb C^d$ let
@@ -496,7 +516,8 @@ Let $\Phi$ be a channel on $M_d$.
 \[
 \kappa(\Phi)\ \ge\ \frac{\Delta_J(\Phi)^2}{2\ln2}.
 \]
-$\Delta_J(\Phi)$ is the Choi distance from $\Phi$ to $\mathcal K_d$, and $\kappa(\Phi)=0$ if and only if $\Phi\in\mathcal K_d$.
+$\Delta_J(\Phi)$ is the Choi distance from $\Phi$ to $\mathcal K_d$, and $\kappa(\Phi)=0$ if and only if $\Phi\in\mathcal K_d$ (the
+implication $\Phi\in\mathcal K_d\Rightarrow\kappa(\Phi)=0$ is~\cite[Section~8]{Douglas2026closed}).
 \item Every causal service of $\Phi$ for $n$ rounds with error $\epsilon$ satisfies, at any exchange and with any memory,
 \[
 P+C\ \ge\ n\,\kappa_\epsilon(\Phi)\qquad\text{and}\qquad P+C\ \ge\ n\,\frac{(\Delta_J(\Phi)-\epsilon)_+^2}{2\ln2}.
@@ -511,8 +532,9 @@ uses~\cite[Theorem~2.1]{Douglas2026closed}).
 Inside the closure class zero purity suffices at every fixed horizon and positive error at the rank rate (Theorem~\ref{thm:rank-rate});
 the general entropy-rate compiler of Theorem~\ref{thm:closure-upper} likewise has $P=C=0$ in its stated regime $\log(256n/\epsilon)<n$.
 Thus purity separates $\mathcal K_d$ from its complement, while memory, as the rest of this paper shows,
-resolves the structure inside $\mathcal K_d$. The equivalence in~(a) answers a question left open in~\cite[Section~8]{Douglas2026closed},
-where $\kappa=0$ on $\mathcal K_d$ was proved. The services in~(c) come from closed devices and have memory linear in $n$; blocking them
+resolves the structure inside $\mathcal K_d$. The forward implication in~(a), $\kappa=0$ on $\mathcal K_d$, is proved
+in~\cite[Section~8]{Douglas2026closed}; the equivalence in~(a) proves the reverse implication, which~\cite[Section~8]{Douglas2026closed}
+notes is not proved there. The services in~(c) come from closed devices and have memory linear in $n$; blocking them
 gives sublinear memory, as the next corollary shows.
 
 Purity and exchange are coupled: with sublinear memory and vanishing error, unavoidable purity consumption raises the least exchange rate from
@@ -713,7 +735,7 @@ r_1=\alpha^2,\quad r_2=(\alpha a\alpha a^{-1})^3,\quad r_3=[\alpha,a^2\alpha a^{
 r_4=aba^{-1}b^{-1}\alpha^{-1},\quad r_5=a\alpha a^{-1}b\alpha^{-1}b^{-1},
 \end{equation}
 with $[x,y]=xyx^{-1}y^{-1}$; each identity can be checked directly on the finitely many points where the word
-moves anything. By a theorem of Johnson (see~\cite[Theorem~2.8]{Lee2012}) these relators present $H_3$. The lower
+moves anything. By a theorem of Johnson~\cite{Johnson1999} (see also~\cite[Theorem~2.8]{Lee2012}) these relators present $H_3$. The lower
 bound below uses only that $r_1,\dots,r_5$ hold in $H_3$, the far-commutator areas of Section~\ref{sec:imported}, and
 that the three-cycle $\gamma=\alpha\,(a\alpha a^{-1})$ on $(1,1),(1,2),(1,3)$ is nontrivial. The short exact sequence
 $1\to\FSym(\mathbb{N})\to H_3\to\mathbb{Z}^2\to1$ shows that $H_3$ is elementary amenable.
@@ -1271,6 +1293,11 @@ with
 where the middle equality uses that the signed sum $\sum_{ij}t_{ji}(\lambda_i-\lambda_j)$ vanishes by double stochasticity.
 \end{proof}
 
+For $a=0$ the lemma is the trivial-Hamiltonian case of the characterization of thermal operations by informational equilibrium due to Lie,
+Son, Boes, Ng and Wilming~\cite[Proposition~4 and Eq.~(14)]{LSBNW2026}: after a unitary on the bath, $U$ leaves the bath state invariant
+when the input is maximally mixed, and the unital channels with such a dilation are exactly the finite tracial mixtures. The lemma is a
+quantitative version of that characterization; it gives the reverse implication in Theorem~\ref{thm:purity}(a).
+
 \subsection{Sequential extraction}
 
 \begin{proof}[Proof of Theorem~\ref{thm:sequential}]
@@ -1440,7 +1467,8 @@ At zero excess this gives an $O(Q+1)$ purity bound when $n\epsilon=O(Q+1)$; the 
 \begin{enumerate}[label=(\alph*)]
 \item Every causal service of $\Phi_H$ with error $\epsilon\le1/16$ and memory $Q$ has, at any exchange,
 $P+C\ge n\big(c_a/(Q+\frac18)\big)^{1/\beta_H}-\log(n+1)$; bounded memory needs a purity budget linear in $n$.
-\item With pure imports, $\Phi_H$ has a causal service with error $0$, $Q=5$, $J=5(n-1)$ and $P+C=5n$.
+\item With pure imports, $\Phi_H$ has a causal service with error $0$, $Q=5$, $J=5(n-1)$ and $P+C=5n$ (the standard Stinespring
+implementation, reset by exchange).
 \item Every causal service of $\Phi_H$ with error $\epsilon\le1/16$ and $J\le\frac n2\log26$ satisfies
 $\big(14Q+3+\log(n+1)\big)\big(Q+\frac18\big)^{1/\beta_H}\ge c_a^{1/\beta_H}n$, so $Q=\Omega(n^{\beta_H/(1+\beta_H)})=\Omega(n^{1/(2\log107+2)})$
 whatever its purity budget.
@@ -1809,7 +1837,9 @@ $\sum_{a,b}|c_ac_b|^2|\psi_{ab}\rangle\langle\psi_{ab}|$. The four operators $X^
 out $F$ and its purifier keeps exactly the diagonal terms. A single final round uses $V_Z$ alone, and fresh imports make pairs
 independent. The count is $Q=1$, $P=C=0$ and $J=\lfloor(n-1)/2\rfloor$. The protocol uses round-dependent unitaries, as
 Definition~\ref{def:service} allows; a time-independent protocol needs one more pure qubit as a clock. Recording histories by
-orthonormal unitaries on a flat register is the device of~\cite{BoesWilming2018}; here one flat qubit serves two rounds.
+orthonormal unitaries on a flat register, so that a flat register of dimension $m$ records $m^2$ histories, is the dephasing construction of
+Boes et al.~\cite[Lemma~1]{BoesWilming2018}; its closed-device version is in~\cite[Section~7]{Douglas2026closed}. Here it is used across two
+rounds: one flat qubit records the four histories of a pair.
 
 For $R=Z$ the Choi rank is $2$. At zero error Theorem~\ref{thm:strong-converse}(c) gives $J\ge n/2-Q$. At a fixed error below one and a
 rate below $\frac12$, Theorem~\ref{thm:log-lower} forces memory $\Omega(\log n)$ when $p\ne\frac12$, since then the least Choi eigenvalue
@@ -1903,7 +1933,6 @@ h_d=1+2\sqrt d,\qquad b_d=2\sqrt d(1+\sqrt2)h_d,\qquad c_{\mathcal P}=h_d+2Lb_d,
 \]
 and $C_{\mathcal P}=4d\sqrt{2\ln2}+4dc_{\mathcal P}(1+\sqrt{2\ln2})^{1/2}$.
 These profiles concern the fixed finite list of gadget words, not uniform approximation of every finite subset of $G$.
-Hyperlinearity of $G$ implies the closure conclusion in part~(f) below; no converse from this one gadget is asserted.
 
 \begin{theorem}[Channel profiles are group profiles]\label{thm:correspondence}
 Let $\Phi_G$ on $M_d$ be the gadget channel of $\mathcal P$.
@@ -1915,10 +1944,17 @@ factorization, $\mathsf h_{\mathcal P}\big(2Lb_d\sqrt\delta,\ 4d(\delta+c_{\math
 \item For $0<\eta\le1$, $\ \mathsf h_{\mathcal P}\big(\sqrt{e^2+4\eta},\ z+\eta\big)\le\lceil3N_{\mathcal P}M/\eta\rceil$, where $M=\mathsf h^\oplus_{\mathcal P}(e,z)$ and $N_{\mathcal P}=2|\mathcal T|^2+|R|+1$.
 \item For $z_0\in(0,1)$, $0<\delta\le1$, $k=\lceil\log(2d/\delta)/(2\log(1/z_0))\rceil\ge1$ and $e=(\delta/(2dkA_{\mathcal P}^2))^{1/2}$,
 $\ \log\DChoi_{\Phi_G}(\delta)\le2k\log\mathsf h_{\mathcal P}(e,z_0)$.
-\item $\Phi_G\in\mathcal K_d$ if and only if $\mathsf h_{\mathcal P}(e,z)<\infty$ for all $e,z>0$, and if and only if the same holds for $\mathsf h^\oplus_{\mathcal P}$. If $G$ is hyperlinear, then
-$\Phi_G\in\mathcal K_d$.
+\item $\Phi_G\in\mathcal K_d$ if and only if $\mathsf h_{\mathcal P}(e,z)<\infty$ for all $e,z>0$, and if and only if the same holds for $\mathsf h^\oplus_{\mathcal P}$.
 \end{enumerate}
 \end{theorem}
+
+Part~(f) is the gadget analogue of the moment criterion for Schur channels, by which a Schur channel lies in the closure of finite
+factorizations exactly when its correlation matrix is a limit of moment matrices of unitaries in matrix
+algebras~\cite[Section~4]{MusatRordam2020},~\cite[Proposition~3.9(iii)]{Musat2025}; see also~\cite[Theorem~3.6]{HaagerupMusat2015}. Parts~(a),
+(b) and~(d) make it quantitative. If $G$ is hyperlinear, then its group von Neumann algebra $L(G)$ embeds trace-preservingly in an ultrapower
+$R^\omega$ of the hyperfinite $\mathrm{II}_1$ factor~\cite{Pestov2008}, so $\Phi_G\in\mathcal K_d$ by~\cite[Theorem~3.6]{HaagerupMusat2015}; the
+proof of~(f) in Section~\ref{sec:group-channels} also derives this from finite hyperlinear approximations. No converse from this one gadget is
+asserted.
 
 So the static profiles of a gadget channel and the approximation profile of its presentation bound each other up to polynomial changes of scale:
 a square root from leakage to relator defect, a further square root through a round with biased memory, and tensor-conjugate
@@ -1991,8 +2027,10 @@ Let $\Phi\in\mathcal K_d$.
 \begin{enumerate}[label=(\alph*)]
 \item If $\Phi$ lies in the relative interior of $\mathcal K_d$, it is a convex combination of finitely many exact factors. Hence
 $\DChoi_\Phi(\delta)\le m_\Phi\lceil d^4/\delta\rceil$ for a constant $m_\Phi$, and $\Phi$ is cheap.
-\item For $0<\eta\le1$ the channel $\Phi_\eta=(1-\eta)\Phi+\eta\,\mathrm{Dep}_d$ lies in the relative interior of $\mathcal K_d$, so it is cheap.
-\item For every observer, the final states of $n$ uses of $\Phi_\eta$ and of $\Phi$ are within half trace distance $n\eta$.
+\item For $0<\eta\le1$ the channel $\Phi_\eta=(1-\eta)\Phi+\eta\,\mathrm{Dep}_d$ lies in the relative interior of $\mathcal K_d$ (since
+$\mathrm{Dep}_d$ does, by~\cite[Corollary~2]{Watrous2009}), so it is cheap.
+\item For every observer, the final states of $n$ uses of $\Phi_\eta$ and of $\Phi$ are within half trace distance $n\eta$ (the standard hybrid
+argument).
 \end{enumerate}
 \end{proposition}
 
@@ -2061,6 +2099,11 @@ In particular $\Psi$ is expensive.
 By~(b), every $\Psi\in\mathcal K_H$ with $\dJ(\Psi,\Phi_H)\le1/208$ has $f\le\frac12$, so~(d) applies near $\Phi_H$ at every error $\epsilon\le1/18$, with $c$ and $n_0$ depending only on $A$. The exponent in~(d) is half that of Theorem~\ref{thm:constant-lower}, whose weighted sector estimate
 (Appendix~\ref{sec:weighted}) uses the regular trace.
 
+Part~(a) is the gadget analogue of the characterization of factorizable Schur channels by moment matrices of
+unitaries~\cite[Proposition~2.8]{HaagerupMusat2011},~\cite[Proposition~3.9]{Musat2025}. The inclusion $\supseteq$ also follows
+from~\cite[Theorem~3.6]{HaagerupMusat2015} and~\eqref{eq:trace-choi}, since $\pi_\tau(H_3)''$ is hyperfinite (as shown in the proof) and so embeds
+trace-preservingly in $R^\omega$.
+
 \begin{proof}
 \emph{(a), traces give channels in $\mathcal K_H$.} By~\eqref{eq:trace-choi} the Choi state of $\Phi_\tau$ is supported in $S_H$. Since $H_3$ is
 amenable, its group $C^*$-algebra is nuclear, so $\pi_\tau(H_3)''$ is injective~\cite{BrownOzawa2008} and therefore hyperfinite~\cite{Connes1976}.
@@ -2076,7 +2119,7 @@ Lemma~\ref{lem:gadget-choi} and its proof hold verbatim in any finite von Neuman
 $\tau_{\mathcal N}$ turns zero leakage into $W=\sum_gK_g\otimes v_g$ with $v_g\in\mathcal N$. The singleton position of $g$ is alone in its row and
 column, so $v_g^*v_g=1$, and $v_g$ is unitary because $\mathcal N$ is finite. In a triangle block
 $2^{-1/2}\bigl(\begin{smallmatrix}v_e&v_y\\v_x&-v_z\end{smallmatrix}\bigr)$ unitarity gives $v_e^*v_y=v_x^*v_z$. So $u_g=v_e^*v_g$ satisfies $u_e=1$
-and $u_z=u_xu_y$ along every triangle, the prefix triangles give $u(r_i)=1$, and $u$ is a unitary representation of $H_3$ by Johnson's theorem. By
+and $u_z=u_xu_y$ along every triangle, the prefix triangles give $u(r_i)=1$, and $u$ is a unitary representation of $H_3$ by Johnson's theorem~\cite{Johnson1999}. By
 traciality $\tau_{\mathcal N}(v_gv_h^*)=\tau_{\mathcal N}(u_gu_h^*)$, so $\Psi=\Phi_\tau$ with $\tau=\tau_{\mathcal N}\circ u$.
 
 \emph{(b)} Since $\gamma$ and $\gamma^{-1}$ are conjugate by a finitary transposition, $\tau(\gamma)=\tau(\gamma^{-1})=\overline{\tau(\gamma)}$ is real. For
@@ -2132,7 +2175,8 @@ that the gadget reads the moment of $w$, and let $\Phi_{BS}$ be its gadget chann
 and finite-dimensional unitary representations of $BS(2,3)$ have residually finite images~\cite{Malcev1940}, so they send $j$ to $I$. As in
 Theorem~\ref{thm:face}(c), an exact finite factorization of $\Phi_{BS}$ would give such a representation with normalized trace of $j$ equal to the
 regular moment $0$; so $\Phi_{BS}$ is not an exact factor. It is nevertheless cheap. Every chunk of $BS(2,3)$ has sofic profile
-$O(r)$~\cite[Theorem~8.3(a)]{DouglasMghirbiA}, and a permutation model at accuracy $1/r$ is a unitary assignment with relator defect $O(r^{-1/2})$ and
+$O(r)$: Cornulier asserted this~\cite[Proposition~3.17]{Cornulier2013}, with a proof that used his Theorem~3.15, which fails as
+stated~\cite[Section~7]{DouglasMghirbiA}, and it is proved directly in~\cite[Theorem~8.3(a)]{DouglasMghirbiA}. A permutation model at accuracy $1/r$ is a unitary assignment with relator defect $O(r^{-1/2})$ and
 moments within $O(1/r)$ of the regular ones. So $\mathsf h_{\mathcal P}(e,\frac12)=O(e^{-2})$, Theorem~\ref{thm:correspondence}(e) gives
 $\log\DChoi_{\Phi_{BS}}(\delta)=O(\log^2(1/\delta))$, and Theorem~\ref{thm:rank-rate} gives services at the rank rate with $Q=O(\log^2(n/\epsilon))$.
 The lower bound for $\Phi_H$ comes from the approximately commuting displaced copies of $S_3$ behind
@@ -3188,9 +3232,10 @@ call; from a common start, distinct branch sequences give distinct histories. Le
 matrix on $D=2^q$ levels. A \emph{block} consists of two half-blocks of at most $h$ calls. After each call of the first
 half the device applies to a flat $q$-qubit buffer the diagonal sign unitary $Z_{t,x}=\diag_z\xi_{t,x,z}$ of its current
 state $x$, and after each call of the second half the rotated sign unitary $X_{t,x}=H_D\diag_z\eta_{t,x,z}H_D$.
-Recording a register by controlled unitaries on a flat buffer is the dephasing mechanism of~\cite{BoesWilming2018}; here
-the unitaries are only nearly orthogonal on complete histories, and the two bases let one buffer record two half-blocks,
-which halves the exchange.
+Recording a register by controlled unitaries on a flat buffer, with the square-root saving that a buffer of dimension $D$ records $D^2$
+orthogonal histories, is the dephasing construction of Boes et al.~\cite[Lemma~1]{BoesWilming2018}; its closed-device version is
+in~\cite[Section~7]{Douglas2026closed}. Here it is used across two half-blocks: the two bases let one buffer record both, which halves the
+exchange, and the unitaries are only nearly orthogonal on complete histories.
 
 \begin{lemma}[History record]\label{lem:record}
 Let $0<\delta\le1$ and $D\ge3r^h\delta^{-2}\ln\!\big(8nA(kr)^h\big)$. There are fixed sign tables for at most $2n$
@@ -3369,6 +3414,10 @@ point of the channels on $M_d$~\cite{Choi1975}, then $\kappa(\Phi)=H(\Phi)$.
 \end{enumerate}
 \end{proposition}
 
+The lower bound in~(b) is~\cite[Proposition~7.4]{Douglas2026closed} applied to $\mathcal R_\sigma$; for pure $\sigma$ the value $\log d$
+is~\cite[Proposition~7.3]{Douglas2026closed}. The value $\log d-S(\sigma)=\max_\rho[S(\rho)-S(\mathcal R_\sigma(\rho))]$ equals the work rate
+of~\cite{FBB2019} at trivial Hamiltonians.
+
 Part~(d) bounds $\kappa$ linearly by distance to any fixed full-Choi-rank member of the closure class. It is not a two-point Lipschitz
 statement on a neighborhood: $\mathcal K_d$ consists of unital channels and has empty interior in the space of all channels when $d\ge2$.
 At some rank-deficient members of the closure, $\kappa$ jumps down at the limit, consistently with~(e).
@@ -3394,23 +3443,30 @@ $\Xi_\varphi(X)=G_\varphi\circ X$ be the Schur multiplier on $M_4$. It is a unit
 has an exact finite tracial factorization with bath dimension $2$, so $\kappa(\Xi_0)=0$, while $\kappa(\Xi_\varphi)=1$ for $0<\varphi<\pi$ and
 $\dJ(\Xi_\varphi,\Xi_0)\to0$ as $\varphi\to0$.
 \end{enumerate}
-In particular no bound $\kappa\le f(\Delta_J)$ with $f(\delta)\to0$ as $\delta\to0$ holds, for $d=2$ or for unital channels on $M_4$.
 \end{proposition}
 
-The channels $\Phi_\theta$ with $\theta>0$ and $\Xi_\varphi$ with $0<\varphi<\pi$ are extreme points of the set of channels, and by
-Haagerup and Musat~\cite[Corollary~2.3]{HaagerupMusat2011} they are not generally factorizable. Whether $\kappa$ has a modulus of continuity at
+So no function $f$ with $f(\delta)\to0$ as $\delta\to0$ satisfies $\kappa\le f(\Delta_J)$ on the channels on $M_2$, or on the unital channels
+on $M_4$.
+
+The channels $\Phi_\theta$ with $\theta>0$ and $\Xi_\varphi$ with $0<\varphi<\pi$ are extreme points of the set of channels, and none of them is
+generally factorizable. The channel $\Phi_\theta$ is not unital, since $\Phi_\theta(I)$ has off-diagonal entries $c>0$, while every generally
+factorizable channel is unital. The channel $\Xi_\varphi$
+is unital, and its Kraus operators have linearly independent products $K_i^*K_j$, so Haagerup and
+Musat~\cite[Corollary~2.3]{HaagerupMusat2011} applies. Whether $\kappa$ has a modulus of continuity at
 $\mathcal K_d$ on the generally factorizable channels is open (Section~\ref{sec:open}). Outside the closure class, generally factorizable channels
-exist, and for them the purity cost is linear.
+exist: by the negative solution of Connes' embedding problem~\cite{JNVWY2020} and~\cite[Theorem~3.7]{HaagerupMusat2015}, for some $d$ there is
+a generally factorizable channel on $M_d$ that does not lie in $\mathcal K_d$, and by~\cite[Corollary~3.11]{Musat2025} it can be taken to be a
+Schur multiplier. For all such channels the purity cost is linear.
 
 \begin{corollary}[Exact abstract realization, linear purity]\label{cor:connes}
-There are $d\ge3$ and a unital channel $\Phi$ on $M_d$, a Schur multiplier, which is generally factorizable but does not lie in $\mathcal K_d$.
-For such a channel $\Delta_J(\Phi)>0$; every causal service with error $\epsilon<\Delta_J(\Phi)$ has $P+C\ge n(\Delta_J(\Phi)-\epsilon)^2/(2\ln2)$ at every
+Let $\Phi$ be a generally factorizable channel on $M_d$ that does not lie in $\mathcal K_d$.
+Then $\Delta_J(\Phi)>0$; every causal service with error $\epsilon<\Delta_J(\Phi)$ has $P+C\ge n(\Delta_J(\Phi)-\epsilon)^2/(2\ln2)$ at every
 exchange and memory; and the least purity rate at vanishing error is $\kappa(\Phi)\ge\Delta_J(\Phi)^2/(2\ln2)>0$.
 \end{corollary}
 
 So a channel can be realized exactly by a tracial von Neumann algebra, one use at a time, and still demand purity linear in $n$ from every
-accurate finite device. The corollary rests on the negative solution of Connes' embedding problem~\cite{JNVWY2020}; neither $d$ nor the
-channel is explicit.
+accurate finite device. The existence of such channels rests on the negative solution of Connes' embedding problem~\cite{JNVWY2020}; neither
+$d$ nor the channel is explicit.
 
 
 \subsection{The range of $\kappa$}
@@ -3507,13 +3563,16 @@ $\frac14\sum_{ij}(G_\varphi)_{ij}E_{ij}\otimes E_{ij}$ is continuous in $\varphi
 \subsection{Exact abstract realization}
 
 \begin{proof}[Proof of Corollary~\ref{cor:connes}]
-By~\cite[Theorem~12.10]{JNVWY2020} the closure of the quantum correlation sets differs from the commuting-operator set, which by~\cite{Fritz2012,JNPPSW2011,Ozawa2013}
+Since $\Phi\notin\mathcal K_d$ and $\mathcal K_d$ is closed, $\Delta_J(\Phi)>0$ by Theorem~\ref{thm:purity}(a). The remaining claims are
+Theorem~\ref{thm:purity}(a)--(c).
+\end{proof}
+
+For the existence of such channels, stated before the corollary: by~\cite[Theorem~12.10]{JNVWY2020} the closure of the quantum correlation sets differs from the commuting-operator set, which by~\cite{Fritz2012,JNPPSW2011,Ozawa2013}
 gives a negative answer to Connes' embedding problem. Haagerup and Musat~\cite[Theorem~3.7]{HaagerupMusat2015} showed that a positive answer is
 equivalent to the following: for every $d\ge3$, every generally factorizable channel on $M_d$ is a limit, in cb-norm, of channels with exact
 factorizations through $M_d\otimes M_l$. Their proof of the relevant direction produces, from a failure of the embedding, a Schur multiplier with
 this property failing, via Dykema and Juschenko~\cite{DykemaJuschenko2011}. In fixed dimension all norms on maps are equivalent, so this channel
-$\Phi$ is not in $\mathcal K_d$, and $\Delta_J(\Phi)>0$ by Theorem~\ref{thm:purity}(a). The remaining claims are Theorem~\ref{thm:purity}(a)--(c).
-\end{proof}
+is not in $\mathcal K_d$. Musat~\cite[Corollary~3.11]{Musat2025} states this consequence for Schur multipliers.
 
 
 \section{Proofs of the group-profile correspondence}\label{sec:group-channels}
@@ -3603,7 +3662,7 @@ $\tau(\widehat\phi(w_a)\widehat\phi(w_b)^*)=|\tau(\phi(w_a)\phi(w_b)^*)|^{2k}$. 
 $\mathrm{Re}\,\tau(\phi(w_a)\phi(w_b)^*)=1-\frac12\|\phi(w_a)-\phi(w_b)\|_2^2\ge1-\frac12A_{\mathcal P}^2e^2$, so the amplified moment is at least
 $1-kA_{\mathcal P}^2e^2=1-\delta/(2d)$. By (a), $\dJ(\Psi_{\widehat\phi},\Phi_G)\le\delta/2$ with bath dimension $\mathsf h_{\mathcal P}(e,z_0)^{2k}$.
 
-(f) By (a) and (b), $\Phi_G\in\mathcal K_d$ if and only if $\mathsf h_{\mathcal P}$ is finite everywhere, and by (d) this is equivalent to the same for $\mathsf h^\oplus_{\mathcal P}$. If $G$ is
+(f) By (a) and (b), $\Phi_G\in\mathcal K_d$ if and only if $\mathsf h_{\mathcal P}$ is finite everywhere, and by (d) this is equivalent to the same for $\mathsf h^\oplus_{\mathcal P}$. For the hyperlinear case discussed after the theorem: if $G$ is
 hyperlinear, then for every finite $F\subset G$ and $\eta>0$ there is $\theta:G\to U(M)$ with $\|\theta(g)\theta(h)-\theta(gh)\|_2\le\eta$ for $g,h\in F$ and
 $|\tau_M(\theta(g))-\mathbf 1[g=e]|\le\eta$ for $g\in F$~\cite{Pestov2008}. Take $F$ to contain the labels of all prefixes of the relators and of the words
 $w_aw_b^{-1}$, and put $\phi(s)=\theta([s])$. Telescoping along a word of length $m$ gives $\|\phi(u)-\theta([u])\|_2\le3m\eta$, so the defects and the moment
@@ -3713,7 +3772,7 @@ $Q\ge n^{1/9-o(1)}$.
 
 In branch~(i), Theorem~\ref{thm:group-bracket}(c) provides services with $P=C=0$, and the rank rate is optimal by
 Corollary~\ref{cor:exchange-purity}. In branch~(ii), $\Delta_J(\Phi_S)>0$ and the purity bound are Theorem~\ref{thm:purity}; $\Phi_S$ is generally factorizable
-through the group von Neumann algebra; and if the group were hyperlinear, Theorem~\ref{thm:correspondence}(f) would put $\Phi_S$ in $\mathcal K_d$. At the
+through the group von Neumann algebra; and if the group were hyperlinear, $\Phi_S$ would lie in $\mathcal K_d$ (see the discussion after Theorem~\ref{thm:correspondence}). At the
 rank rate with $\epsilon<\min\{\Delta,1/16\}$, Theorem~\ref{thm:group-bracket}(d) gives $P+C\le14Q+3$, and with $P+C\ge n(\Delta-\epsilon)^2/(2\ln2)$ this is the
 linear bound.
 \end{proof}
@@ -4047,7 +4106,7 @@ leakage may be quadratic in $\dJ$. For $\Phi_H$, no finite tracial mixture of ze
 \bibitem{AudenaertScheel2008} K.~M.~R.~Audenaert and S.~Scheel, On random unitary channels, New J. Phys. \textbf{10} (2008), 023011.
 \bibitem{BDHSW2014} C.~H.~Bennett, I.~Devetak, A.~W.~Harrow, P.~W.~Shor and A.~Winter, The quantum reverse Shannon theorem and resource tradeoffs for simulating quantum channels, IEEE Trans. Inf. Theory \textbf{60} (2014), 2926--2959; arXiv:0912.5537.
 \bibitem{BCR2011} M.~Berta, M.~Christandl and R.~Renner, The quantum reverse Shannon theorem based on one-shot information theory, Comm. Math. Phys. \textbf{306} (2011), 579--615; arXiv:0912.3805.
-\bibitem{Bisio2011} A.~Bisio, G.~Chiribella, G.~M.~D'Ariano and P.~Perinotti, Minimal computational-space implementation of multiround quantum protocols, Phys. Rev. A \textbf{83} (2011), 022325.
+\bibitem{Bisio2011} A.~Bisio, G.~M.~D'Ariano, P.~Perinotti and G.~Chiribella, Minimal computational-space implementation of multiround quantum protocols, Phys. Rev. A \textbf{83} (2011), 022325; arXiv:1006.1780.
 \bibitem{Bisio2012} A.~Bisio, G.~M.~D'Ariano, P.~Perinotti and M.~Sedl\'ak, Memory cost of quantum protocols, Phys. Rev. A \textbf{85}, 032333 (2012); \href{https://doi.org/10.1103/PhysRevA.85.032333}{doi:10.1103/PhysRevA.85.032333}; arXiv:1112.3853.
 \bibitem{BoesWilming2018} P.~Boes, H.~Wilming, R.~Gallego and J.~Eisert, Catalytic quantum randomness, Phys. Rev. X \textbf{8} (2018), 041016; arXiv:1804.03027.
 \bibitem{BHV2006} S.~Bravyi, M.~B.~Hastings and F.~Verstraete, Lieb--Robinson bounds and the generation of correlations and topological quantum
@@ -4059,7 +4118,7 @@ order, Phys. Rev. Lett. \textbf{97} (2006), 050401.
 \bibitem{Choi1975} M.-D.~Choi, Completely positive linear maps on complex matrices, Linear Algebra Appl. \textbf{10} (1975), 285--290.
 \bibitem{CLGP2022} F.~Ciccarello, S.~Lorenzo, V.~Giovannetti and G.~M.~Palma, Quantum collision models: open system dynamics from repeated interactions, Phys. Rep. \textbf{954} (2022), 1--70.
 \bibitem{Connes1976} A.~Connes, Classification of injective factors. Cases II$_1$, II$_\infty$, III$_\lambda$, $\lambda\ne1$, Ann. of Math. (2) \textbf{104} (1976), 73--115.
-\bibitem{Cornulier2013} Y.~Cornulier, Sofic profile and computability of Cremona groups, Michigan Math. J. \textbf{62}(4) (2013), 823--841; \href{https://doi.org/10.1307/mmj/1387226167}{doi:10.1307/mmj/1387226167}.
+\bibitem{Cornulier2013} Y.~Cornulier, Sofic profile and computability of Cremona groups, Michigan Math. J. \textbf{62}(4) (2013), 823--841; \href{https://doi.org/10.1307/mmj/1387226167}{doi:10.1307/mmj/1387226167}. Numbered references use this journal version; its Proposition~3.17 is Example~3.17 of arXiv:1305.0993v1.
 \bibitem{Dixmier1977} J.~Dixmier, C$^*$-algebras, North-Holland Math. Library \textbf{15}, North-Holland, Amsterdam, 1977.
 \bibitem{Douglas2026closed} S.~Douglas, Bath dimension and initial entropy for closed repeated use of a quantum channel, arXiv:2609.18267 (2026).
 \bibitem{DouglasMghirbiC} S.~Douglas and N.~Mghirbi, Amenable groups with nearly exponential sofic profile, and quantum channels that need
@@ -4069,17 +4128,22 @@ nearly linear memory, version 1.0, Zenodo (2026); \href{https://doi.org/10.5281/
 \bibitem{FBB2019} P.~Faist, M.~Berta and F.~Brandão, Thermodynamic capacity of quantum processes, Phys. Rev. Lett. \textbf{122} (2019), 200601; arXiv:1807.05610.
 \bibitem{FaistRenner2018} P.~Faist and R.~Renner, Fundamental work cost of quantum processes, Phys. Rev. X \textbf{8} (2018), 021011.
 \bibitem{Fritz2012} T.~Fritz, Tsirelson's problem and Kirchberg's conjecture, Rev. Math. Phys. \textbf{24} (2012), 1250012; arXiv:1008.1168.
-\bibitem{HaagerupMusat2011} U.~Haagerup and M.~Musat, Factorization and dilation problems for completely positive maps on von Neumann algebras, Comm. Math. Phys. \textbf{303} (2011), 555--594.
+\bibitem{HaagerupMusat2011} U.~Haagerup and M.~Musat, Factorization and dilation problems for completely positive maps on von Neumann algebras, Comm. Math. Phys. \textbf{303} (2011), 555--594; arXiv:1009.0778. Numbered references use the journal version; its Proposition~2.8 is Lemma~2.8 of arXiv:1009.0778v1.
 \bibitem{HaagerupMusat2015} U.~Haagerup and M.~Musat, An asymptotic property of factorizable completely positive maps and the Connes embedding problem, Comm. Math. Phys. \textbf{338} (2015), 721--752; arXiv:1408.6476.
 \bibitem{HHO2003} M.~Horodecki, P.~Horodecki and J.~Oppenheim, Reversible transformations from pure to mixed states and the unique measure of information, Phys. Rev. A \textbf{67} (2003), 062104.
+\bibitem{HOW2005} M.~Horodecki, J.~Oppenheim and A.~Winter, Partial quantum information, Nature \textbf{436} (2005), 673--676; arXiv:quant-ph/0505062.
+\bibitem{HOW2007} M.~Horodecki, J.~Oppenheim and A.~Winter, Quantum state merging and negative information, Comm. Math. Phys. \textbf{269} (2007), 107--136; arXiv:quant-ph/0512247.
 \bibitem{Houghton1978} C.~H.~Houghton, The first cohomology of a group with permutation module coefficients, Arch. Math. \textbf{31} (1978), 254--258.
 \bibitem{HuangTropp2021} D.~Huang and J.~A.~Tropp, Nonlinear matrix concentration via semigroup methods, Electron. J. Probab. \textbf{26} (2021), paper 8, 1--31; \href{https://doi.org/10.1214/20-EJP578}{doi:10.1214/20-EJP578}; arXiv:2006.16562.
 \bibitem{JNVWY2020} Z.~Ji, A.~Natarajan, T.~Vidick, J.~Wright and H.~Yuen, MIP$^*$ = RE, \href{https://arxiv.org/abs/2001.04383v3}{arXiv:2001.04383v3} (2022; first posted 2020). Numbered references use this full version.
+\bibitem{Johnson1999} D.~L.~Johnson, Embedding some recursively presented groups, in: Groups St Andrews 1997 in Bath, II, London Math. Soc. Lecture Note Ser. \textbf{261}, Cambridge Univ. Press, 1999, 410--416.
 \bibitem{JNPPSW2011} M.~Junge, M.~Navascu\'es, C.~Palazuelos, D.~P\'erez-Garc\'ia, V.~B.~Scholz and R.~F.~Werner, Connes' embedding problem and Tsirelson's problem, J. Math. Phys. \textbf{52} (2011), 012102; arXiv:1008.1142.
 \bibitem{Kesten1959} H.~Kesten, Symmetric random walks on groups, Trans. Amer. Math. Soc. \textbf{92} (1959), 336--354.
 \bibitem{KretschmannWerner2005} D.~Kretschmann and R.~F.~Werner, Quantum channels with memory, Phys. Rev. A \textbf{72}, 062323 (2005); \href{https://doi.org/10.1103/PhysRevA.72.062323}{doi:10.1103/PhysRevA.72.062323}; arXiv:quant-ph/0502106.
 \bibitem{Lee2012} S.~R.~Lee, Geometry of Houghton's groups, PhD thesis, University of Oklahoma (2012); \href{https://arxiv.org/abs/1212.0257v1}{arXiv:1212.0257v1}. Numbered references use this arXiv version.
 \bibitem{Li2014} K.~Li, Second-order asymptotics for quantum hypothesis testing, Ann. Statist. \textbf{42} (2014), 171--189; arXiv:1208.1400.
+\bibitem{LieJeong2021} S.~H.~Lie and H.~Jeong, Catalytic quantum randomness as a correlational resource, Phys. Rev. Research \textbf{3} (2021), 043089; arXiv:2104.00300.
+\bibitem{LSBNW2026} S.~H.~Lie, J.~Son, P.~Boes, N.~H.~Y.~Ng and H.~Wilming, Thermal operations from informational equilibrium, Phys. Rev. Lett. \textbf{137} (2026), 030403; \href{https://arxiv.org/abs/2507.16637v1}{arXiv:2507.16637v1} (2025). Numbered references use this arXiv version.
 \bibitem{LiebRobinson1972} E.~H.~Lieb and D.~W.~Robinson, The finite group velocity of quantum spin systems, Comm. Math. Phys. \textbf{28} (1972), 251--257.
 \bibitem{LiebRuskai1973} E.~H.~Lieb and M.~B.~Ruskai, Proof of the strong subadditivity of quantum-mechanical entropy, J. Math. Phys. \textbf{14} (1973), 1938--1941.
 \bibitem{Malcev1940} A.~I.~Mal'cev, On isomorphic matrix representations of infinite groups, Mat. Sb. \textbf{8}(50) (1940), 405--422.

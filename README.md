@@ -37,7 +37,7 @@ The software and machine-readable certificates are additionally available under
 the **MIT License**, at your option; see [RIGHTS.md](RIGHTS.md) for the scope.
 
 Please cite Seth Douglas and Nidhal Mghirbi, *Causal quantum-channel simulation:
-memory beyond entropy* (2026), version 1.1.1,
+memory beyond entropy* (2026), version 1.1.2,
 [doi:10.5281/zenodo.23027626](https://doi.org/10.5281/zenodo.23027626) (all versions).
 [CITATION.cff](CITATION.cff) provides
 machine-readable citation metadata. Tagged releases archive the corresponding
