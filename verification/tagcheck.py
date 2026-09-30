@@ -1,4 +1,6 @@
 # Numerical check of the matched-invariant tag construction, with small stand-in dimensions.
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import numpy as np
 from scipy.stats import unitary_group
 rng = np.random.default_rng(1)

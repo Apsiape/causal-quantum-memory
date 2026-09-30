@@ -3,6 +3,8 @@
 Uses the manuscript's analytic second-order/Choi inequalities and pi < 22/7.
 This does not reconstruct the finite model or prove those analytic inequalities.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from fractions import Fraction as F
 import math
 

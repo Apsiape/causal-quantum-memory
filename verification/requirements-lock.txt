@@ -1,0 +1,4 @@
+# Exact versions with which every check in this folder was run and passed (Python 3.13).
+# The looser ranges in requirements.txt are expected to work as well.
+numpy==2.4.3
+scipy==1.17.1

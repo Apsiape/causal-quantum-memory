@@ -2,6 +2,8 @@
 The adaptive upper bound is proved by the common-processor argument in the text,
 not by these finite tests.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import numpy as np
 
 def trace_distance(a, b):

@@ -5,6 +5,8 @@ histogram. The finite signature's completeness argument is in houghton_labels.
 The cross-block holonomy identity, adaptive tag reduction and compiler remain
 mathematical inputs; no finite test here proves them.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from collections import Counter, defaultdict
 from fractions import Fraction
 

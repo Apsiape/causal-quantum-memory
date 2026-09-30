@@ -6,6 +6,9 @@ Run from the repository root:
 
 Python 3.10+ with NumPy and SciPy, and Lean 4.30.0, are required. The scripts are
 bounded finite checks, with per-command timeouts in the runner.
+requirements-lock.txt pins the exact NumPy and SciPy versions with which every check
+was run; requirements.txt gives the looser supported ranges. The checks that use assert
+statements refuse to run under python -O.
 
 ## Included checks
 

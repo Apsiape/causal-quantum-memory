@@ -5,6 +5,8 @@ expansion, then check survivors AND first-exit children. Artificial pruning test
 the linear algebra, not the manuscript's reflected-cost tail or Haar existence.
 Finite floating-point tests do not prove the all-observer compiler theorem.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import numpy as np
 from scipy.linalg import expm
 

@@ -37,7 +37,7 @@ The software and machine-readable certificates are additionally available under
 the **MIT License**, at your option; see [RIGHTS.md](RIGHTS.md) for the scope.
 
 Please cite Seth Douglas and Nidhal Mghirbi, *Causal quantum-channel simulation:
-memory beyond entropy* (2026), version 1.1.0,
+memory beyond entropy* (2026), version 1.1.1,
 [doi:10.5281/zenodo.23027626](https://doi.org/10.5281/zenodo.23027626) (all versions).
 [CITATION.cff](CITATION.cff) provides
 machine-readable citation metadata. Tagged releases archive the corresponding
@@ -78,10 +78,13 @@ its own proofs and from the narrower scope of the executable checks.
 Requires Python 3.10+, NumPy and SciPy for numerical checks, a TeX distribution with
 the packages listed in paper.tex, and Lean 4.30.0 for the scalar formal checks.
 
-    python -m pip install -r verification/requirements.txt
+    python -m pip install -r verification/requirements-lock.txt
     python build.py
     python verification/check.py
 
+`requirements-lock.txt` pins the exact versions with which every check was run;
+`requirements.txt` gives the looser supported ranges. The checks verify with assert
+statements and refuse to run under `python -O`.
 Checks cover specified finite identities and arithmetic, not the full analytical
 proofs. See the verification notes before interpreting a passing result.
 Generated TeX files stay in build/; paper.pdf is the canonical output.
@@ -97,4 +100,10 @@ duplicated here. The manuscript separately cites the closed-device preprint's
 achievability theorem and other external results. The pinned group source remains
 the mathematical dependency even when its release metadata is updated.
 The companion's all-versions DOI is
-[doi:10.5281/zenodo.23027624](https://doi.org/10.5281/zenodo.23027624).
+[doi:10.5281/zenodo.23027624](https://doi.org/10.5281/zenodo.23027624), and its v1.1.0 archive is
+[doi:10.5281/zenodo.23048875](https://doi.org/10.5281/zenodo.23048875).
+
+A third paper,
+[Amenable groups with nearly exponential sofic profile, and quantum channels that need nearly linear memory](https://github.com/Apsiape/configuration-lamps),
+extends the weighted extraction to every group gadget; its all-versions DOI is
+[doi:10.5281/zenodo.23050302](https://doi.org/10.5281/zenodo.23050302).

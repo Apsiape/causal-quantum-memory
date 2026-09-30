@@ -3,6 +3,8 @@
 Tests single factors and mixtures (including cancelling perturbations and
 singular corner contractions). Not a proof of profile or adaptive theorems.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import numpy as np
 from scipy.linalg import block_diag, expm
 

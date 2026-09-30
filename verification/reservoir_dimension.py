@@ -4,6 +4,8 @@ Inputs B >= the analytic buffer b and h >= every export size must be supplied.
 This checks dimension/padding inequalities, not the existence of good mixers.
 Only integer and rational arithmetic is used for acceptance.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import argparse
 from fractions import Fraction
 import json

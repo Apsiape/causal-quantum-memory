@@ -7,6 +7,8 @@ by at most one, and alpha only acts at heights 1 and 2. Thus values at heights
 The proof of that observation and the entropy/anchor implications remain in the
 manuscript; this program verifies the integer/rational bookkeeping.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from fractions import Fraction
 from collections import defaultdict
 

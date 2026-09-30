@@ -1,5 +1,7 @@
 # Finite examples for the gadget-entropy proposition: Choi rank r = #distinct elements carried,
 # flat complementary output at rho_* = (1/r) sum_g |i_g><i_g|, H = log r.
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import numpy as np, itertools
 def compose(p, q):  # p then q (right action): x -> q[p[x]]
     return tuple(q[i] for i in p)

@@ -6,6 +6,8 @@ Checks M=6,7,8,12, all five relators and 52 literal/canonical words at every clo
 Second-order moment bounds are tested only for even M. Floating-point regression,
 not a proof for all M or a construction of the exponentially large Fock matrices.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import os
 os.environ["OPENBLAS_NUM_THREADS"] = "1"
 os.environ["OMP_NUM_THREADS"] = "1"
